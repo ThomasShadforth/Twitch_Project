@@ -1,0 +1,15 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\unreal projects\\github\\twitch_project\\twitchprototype\\source\\twitchprototype\\stompinterface.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\unreal projects\\github\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "d:\\unreal projects\\github\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\twitchprototype\\definitions.twitchprototype.h",
+            "d:\\unreal projects\\github\\twitch_project\\twitchprototype\\source\\twitchprototype\\stompinterface.h",
+            "d:\\unreal projects\\github\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\stompinterface.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

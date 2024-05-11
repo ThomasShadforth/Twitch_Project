@@ -1,0 +1,39 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.TwitchPrototype.cpp.obj": [
+			"CustomCharacterMv.gen.cpp.obj",
+			"LevelGameMode.gen.cpp.obj",
+			"MovingPlatform.gen.cpp.obj",
+			"PlatformMovementComponent.gen.cpp.obj",
+			"RotationComponent.gen.cpp.obj",
+			"SplineMovingPlatform.gen.cpp.obj",
+			"StompInterface.gen.cpp.obj",
+			"TP_AIController.gen.cpp.obj",
+			"TP_Enemy.gen.cpp.obj",
+			"TP_EnemyController.gen.cpp.obj",
+			"TP_PlayerCharacter.gen.cpp.obj",
+			"TP_PlayerController.gen.cpp.obj",
+			"TP_TempEnemyPatroller.gen.cpp.obj",
+			"TwitchPrototype.init.gen.cpp.obj",
+			"TwitchPrototypeCharacter.gen.cpp.obj",
+			"TwitchPrototypeGameMode.gen.cpp.obj",
+			"CustomCharacterMv.cpp.obj",
+			"LevelGameMode.cpp.obj",
+			"MovingPlatform.cpp.obj",
+			"PlatformMovementComponent.cpp.obj",
+			"RotationComponent.cpp.obj",
+			"SplineMovingPlatform.cpp.obj",
+			"StompInterface.cpp.obj",
+			"TP_AIController.cpp.obj",
+			"TP_Enemy.cpp.obj",
+			"TP_EnemyController.cpp.obj",
+			"TP_PlayerCharacter.cpp.obj",
+			"TP_PlayerController.cpp.obj",
+			"TP_TempEnemyPatroller.cpp.obj",
+			"TwitchPrototype.cpp.obj",
+			"TwitchPrototypeCharacter.cpp.obj",
+			"TwitchPrototypeGameMode.cpp.obj"
+		]
+	}
+}

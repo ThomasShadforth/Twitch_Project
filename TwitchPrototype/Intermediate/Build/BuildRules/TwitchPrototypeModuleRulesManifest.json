@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"D:\\Unreal Projects\\Github\\Twitch_Project\\TwitchPrototype\\Source\\TwitchPrototype\\TwitchPrototype.Build.cs",
+		"D:\\Unreal Projects\\Github\\Twitch_Project\\TwitchPrototype\\Source\\TwitchPrototype.Target.cs",
+		"D:\\Unreal Projects\\Github\\Twitch_Project\\TwitchPrototype\\Source\\TwitchPrototypeEditor.Target.cs"
+	],
+	"EngineVersion": "5.3.2"
+}

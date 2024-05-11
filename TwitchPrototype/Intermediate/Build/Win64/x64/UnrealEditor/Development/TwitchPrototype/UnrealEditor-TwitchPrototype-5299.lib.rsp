@@ -1,0 +1,37 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-TwitchPrototype-5299.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\TwitchPrototypeEditor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.h.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\CustomCharacterMv.gen.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\LevelGameMode.gen.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\MovingPlatform.gen.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\PlatformMovementComponent.gen.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\RotationComponent.gen.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\SplineMovingPlatform.gen.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\StompInterface.gen.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\TP_Enemy.gen.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\TP_PlayerCharacter.gen.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\TP_PlayerController.gen.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\TwitchPrototype.init.gen.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\TwitchPrototypeCharacter.gen.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\TwitchPrototypeGameMode.gen.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\CustomCharacterMv.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\LevelGameMode.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\MovingPlatform.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\PlatformMovementComponent.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\RotationComponent.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\SplineMovingPlatform.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\StompInterface.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\TP_Enemy.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\TP_PlayerCharacter.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\TP_PlayerController.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\TwitchPrototype.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\TwitchPrototypeCharacter.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\TwitchPrototypeGameMode.cpp.obj"
+"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\Default.rc2.res"
+/OUT:"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\UnrealEditor\Development\TwitchPrototype\UnrealEditor-TwitchPrototype-5299.lib"
