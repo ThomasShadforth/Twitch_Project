@@ -1,0 +1,16 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\unreal projects\\github\\twitch_project\\twitchprototype\\source\\twitchprototype\\private\\tpenemyinterface.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\unreal projects\\github\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "d:\\unreal projects\\github\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\twitchprototype\\definitions.twitchprototype.h",
+            "d:\\unreal projects\\github\\twitch_project\\twitchprototype\\source\\twitchprototype\\public\\tpenemyinterface.h",
+            "d:\\unreal projects\\github\\twitch_project\\twitchprototype\\source\\twitchprototype\\public\\movespeedtypes.h",
+            "d:\\unreal projects\\github\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\tpenemyinterface.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

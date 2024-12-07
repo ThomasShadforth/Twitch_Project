@@ -23,14 +23,12 @@ void ATP_TempEnemyPatroller::BeginPlay()
 	const FVector worldPatrolPoint1 = UKismetMathLibrary::TransformLocation(GetActorTransform(), patrolPoint1);
 	const FVector worldPatrolPoint2 = UKismetMathLibrary::TransformLocation(GetActorTransform(), patrolPoint2);
 	
-	SetEnemyController(GetController());
+	
 
 	if(GetEnemyController())
 	{
 		GetEnemyController()->GetBlackboardComp()->SetValueAsVector(TEXT("PatrolPoint1"), worldPatrolPoint1);
 		GetEnemyController()->GetBlackboardComp()->SetValueAsVector(TEXT("PatrolPoint2"), worldPatrolPoint2);
-
-		GetEnemyController()->RunBehaviorTree(GetBehaviourTree());
 	}
 
 	aggroSphere->OnComponentBeginOverlap.AddDynamic(this, &ATP_TempEnemyPatroller::AggroSphereBeginOverlap);

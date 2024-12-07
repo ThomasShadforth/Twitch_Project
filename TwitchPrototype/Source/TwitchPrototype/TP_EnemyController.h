@@ -4,11 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
+#include "Perception/AIPerceptionTypes.h"
 #include "TP_EnemyController.generated.h"
 
 /**
  * 
  */
+
+class UAIPerceptionComponent;
+class UAISenseConfig_Sight;
+class UAISenseConfig;
+
 UCLASS()
 class TWITCHPROTOTYPE_API ATP_EnemyController : public AAIController
 {
@@ -19,6 +25,13 @@ public:
 
 	void OnPossess(APawn* InPawn) override;
 
+protected:
+
+	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void DetectedTarget(AActor* Actor, FAIStimulus Stimulus);
+	
 private:
 
 	UPROPERTY(BlueprintReadWrite, Category = "AI Properties", meta = (AllowPrivateAccess = "true"))
@@ -26,6 +39,11 @@ private:
 
 	UPROPERTY(BlueprintReadWrite, Category = "AI Properties", meta = (AllowPrivateAccess = "true"))
 	class UBehaviorTreeComponent* behaviorTreeComp;
+
+	UPROPERTY(EditAnywhere)
+	UAIPerceptionComponent* aiPerception;
+
+	UAISenseConfig_Sight* sightConfig;
 	
 public:
 

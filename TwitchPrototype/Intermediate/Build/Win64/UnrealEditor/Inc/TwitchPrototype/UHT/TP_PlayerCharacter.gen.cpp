@@ -10,7 +10,6 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 // Cross Module References
 	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
-	ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 	ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UCurveFloat_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
@@ -18,8 +17,17 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 	ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputMappingContext_NoRegister();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATP_PlayerCharacter();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATP_PlayerCharacter_NoRegister();
+	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATPCharacterBase();
+	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_UPlayerCharacterInterface_NoRegister();
 	UPackage* Z_Construct_UPackage__Script_TwitchPrototype();
 // End Cross Module References
+	DEFINE_FUNCTION(ATP_PlayerCharacter::execOnCoyoteTimeEnd)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->OnCoyoteTimeEnd();
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(ATP_PlayerCharacter::execStompLandSquashFinished)
 	{
 		P_FINISH;
@@ -65,11 +73,6 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		P_THIS->JumpSquashUpdate(Z_Param_Alpha);
 		P_NATIVE_END;
 	}
-	static FName NAME_ATP_PlayerCharacter_CheckTempSprintButton = FName(TEXT("CheckTempSprintButton"));
-	void ATP_PlayerCharacter::CheckTempSprintButton()
-	{
-		ProcessEvent(FindFunctionChecked(NAME_ATP_PlayerCharacter_CheckTempSprintButton),NULL);
-	}
 	void ATP_PlayerCharacter::StaticRegisterNativesATP_PlayerCharacter()
 	{
 		UClass* Class = ATP_PlayerCharacter::StaticClass();
@@ -78,32 +81,11 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 			{ "JumpSquashUpdate", &ATP_PlayerCharacter::execJumpSquashUpdate },
 			{ "LandSquashFinished", &ATP_PlayerCharacter::execLandSquashFinished },
 			{ "LandSquashUpdate", &ATP_PlayerCharacter::execLandSquashUpdate },
+			{ "OnCoyoteTimeEnd", &ATP_PlayerCharacter::execOnCoyoteTimeEnd },
 			{ "StompLandSquashFinished", &ATP_PlayerCharacter::execStompLandSquashFinished },
 			{ "StompLandSquashUpdate", &ATP_PlayerCharacter::execStompLandSquashUpdate },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
-	}
-	struct Z_Construct_UFunction_ATP_PlayerCharacter_CheckTempSprintButton_Statics
-	{
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
-#endif
-		static const UECodeGen_Private::FFunctionParams FuncParams;
-	};
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_CheckTempSprintButton_Statics::Function_MetaDataParams[] = {
-		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
-	};
-#endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_PlayerCharacter_CheckTempSprintButton_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_PlayerCharacter, nullptr, "CheckTempSprintButton", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08080800, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_CheckTempSprintButton_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_PlayerCharacter_CheckTempSprintButton_Statics::Function_MetaDataParams) };
-	UFunction* Z_Construct_UFunction_ATP_PlayerCharacter_CheckTempSprintButton()
-	{
-		static UFunction* ReturnFunction = nullptr;
-		if (!ReturnFunction)
-		{
-			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_PlayerCharacter_CheckTempSprintButton_Statics::FuncParams);
-		}
-		return ReturnFunction;
 	}
 	struct Z_Construct_UFunction_ATP_PlayerCharacter_JumpSquashFinished_Statics
 	{
@@ -214,6 +196,28 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		if (!ReturnFunction)
 		{
 			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_PlayerCharacter_LandSquashUpdate_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_ATP_PlayerCharacter_OnCoyoteTimeEnd_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_OnCoyoteTimeEnd_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_PlayerCharacter_OnCoyoteTimeEnd_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_PlayerCharacter, nullptr, "OnCoyoteTimeEnd", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_OnCoyoteTimeEnd_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_PlayerCharacter_OnCoyoteTimeEnd_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_ATP_PlayerCharacter_OnCoyoteTimeEnd()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_PlayerCharacter_OnCoyoteTimeEnd_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -421,21 +425,34 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_landSquashCurve_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPropertyParams NewProp_landSquashCurve;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_coyoteTimeLimit_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_coyoteTimeLimit;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_wallSlideRate_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_wallSlideRate;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_wallSlideCheckDistance_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_wallSlideCheckDistance;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+		static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
 	};
 	UObject* (*const Z_Construct_UClass_ATP_PlayerCharacter_Statics::DependentSingletons[])() = {
-		(UObject* (*)())Z_Construct_UClass_ACharacter,
+		(UObject* (*)())Z_Construct_UClass_ATPCharacterBase,
 		(UObject* (*)())Z_Construct_UPackage__Script_TwitchPrototype,
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_ATP_PlayerCharacter_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_ATP_PlayerCharacter_CheckTempSprintButton, "CheckTempSprintButton" }, // 1867219079
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_JumpSquashFinished, "JumpSquashFinished" }, // 1930837543
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_JumpSquashUpdate, "JumpSquashUpdate" }, // 2996724732
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_LandSquashFinished, "LandSquashFinished" }, // 3383075559
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_LandSquashUpdate, "LandSquashUpdate" }, // 3648626628
+		{ &Z_Construct_UFunction_ATP_PlayerCharacter_OnCoyoteTimeEnd, "OnCoyoteTimeEnd" }, // 2657618391
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_StompLandSquashFinished, "StompLandSquashFinished" }, // 3209178486
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_StompLandSquashUpdate, "StompLandSquashUpdate" }, // 1997411083
 	};
@@ -733,6 +750,30 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 	};
 #endif
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_landSquashCurve = { "landSquashCurve", nullptr, (EPropertyFlags)0x0040000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, landSquashCurve), Z_Construct_UClass_UCurveFloat_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_landSquashCurve_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_landSquashCurve_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_coyoteTimeLimit_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "TP_PlayerCharacter" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_coyoteTimeLimit = { "coyoteTimeLimit", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, coyoteTimeLimit), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_coyoteTimeLimit_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_coyoteTimeLimit_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideRate_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "TP_PlayerCharacter" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideRate = { "wallSlideRate", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, wallSlideRate), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideRate_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideRate_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideCheckDistance_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "TP_PlayerCharacter" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideCheckDistance = { "wallSlideCheckDistance", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, wallSlideCheckDistance), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideCheckDistance_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideCheckDistance_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATP_PlayerCharacter_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDefaultMappingContext,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_moveAction,
@@ -768,7 +809,14 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_stompLandSqueezeFactor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_jumpSquashCurve,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_landSquashCurve,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_coyoteTimeLimit,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideRate,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideCheckDistance,
 	};
+		const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::InterfaceParams[] = {
+			{ Z_Construct_UClass_UPlayerCharacterInterface_NoRegister, (int32)VTABLE_OFFSET(ATP_PlayerCharacter, IPlayerCharacterInterface), false },  // 2458221685
+		};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::InterfaceParams) < 64);
 	const FCppClassTypeInfoStatic Z_Construct_UClass_ATP_PlayerCharacter_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<ATP_PlayerCharacter>::IsAbstract,
 	};
@@ -779,11 +827,11 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		DependentSingletons,
 		FuncInfo,
 		Z_Construct_UClass_ATP_PlayerCharacter_Statics::PropPointers,
-		nullptr,
+		InterfaceParams,
 		UE_ARRAY_COUNT(DependentSingletons),
 		UE_ARRAY_COUNT(FuncInfo),
 		UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::PropPointers),
-		0,
+		UE_ARRAY_COUNT(InterfaceParams),
 		0x009000A4u,
 		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::Class_MetaDataParams), Z_Construct_UClass_ATP_PlayerCharacter_Statics::Class_MetaDataParams)
 	};
@@ -807,9 +855,9 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Unreal_Projects_Github_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ATP_PlayerCharacter, ATP_PlayerCharacter::StaticClass, TEXT("ATP_PlayerCharacter"), &Z_Registration_Info_UClass_ATP_PlayerCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_PlayerCharacter), 1157885693U) },
+		{ Z_Construct_UClass_ATP_PlayerCharacter, ATP_PlayerCharacter::StaticClass, TEXT("ATP_PlayerCharacter"), &Z_Registration_Info_UClass_ATP_PlayerCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_PlayerCharacter), 2376264150U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Unreal_Projects_Github_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_1385803846(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Unreal_Projects_Github_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_3769883879(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Unreal_Projects_Github_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Unreal_Projects_Github_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

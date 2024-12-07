@@ -3,18 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
 #include "InputActionValue.h"
 #include "EnhancedActionKeyMapping.h"
+#include "TPCharacterBase.h"
 #include "Components/TimelineComponent.h"
+#include "Player/PlayerCharacterInterface.h"
 #include "TP_PlayerCharacter.generated.h"
 
 
 class UCurveFloat;
-
+class ATP_PlayerController;
 
 UCLASS()
-class TWITCHPROTOTYPE_API ATP_PlayerCharacter : public ACharacter
+class TWITCHPROTOTYPE_API ATP_PlayerCharacter : public ATPCharacterBase, public IPlayerCharacterInterface
 {
 	GENERATED_BODY()
 
@@ -46,32 +47,53 @@ public:
 	// Sets default values for this character's properties
 	ATP_PlayerCharacter();
 
+	virtual void PossessedBy(AController* NewController) override;
+	
 	virtual void Landed(const FHitResult& Hit) override;
+
+	virtual void OnMovementModeChanged(EMovementMode PrevMovementMode, uint8 PreviousCustomMode) override;
+
+	virtual void PlayerSprint_Implementation() override;
+
+	virtual void PlayerStopSprint_Implementation() override;
+	
+	virtual void PlayerJump_Implementation() override;
+
+	virtual void PlayerStopJump_Implementation() override;
+
+	virtual void PlayerStomp_Implementation() override;
+	
+	virtual bool GetPlayerMoveDisabled_Implementation() override;
+
+	virtual bool GetHasPlayerBeenHit_Implementation() override;
+
+	virtual void SetHasPlayerBeenHit_Implementation(bool bHasBeenHit) override;
+
+	virtual ATP_PlayerController* GetPlayerCharacterController_Implementation() override;
+
+	virtual void SetIsOnLadder_Implementation(bool bOnLadder) override;
+	
+	virtual bool GetIsOnLadder_Implementation() override;
+
+	virtual UCharacterMovementComponent* GetPlayerMovementComponent_Implementation() override;
 	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	virtual bool CanJumpInternal_Implementation() const override;
+	
 	void Move(const FInputActionValue& Value);
 
 	void PlayerJump();
 
 	void StopPlayerJump();
 
-	void Look(const FInputActionValue& Value);
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void CheckTempSprintButton();
-
 	void AirDash();
 
 	void AirDashEnd();
 
 	void WallJump(FHitResult wallHit);
-	
-	void StartSprint();
-
-	void StopSprint();
 
 	void SetInterpMovementSpeed(float DeltaTime);
 
@@ -102,6 +124,17 @@ protected:
 
 	UFUNCTION()
 	void StompLandSquashFinished();
+
+	UFUNCTION()
+	void OnCoyoteTimeEnd();
+
+	bool CheckCoyoteTime();
+
+	void CheckForWallSlide(float DeltaTime);
+
+	//Check for LadderClimb
+	//Uses two line traces, one based on the current forward vector multiplied by the input direction, and one detecting the ground
+	//Need to work out further details
 	
 private:
 
@@ -124,6 +157,10 @@ private:
 	bool bIsStomping;
 
 	bool bStompStart;
+
+	bool bWallSliding;
+
+	bool bHasPlayerBeenHit;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Air Dash", meta = (AllowPrivateAccess = "true"))
 	float dashDistance;
@@ -220,18 +257,39 @@ private:
 	FOnTimelineFloat stompLandSquashFunc{};
 
 	FOnTimelineEvent stompLandFinishedFunc{};
+
+	//Experimental: Coyote Time variables
+	FTimerHandle coyoteTimeHandle;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float coyoteTimeLimit;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float wallSlideRate;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float wallSlideCheckDistance;
+
+	bool bHasSnappedToWall = false;
+
+	bool bIsOnLadder = false;
+	
+	void InitAbilityActorInfo();
+
+	void SetHasBeenHitFalse();
 	
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser);
+	
 	FORCEINLINE bool GetAirDashing() const {return bAirDashing;}
 
 	//check if player is performing in air action
 	FORCEINLINE bool GetInAirAction() const{return bAirDashing || bStompStart;}
 
 	FORCEINLINE bool GetDisableMovement() const{return bAirDashing || bIsStomping;}
+
+	FORCEINLINE bool GetPlayerHasBeenHit() const {return bHasPlayerBeenHit;}
 };

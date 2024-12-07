@@ -316,9 +316,9 @@ void EmptyLinkFunctionForGeneratedCodeTP_TempEnemyPatroller() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Unreal_Projects_Github_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_TempEnemyPatroller_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ATP_TempEnemyPatroller, ATP_TempEnemyPatroller::StaticClass, TEXT("ATP_TempEnemyPatroller"), &Z_Registration_Info_UClass_ATP_TempEnemyPatroller, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_TempEnemyPatroller), 3004902U) },
+		{ Z_Construct_UClass_ATP_TempEnemyPatroller, ATP_TempEnemyPatroller::StaticClass, TEXT("ATP_TempEnemyPatroller"), &Z_Registration_Info_UClass_ATP_TempEnemyPatroller, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_TempEnemyPatroller), 2128013797U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Unreal_Projects_Github_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_TempEnemyPatroller_h_3573127520(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Unreal_Projects_Github_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_TempEnemyPatroller_h_3902875597(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Unreal_Projects_Github_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_TempEnemyPatroller_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Unreal_Projects_Github_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_TempEnemyPatroller_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

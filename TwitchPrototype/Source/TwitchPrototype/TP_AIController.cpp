@@ -3,3 +3,7 @@
 
 #include "TP_AIController.h"
 
+void ATP_AIController::BeginPlay()
+{
+	Super::BeginPlay();
+}

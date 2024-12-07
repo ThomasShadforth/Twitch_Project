@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Math/Vector.h"
-#include "PlatformMovementComponent.h"
 
+#include "PlatformMovementComponent.h"
+#include "Math/Vector.h"
 #include "Kismet/KismetMathLibrary.h"
 
 // Sets default values for this component's properties

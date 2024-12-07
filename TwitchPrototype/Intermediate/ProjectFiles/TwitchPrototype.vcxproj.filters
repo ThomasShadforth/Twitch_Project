@@ -132,5 +132,149 @@
     <ClInclude Include="..\..\Source\TwitchPrototype\TwitchPrototypeGameMode.h">
       <Filter>Source\TwitchPrototype</Filter>
     </ClInclude>
+    <Filter Include="Source\TwitchPrototype\Private">
+      <UniqueIdentifier>{789B5BE6-8BA7-37A5-A842-1CA8211CC334}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\AIPatrolPath.cpp">
+      <Filter>Source\TwitchPrototype\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\TPCharacterBase.cpp">
+      <Filter>Source\TwitchPrototype\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\TPEnemyInterface.cpp">
+      <Filter>Source\TwitchPrototype\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\TP_AerialEnemy.cpp">
+      <Filter>Source\TwitchPrototype\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\TP_BaseProjectile.cpp">
+      <Filter>Source\TwitchPrototype\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\TP_DamageInterface.cpp">
+      <Filter>Source\TwitchPrototype\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\TP_FlyingAIComponent.cpp">
+      <Filter>Source\TwitchPrototype\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\TP_GroundEnemy.cpp">
+      <Filter>Source\TwitchPrototype\Private</Filter>
+    </ClCompile>
+    <Filter Include="Source\TwitchPrototype\Private\AbilitySystem">
+      <UniqueIdentifier>{637AFEEB-15A1-38F1-9BB8-0BC598B7FFCC}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\AbilitySystem\TPAttributeSet.cpp">
+      <Filter>Source\TwitchPrototype\Private\AbilitySystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\AbilitySystem\TPBaseAbilitySystemComp.cpp">
+      <Filter>Source\TwitchPrototype\Private\AbilitySystem</Filter>
+    </ClCompile>
+    <Filter Include="Source\TwitchPrototype\Private\Player">
+      <UniqueIdentifier>{7C90F863-B2CE-3A79-B2EB-4F84C016A2D1}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Player\PlayerCharacterInterface.cpp">
+      <Filter>Source\TwitchPrototype\Private\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Player\TPPlayerState.cpp">
+      <Filter>Source\TwitchPrototype\Private\Player</Filter>
+    </ClCompile>
+    <Filter Include="Source\TwitchPrototype\Private\UI">
+      <UniqueIdentifier>{387E2C3A-591B-36BF-9D44-B43367CA0AE3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\TwitchPrototype\Private\UI\HUD">
+      <UniqueIdentifier>{6E39E59F-CF56-34A5-8CE9-2EFA39B78635}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\UI\HUD\TPHUD.cpp">
+      <Filter>Source\TwitchPrototype\Private\UI\HUD</Filter>
+    </ClCompile>
+    <Filter Include="Source\TwitchPrototype\Private\UI\Widget">
+      <UniqueIdentifier>{39F0D426-D3C5-3A2A-A189-EC6B23AE1D84}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\UI\Widget\TPWidgetBase.cpp">
+      <Filter>Source\TwitchPrototype\Private\UI\Widget</Filter>
+    </ClCompile>
+    <Filter Include="Source\TwitchPrototype\Private\UI\WidgetController">
+      <UniqueIdentifier>{F6315B4F-0287-3A7E-86C7-281D2E396875}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\UI\WidgetController\OverlayWidgetController.cpp">
+      <Filter>Source\TwitchPrototype\Private\UI\WidgetController</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\UI\WidgetController\WidgetControllerBase.cpp">
+      <Filter>Source\TwitchPrototype\Private\UI\WidgetController</Filter>
+    </ClCompile>
+    <Filter Include="Source\TwitchPrototype\Public">
+      <UniqueIdentifier>{E2BC2538-862E-3935-B8E8-9B6A90F1DB19}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\AIPatrolPath.h">
+      <Filter>Source\TwitchPrototype\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\EnemyAIStates.h">
+      <Filter>Source\TwitchPrototype\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\MoveSpeedTypes.h">
+      <Filter>Source\TwitchPrototype\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\TPCharacterBase.h">
+      <Filter>Source\TwitchPrototype\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\TPEnemyInterface.h">
+      <Filter>Source\TwitchPrototype\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\TP_AerialEnemy.h">
+      <Filter>Source\TwitchPrototype\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\TP_BaseProjectile.h">
+      <Filter>Source\TwitchPrototype\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\TP_DamageInterface.h">
+      <Filter>Source\TwitchPrototype\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\TP_FlyingAIComponent.h">
+      <Filter>Source\TwitchPrototype\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\TP_GroundEnemy.h">
+      <Filter>Source\TwitchPrototype\Public</Filter>
+    </ClInclude>
+    <Filter Include="Source\TwitchPrototype\Public\AbilitySystem">
+      <UniqueIdentifier>{73143D0F-E2DA-359C-9BC4-CC068A252158}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\AbilitySystem\TPAttributeSet.h">
+      <Filter>Source\TwitchPrototype\Public\AbilitySystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\AbilitySystem\TPBaseAbilitySystemComp.h">
+      <Filter>Source\TwitchPrototype\Public\AbilitySystem</Filter>
+    </ClInclude>
+    <Filter Include="Source\TwitchPrototype\Public\Player">
+      <UniqueIdentifier>{19966AA3-BAED-3F6A-93D8-071FFBD62EAD}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Player\PlayerCharacterInterface.h">
+      <Filter>Source\TwitchPrototype\Public\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Player\TPPlayerState.h">
+      <Filter>Source\TwitchPrototype\Public\Player</Filter>
+    </ClInclude>
+    <Filter Include="Source\TwitchPrototype\Public\UI">
+      <UniqueIdentifier>{938C791F-C900-33AA-BEFE-A7F20E33F1DC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\TwitchPrototype\Public\UI\HUD">
+      <UniqueIdentifier>{B3B798D1-E94B-3444-B869-47B05A2CC3C2}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\UI\HUD\TPHUD.h">
+      <Filter>Source\TwitchPrototype\Public\UI\HUD</Filter>
+    </ClInclude>
+    <Filter Include="Source\TwitchPrototype\Public\UI\Widget">
+      <UniqueIdentifier>{FAA387B8-0A44-3351-AC4A-586A1B3B981D}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\UI\Widget\TPWidgetBase.h">
+      <Filter>Source\TwitchPrototype\Public\UI\Widget</Filter>
+    </ClInclude>
+    <Filter Include="Source\TwitchPrototype\Public\UI\WidgetController">
+      <UniqueIdentifier>{994F7AE0-2C07-3DF7-BAB6-CCACA5EAE1A2}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\UI\WidgetController\OverlayWidgetController.h">
+      <Filter>Source\TwitchPrototype\Public\UI\WidgetController</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\UI\WidgetController\WidgetControllerBase.h">
+      <Filter>Source\TwitchPrototype\Public\UI\WidgetController</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

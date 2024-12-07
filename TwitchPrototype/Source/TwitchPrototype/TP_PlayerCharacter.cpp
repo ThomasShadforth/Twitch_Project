@@ -1,5 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "TP_PlayerCharacter.h"
+
+#include "AbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -13,9 +16,12 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "DrawDebugHelpers.h"
 #include "StompInterface.h"
-#include "TP_PlayerCharacter.h"
-
 #include "FrameTypes.h"
+#include "TPEnemyInterface.h"
+#include "TP_PlayerController.h"
+#include "Kismet/GameplayStatics.h"
+#include "Player/TPPlayerState.h"
+#include "UI/HUD/TPHUD.h"
 
 
 // Sets default values
@@ -26,7 +32,8 @@ currentMovementSpeed(0.f),
 sprintStartInterpSpeed(1.f),
 sprintStopInterpSpeed(2.f),
 wallCheckRadius(20.0f),
-wallCheckDistance(200.0f)
+wallCheckDistance(200.0f),
+wallSlideRate(1800.f)
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -61,6 +68,11 @@ wallCheckDistance(200.0f)
 	bUseControllerRotationYaw = false;
 }
 
+void ATP_PlayerCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+}
+
 void ATP_PlayerCharacter::Landed(const FHitResult& Hit)
 {
 	Super::Landed(Hit);
@@ -76,6 +88,104 @@ void ATP_PlayerCharacter::Landed(const FHitResult& Hit)
 	airDashCount = 0;
 	bHasAirDashed = false;
 	bIsStomping = false;
+	GetWorldTimerManager().ClearTimer(coyoteTimeHandle);
+}
+
+void ATP_PlayerCharacter::OnMovementModeChanged(EMovementMode PrevMovementMode, uint8 PreviousCustomMode)
+{
+	Super::OnMovementModeChanged(PrevMovementMode, PreviousCustomMode);
+
+	if(GetCharacterMovement()->MovementMode == MOVE_Falling)
+	{
+		GetWorldTimerManager().SetTimer(coyoteTimeHandle, this, &ATP_PlayerCharacter::OnCoyoteTimeEnd, coyoteTimeLimit);
+	}
+}
+
+void ATP_PlayerCharacter::PlayerSprint_Implementation()
+{
+	IPlayerCharacterInterface::PlayerSprint_Implementation();
+
+	bIsSprinting = true;
+	
+}
+
+void ATP_PlayerCharacter::PlayerStopSprint_Implementation()
+{
+	IPlayerCharacterInterface::PlayerStopSprint_Implementation();
+
+	bIsSprinting = false;
+}
+
+void ATP_PlayerCharacter::PlayerJump_Implementation()
+{
+	IPlayerCharacterInterface::PlayerJump_Implementation();
+
+	PlayerJump();
+}
+
+void ATP_PlayerCharacter::PlayerStopJump_Implementation()
+{
+	IPlayerCharacterInterface::PlayerStopJump_Implementation();
+
+	StopPlayerJump();
+}
+
+void ATP_PlayerCharacter::PlayerStomp_Implementation()
+{
+	IPlayerCharacterInterface::PlayerStomp_Implementation();
+
+	StartStomp();
+}
+
+bool ATP_PlayerCharacter::GetPlayerMoveDisabled_Implementation()
+{
+	return GetDisableMovement();
+}
+
+bool ATP_PlayerCharacter::GetHasPlayerBeenHit_Implementation()
+{
+	return GetPlayerHasBeenHit();
+}
+
+void ATP_PlayerCharacter::SetHasPlayerBeenHit_Implementation(bool bHasBeenHit)
+{
+	IPlayerCharacterInterface::SetHasPlayerBeenHit_Implementation(bHasBeenHit);
+
+	bHasPlayerBeenHit = bHasBeenHit;
+	
+	if(bHasBeenHit){
+		FTimerHandle resetHitHandle;
+		GetWorldTimerManager().SetTimer(resetHitHandle, this, &ATP_PlayerCharacter::SetHasBeenHitFalse, 1.f);
+	}
+}
+
+ATP_PlayerController* ATP_PlayerCharacter::GetPlayerCharacterController_Implementation()
+{
+	if(ATP_PlayerController* pc = Cast<ATP_PlayerController>(GetController()))
+	{
+		return pc;
+	}else
+	{
+		return nullptr;
+	}
+	
+}
+
+void ATP_PlayerCharacter::SetIsOnLadder_Implementation(bool bOnLadder)
+{
+	IPlayerCharacterInterface::SetIsOnLadder_Implementation(bOnLadder);
+
+	bIsOnLadder = bOnLadder;
+}
+
+bool ATP_PlayerCharacter::GetIsOnLadder_Implementation()
+{
+	return bIsOnLadder;
+}
+
+UCharacterMovementComponent* ATP_PlayerCharacter::GetPlayerMovementComponent_Implementation()
+{
+	return GetCharacterMovement();
 }
 
 // Called when the game starts or when spawned
@@ -130,6 +240,25 @@ void ATP_PlayerCharacter::BeginPlay()
 	baseScale = GetMesh()->GetRelativeScale3D();
 }
 
+bool ATP_PlayerCharacter::CanJumpInternal_Implementation() const
+{
+	//Can Jump is called automatically when the player presses the jump button
+	//Checks whether or not the player has jumps remaining.
+	//In this override, also checks if coyote time is active
+	
+	bool bCanJump = Super::CanJumpInternal_Implementation();
+
+	bool bCoyoteTimeActive = GetWorldTimerManager().GetTimerRemaining(coyoteTimeHandle) > 0.0f;
+	
+	if(bCanJump || bCoyoteTimeActive)
+	{
+		
+		return true;
+	}
+	
+	return false;
+}
+
 void ATP_PlayerCharacter::Move(const FInputActionValue& Value)
 {
 	if(GetDisableMovement()) return;
@@ -153,6 +282,15 @@ void ATP_PlayerCharacter::PlayerJump()
 {
 	if(GetDisableMovement()) return;
 
+	if(GetIsOnLadder_Implementation())
+	{
+		//To Do: change movement mode back to walking
+		GetCharacterMovement()->SetMovementMode(MOVE_Falling);
+		SetIsOnLadder_Implementation(false);
+		return;
+		//Set is on ladder to false(?)
+	}
+	
 	if(!GetCharacterMovement()->IsFalling() && jumpSquashCurve)
 	{
 		jumpSquashTimeline->PlayFromStart();
@@ -167,7 +305,7 @@ void ATP_PlayerCharacter::PlayerJump()
 	if(GetCharacterMovement()->IsFalling() && bHasFoundWall)
 	{
 		WallJump(wallHit);
-	} else if(!bHasAirDashed && GetCharacterMovement()->IsFalling() && !bHasFoundWall)
+	} else if(!bHasAirDashed && GetCharacterMovement()->IsFalling() && !bHasFoundWall && !CheckCoyoteTime())
 	{
 		if(bAirDashing) return;
 		
@@ -185,17 +323,6 @@ void ATP_PlayerCharacter::PlayerJump()
 void ATP_PlayerCharacter::StopPlayerJump()
 {
 	ACharacter::StopJumping();
-}
-
-void ATP_PlayerCharacter::Look(const FInputActionValue& Value)
-{
-	FVector2D lookAxisVector = Value.Get<FVector2D>();
-	
-	if(Controller != nullptr)
-	{
-		AddControllerYawInput(lookAxisVector.X);
-		AddControllerPitchInput(lookAxisVector.Y);
-	}
 }
 
 void ATP_PlayerCharacter::AirDash()
@@ -217,36 +344,22 @@ void ATP_PlayerCharacter::AirDashEnd()
 
 void ATP_PlayerCharacter::WallJump(FHitResult wallHit)
 {
-	FVector wallNormal = wallHit.Normal;
+	//FHitResult secondTrace;
+	FVector traceUnitDirection = UKismetMathLibrary::GetDirectionUnitVector(wallHit.TraceStart, wallHit.TraceEnd);
+	FVector reflectedVector = UKismetMathLibrary::GetReflectionVector(traceUnitDirection, wallHit.Normal);
+	FVector reflectedWallForce = wallHit.Location + (reflectedVector * 1.0f);
 
-	FVector currentForward = GetActorForwardVector();
-
-	wallNormal.Normalize();
-
-	FRotator newRotation = UKismetMathLibrary::MakeRotFromX(wallNormal);
-	SetActorRotation(newRotation);
-	
-	FVector wallForce = wallNormal * forwardWallForce;
+	FVector wallForce = reflectedVector * forwardWallForce;
 	wallForce.Z = upwardWallForce;
 	
 	GetCharacterMovement()->Velocity = wallForce;
 
+	//Set the rotation
+	FRotator newRotation = UKismetMathLibrary::MakeRotFromX(reflectedVector);
+	SetActorRotation(newRotation);
+	
 	jumpSquashTimeline->PlayFromStart();
 	
-	//UE_LOG(LogTemp, Warning, TEXT("WALL NORMAL, X: %f, Y: %f, Z: %f"), wallNormal.X, wallNormal.Y, wallNormal.Z);
-	//UE_LOG(LogTemp, Warning, TEXT("Angle between normal and player forward: %f Degrees"), angle);
-}
-
-void ATP_PlayerCharacter::StartSprint()
-{
-	bIsSprinting = true;
-	//GetCharacterMovement()->MaxWalkSpeed = sprintSpeed;
-}
-
-void ATP_PlayerCharacter::StopSprint()
-{
-	bIsSprinting = false;
-	//GetCharacterMovement()->MaxWalkSpeed = walkSpeed;
 }
 
 void ATP_PlayerCharacter::SetInterpMovementSpeed(float DeltaTime)
@@ -271,12 +384,12 @@ void ATP_PlayerCharacter::SetInterpFOV(float DeltaTime)
 
 bool ATP_PlayerCharacter::CheckForWallJump(FHitResult& outWallHit)
 {
-	FVector traceStart = GetMesh()->GetBoneLocation(sphereCastPoint) + FVector(0, 0, 80);
-	FVector traceEnd = traceStart + (GetActorForwardVector() * wallCheckDistance);
+	const FVector traceStart = GetMesh()->GetBoneLocation(sphereCastPoint) + FVector(0, 0, 80);
+	const FVector traceEnd = traceStart + (GetActorForwardVector() * wallCheckDistance);
 	TArray<AActor*> ignoredObjects;
 	
-	UKismetSystemLibrary::SphereTraceSingle(this, traceStart, traceEnd, wallCheckRadius, TraceTypeQuery1, false, ignoredObjects, EDrawDebugTrace::ForDuration, outWallHit, true);
-
+	UKismetSystemLibrary::SphereTraceSingle(this, traceStart, traceEnd, wallCheckRadius, UEngineTypes::ConvertToTraceType(ECC_GameTraceChannel2), false, ignoredObjects, EDrawDebugTrace::ForDuration, outWallHit, true);
+	
 	if(outWallHit.bBlockingHit)
 	{
 		return true;
@@ -316,12 +429,16 @@ void ATP_PlayerCharacter::CheckForStompTarget()
 	
 	UKismetSystemLibrary::SphereTraceSingle(this, traceStart, traceStart, 60.f, TraceTypeQuery1, false, ignoredObjects, EDrawDebugTrace::ForDuration, stompHit, true);
 
-	if(stompHit.GetActor())
+	if(stompHit.GetComponent())
 	{
 		if(UKismetSystemLibrary::DoesImplementInterface(stompHit.GetActor(), UStompInterface::StaticClass()))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("FOUND STOMP OBJECT"));
 			IStompInterface::Execute_StompObject(stompHit.GetActor(), stompHit);
+		}
+
+		if(UKismetSystemLibrary::DoesImplementInterface(stompHit.GetActor(), UTPEnemyInterface::StaticClass()))
+		{
+			ITPEnemyInterface::Execute_DamageEnemy(stompHit.GetActor());
 		}
 	}
 	
@@ -351,6 +468,7 @@ void ATP_PlayerCharacter::LandSquashUpdate(float Alpha)
 
 void ATP_PlayerCharacter::LandSquashFinished()
 {
+	
 }
 
 void ATP_PlayerCharacter::StompLandSquashUpdate(float Alpha)
@@ -366,6 +484,80 @@ void ATP_PlayerCharacter::StompLandSquashFinished()
 {
 }
 
+//Empty method simply used for the purpose of setting the timer for coyote time
+void ATP_PlayerCharacter::OnCoyoteTimeEnd()
+{
+	
+}
+
+bool ATP_PlayerCharacter::CheckCoyoteTime()
+{
+	return GetWorldTimerManager().GetTimerRemaining(coyoteTimeHandle) > 0.0f;
+}
+
+void ATP_PlayerCharacter::CheckForWallSlide(float DeltaTime)
+{
+	if(GetCharacterMovement()->IsFalling() && GetCharacterMovement()->Velocity.Z < 0){
+		FHitResult wallCheckHit;
+		FVector traceStart = GetActorLocation();
+		FVector traceEnd = traceStart + (GetActorForwardVector() * wallSlideCheckDistance);
+		TArray<AActor*> ignoredObjects;
+		
+		UKismetSystemLibrary::LineTraceSingle(this, traceStart, traceEnd, UEngineTypes::ConvertToTraceType(ECC_GameTraceChannel2), false, ignoredObjects, EDrawDebugTrace::ForDuration, wallCheckHit, true);
+
+		if(wallCheckHit.bBlockingHit)
+		{
+
+			if(!bHasSnappedToWall)
+			{
+				//SNAP TO THE WALL
+				bHasSnappedToWall = true;
+				FVector invertedNormal = -1 * wallCheckHit.Normal;
+				SetActorRotation(invertedNormal.Rotation());
+				GetCharacterMovement()->Velocity = FVector(0, 0, -50.f);
+			}
+			
+			//UE_LOG(LogTemp, Warning, TEXT("WALL SLIDE TARGET FOUND"));
+			bWallSliding = true;
+
+			GetCharacterMovement()->Velocity = UKismetMathLibrary::VInterpTo_Constant(GetCharacterMovement()->Velocity, FVector(0,0,0), DeltaTime, wallSlideRate);
+			
+		} else
+		{
+			bWallSliding = false;
+			bHasSnappedToWall = false;
+		}
+	}
+
+	bWallSliding = false;
+	bHasSnappedToWall = false;
+}
+
+void ATP_PlayerCharacter::InitAbilityActorInfo()
+{
+	ATPPlayerState* tpPlayerState = GetPlayerState<ATPPlayerState>();
+
+	check(tpPlayerState);
+
+	tpPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(tpPlayerState, this);
+	abilitySystemComp = tpPlayerState->GetAbilitySystemComponent();
+
+	attributeSet = tpPlayerState->GetAttributeSet();
+
+	if(ATP_PlayerController* tpPlayerController = Cast<ATP_PlayerController>(GetController()))
+	{
+		if(ATPHUD* tpHUD = Cast<ATPHUD>(tpPlayerController->GetHUD()))
+		{
+			tpHUD->InitOverlay(tpPlayerController, tpPlayerState, abilitySystemComp, attributeSet);
+		}
+	}
+}
+
+void ATP_PlayerCharacter::SetHasBeenHitFalse()
+{
+	SetHasPlayerBeenHit_Implementation(false);
+}
+
 // Called every frame
 void ATP_PlayerCharacter::Tick(float DeltaTime)
 {
@@ -373,6 +565,8 @@ void ATP_PlayerCharacter::Tick(float DeltaTime)
 
 	SetInterpMovementSpeed(DeltaTime);
 	SetInterpFOV(DeltaTime);
+	CheckForWallSlide(DeltaTime);
+
 	
 	if(bIsStomping)
 	{
@@ -381,26 +575,13 @@ void ATP_PlayerCharacter::Tick(float DeltaTime)
 	
 }
 
-// Called to bind functionality to input
-void ATP_PlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+float ATP_PlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
+	AActor* DamageCauser)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	UEnhancedInputComponent* enhancedInput = CastChecked<UEnhancedInputComponent>(PlayerInputComponent);
-
-	if(enhancedInput)
-	{
-		enhancedInput->BindAction(moveAction, ETriggerEvent::Triggered, this, &ATP_PlayerCharacter::Move);
-
-		enhancedInput->BindAction(jumpAction, ETriggerEvent::Started, this, &ATP_PlayerCharacter::PlayerJump);
-		enhancedInput->BindAction(stopJumpAction, ETriggerEvent::Triggered, this, &ATP_PlayerCharacter::StopPlayerJump);
-		
-		enhancedInput->BindAction(lookAction, ETriggerEvent::Triggered, this, &ATP_PlayerCharacter::Look);
-
-		enhancedInput->BindAction(sprintAction, ETriggerEvent::Triggered, this, &ATP_PlayerCharacter::StartSprint);
-		enhancedInput->BindAction(stopSprintAction, ETriggerEvent::Triggered, this, &ATP_PlayerCharacter::StopSprint);
-
-		enhancedInput->BindAction(stompAction, ETriggerEvent::Triggered, this, &ATP_PlayerCharacter::StartStomp);
-	}
+	UE_LOG(LogTemp, Warning, TEXT("DAMAGE DEALT!!"));
+	
+	return DamageAmount;
 }
+
 

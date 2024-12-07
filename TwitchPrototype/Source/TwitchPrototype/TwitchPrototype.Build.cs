@@ -8,6 +8,8 @@ public class TwitchPrototype : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "UMG", "PhysicsCore", "NavigationSystem", "AIModule" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "UMG", "PhysicsCore", "NavigationSystem", "AIModule", "GameplayAbilities" });
+		
+		PrivateDependencyModuleNames.AddRange(new []{"GameplayTags", "GameplayTasks"});
 	}
 }

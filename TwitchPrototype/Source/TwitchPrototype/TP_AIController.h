@@ -14,4 +14,16 @@ class TWITCHPROTOTYPE_API ATP_AIController : public AAIController
 {
 	GENERATED_BODY()
 	
+public:
+
+	
+	
+protected:
+
+ virtual void BeginPlay() override;
+	
+private:
+
+public:
+	
 };
