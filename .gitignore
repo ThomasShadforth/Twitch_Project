@@ -1,6 +1,10 @@
 # Visual Studio 2015 user specific files
 .vs/
 
+# Other Files
+*.pdb
+*.ucas
+
 # Compiled Object files
 *.slo
 *.lo

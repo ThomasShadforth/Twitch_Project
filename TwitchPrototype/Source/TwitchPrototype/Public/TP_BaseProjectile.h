@@ -7,6 +7,7 @@
 #include "TP_BaseProjectile.generated.h"
 
 class UProjectileMovementComponent;
+class UGameplayEffect;
 
 UCLASS()
 class TWITCHPROTOTYPE_API ATP_BaseProjectile : public AActor
@@ -21,13 +22,24 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<UGameplayEffect> DamageGameplayEffect;
+
+	UFUNCTION(BlueprintCallable)
+	void ApplyGameplayEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
+	
 private:
 
+	
+	
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	AActor* owningActor;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	UProjectileMovementComponent* projectileMovement;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	float knockbackModifier;
 	
 	UPROPERTY(EditAnywhere)
 	float projectileSpeed;
@@ -41,5 +53,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE float GetProjectileSpeed() const {return projectileSpeed;}
-	
+
+	UFUNCTION()
+	FORCEINLINE UProjectileMovementComponent* GetProjectileMovement() const {return projectileMovement;}
 };

@@ -1,0 +1,20 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealgame\\inc\\twitchprototype\\uht\\tphud.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototype\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "Includes": [
+            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\unrealgame\\development\\twitchprototype\\definitions.twitchprototype.h",
+            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\source\\twitchprototype\\public\\ui\\hud\\tphud.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\hud.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\hudhitbox.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\debugtextinfo.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealgame\\inc\\engine\\uht\\debugtextinfo.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealgame\\inc\\engine\\uht\\hud.generated.h",
+            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealgame\\inc\\twitchprototype\\uht\\tphud.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

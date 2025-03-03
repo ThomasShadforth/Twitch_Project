@@ -3,18 +3,21 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "StompInterface.h"
 #include "TPEnemyInterface.h"
 #include "TP_EnemyController.h"
 #include "GameFramework/Character.h"
+#include "Interaction/TPChargeInterface.h"
+#include "EnemyAIStates.h"
+#include "Interaction/TPDamageInterface.h"
 #include "TP_Enemy.generated.h"
 
 class AAIController;
 class ATP_EnemyController;
-
 class ATP_BaseProjectile;
 
 UCLASS()
-class TWITCHPROTOTYPE_API ATP_Enemy : public ACharacter, public ITPEnemyInterface
+class TWITCHPROTOTYPE_API ATP_Enemy : public ACharacter, public ITPEnemyInterface, public IStompInterface, public ITPChargeInterface, public ITPDamageInterface
 {
 	GENERATED_BODY()
 
@@ -22,12 +25,21 @@ public:
 	// Sets default values for this character's properties
 	ATP_Enemy();
 
+	virtual void Landed(const FHitResult& Hit) override;
+
+
+	virtual void DamageCharacter_Implementation(AActor* DamageCauser, float KnockbackModifier) override;
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	FORCEINLINE ATP_EnemyController* GetEnemyController() const {return enemyController;}
 	FORCEINLINE void SetEnemyController(AController* controller) {enemyController = Cast<ATP_EnemyController>(controller);}
+
+	void ApplyKnockback(FVector InitiatorLocation, float KnockbackModifier);
+	
+	void DestroyEnemy();
 	
 private:
 	UPROPERTY(EditAnywhere, Category = "Behaviour Tree", meta = (AllowPrivateAccess = true))
@@ -48,6 +60,8 @@ private:
 	bool bActivateAIPerception;
 
 	bool bIsRetreating;
+
+	bool bIsDying;
 	
 public:	
 	// Called every frame
@@ -77,6 +91,10 @@ public:
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser);
 
 	virtual void DamageEnemy_Implementation() override;
+
+	virtual void StompObject_Implementation(FHitResult hit) override;
+
+	virtual void ObjectChargedInto_Implementation(FVector InitiatorLocation, float knockbackModifier) override;
 	
 	UFUNCTION(BlueprintCallable)
 	void SetStateAsPassive();
@@ -89,5 +107,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetStateAsRetreat();
+
+	UFUNCTION(BlueprintCallable)
+	EEnemyAIStates GetCurrentState();
 	
 };

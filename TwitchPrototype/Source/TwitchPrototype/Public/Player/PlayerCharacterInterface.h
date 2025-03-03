@@ -58,6 +58,18 @@ public:
 	bool GetIsOnLadder();
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void StartPlayerAttack();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void StopHoldingPlayerAttack();
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	UCharacterMovementComponent* GetPlayerMovementComponent();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	bool GetIsOnGround();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void ApplyKnockback(FVector directionKnockbackForce);
 	
 };

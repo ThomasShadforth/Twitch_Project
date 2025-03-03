@@ -7,41 +7,29 @@
 #include "EnhancedActionKeyMapping.h"
 #include "TPCharacterBase.h"
 #include "Components/TimelineComponent.h"
+#include "Interaction/TPDamageInterface.h"
 #include "Player/PlayerCharacterInterface.h"
 #include "TP_PlayerCharacter.generated.h"
 
 
 class UCurveFloat;
 class ATP_PlayerController;
+class UBoxComponent;
+class ATP_BaseProjectile;
+
+UENUM()
+enum class EPlayerStates
+{
+	EPS_Grounded UMETA(DisplayName = "Grounded"),
+	EPS_Climbing UMETA(DisplayName = "Climbing"),
+	EPS_Falling UMETA(DisplayName = "Falling")
+};
+
 
 UCLASS()
-class TWITCHPROTOTYPE_API ATP_PlayerCharacter : public ATPCharacterBase, public IPlayerCharacterInterface
+class TWITCHPROTOTYPE_API ATP_PlayerCharacter : public ATPCharacterBase, public IPlayerCharacterInterface, public ITPDamageInterface
 {
 	GENERATED_BODY()
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputMappingContext* playerDefaultMappingContext;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* moveAction;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* jumpAction;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* lookAction;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* stopJumpAction;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* sprintAction;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* stopSprintAction;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	UInputAction* stompAction;
 	
 public:
 	// Sets default values for this character's properties
@@ -75,7 +63,17 @@ public:
 	
 	virtual bool GetIsOnLadder_Implementation() override;
 
+	virtual void StartPlayerAttack_Implementation() override;
+
+	virtual void StopHoldingPlayerAttack_Implementation() override;
+	
 	virtual UCharacterMovementComponent* GetPlayerMovementComponent_Implementation() override;
+
+	virtual bool GetIsOnGround_Implementation() override;
+
+	virtual void ApplyKnockback_Implementation(FVector directionKnockbackForce) override;
+
+	virtual void DamageCharacter_Implementation(AActor* DamageCauser, float KnockbackModifier) override;
 	
 protected:
 	// Called when the game starts or when spawned
@@ -98,6 +96,8 @@ protected:
 	void SetInterpMovementSpeed(float DeltaTime);
 
 	void SetInterpFOV(float DeltaTime);
+
+	void Aim(float DeltaTime);
 	
 	bool CheckForWallJump(FHitResult& outWallHit);
 
@@ -130,11 +130,20 @@ protected:
 
 	bool CheckCoyoteTime();
 
-	void CheckForWallSlide(float DeltaTime);
+	void WallSlide(float DeltaTime);
 
-	//Check for LadderClimb
-	//Uses two line traces, one based on the current forward vector multiplied by the input direction, and one detecting the ground
-	//Need to work out further details
+	UFUNCTION()
+	void ChargeBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	void SetChargeBoxCollision(bool bEnableCollision);
+
+	void HandlePlayerThrow();
+
+	void CheckForGround();
+
+	void WallSlideTrace();
+
+	void ResetHasBeenKnocked();
 	
 private:
 
@@ -264,19 +273,66 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	float coyoteTimeLimit;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Wall Sliding", meta = (AllowPrivateAccess = "true"))
 	float wallSlideRate;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Wall Sliding",meta = (AllowPrivateAccess = "true"))
 	float wallSlideCheckDistance;
+	
+	UPROPERTY(EditAnywhere, Category = "Wall Sliding")
+	float wallSlideCheckRate;
 
+	UPROPERTY(EditAnywhere, Category = "Wall Sliding")
+	float initialWallSlideCheckDelay;
+	
+	FTimerHandle wallSlideCheckHandle;
+
+	bool bWallSlideTraceStarted;
+	
 	bool bHasSnappedToWall = false;
 
 	bool bIsOnLadder = false;
+
+	bool bIsAimingThrow = false;
+
+	bool bHasFullyAimed = false;
+	
+	float timeSpentAiming;
+
+	UPROPERTY(EditAnywhere)
+	float aimingTimeThreshold;
+
+	UPROPERTY(VisibleAnywhere)
+	FVector aimingDirection;
+	
+	//Player Charge Box
+	UPROPERTY(EditAnywhere)
+	UBoxComponent* playerChargeOverlapBox;
+
+	UPROPERTY(EditAnywhere)
+	USceneComponent* projectileThrowPoint;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<ATP_BaseProjectile> projectileClass;
+
+	UPROPERTY(EditAnywhere, Category = "Ladder Climbing")
+	USceneComponent* groundCheckPoint;
+
+	UPROPERTY(EditAnywhere, Category = "Ladder Climbing")
+	float groundCheckLength;
 	
 	void InitAbilityActorInfo();
 
 	void SetHasBeenHitFalse();
+	
+	bool bIsOnGround;
+
+	bool bIsKnockedBack;
+
+	FTimerHandle knockbackResetHandle;
+
+	UPROPERTY(EditAnywhere, Category = "Charging")
+	float chargeKnockbackModifier;
 	
 public:	
 	// Called every frame
@@ -289,7 +345,7 @@ public:
 	//check if player is performing in air action
 	FORCEINLINE bool GetInAirAction() const{return bAirDashing || bStompStart;}
 
-	FORCEINLINE bool GetDisableMovement() const{return bAirDashing || bIsStomping;}
+	FORCEINLINE bool GetDisableMovement() const{return bAirDashing || bIsStomping || bIsKnockedBack;}
 
 	FORCEINLINE bool GetPlayerHasBeenHit() const {return bHasPlayerBeenHit;}
 };

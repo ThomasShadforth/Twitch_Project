@@ -1,4 +1,4 @@
-"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\TwitchPrototypeEditor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.cpp"
+"E:\Github\Unreal Projects\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\TwitchPrototypeEditor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.cpp"
 /I "."
 /I "..\Intermediate\Build\Win64\UnrealEditor\Inc\UnrealEd\UHT"
 /I "Programs\UnrealLightmass\Public"
@@ -266,10 +266,10 @@
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"
-/Yc"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\TwitchPrototypeEditor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.h"
-/Fp"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\TwitchPrototypeEditor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.h.pch"
-/Fo"D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\TwitchPrototypeEditor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.h.obj"
-/sourceDependencies "D:\Unreal Projects\Github\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\TwitchPrototypeEditor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.h.dep.json"
+/Yc"E:\Github\Unreal Projects\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\TwitchPrototypeEditor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.h"
+/Fp"E:\Github\Unreal Projects\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\TwitchPrototypeEditor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.h.pch"
+/Fo"E:\Github\Unreal Projects\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\TwitchPrototypeEditor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.h.obj"
+/sourceDependencies "E:\Github\Unreal Projects\Twitch_Project\TwitchPrototype\Intermediate\Build\Win64\x64\TwitchPrototypeEditor\Development\UnrealEd\SharedPCH.UnrealEd.Cpp20.h.dep.json"
 /Zc:inline
 /nologo
 /Oi

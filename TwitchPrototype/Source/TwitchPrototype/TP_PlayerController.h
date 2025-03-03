@@ -8,8 +8,10 @@
 #include "EnhancedActionKeyMapping.h"
 #include "TP_PlayerController.generated.h"
 
+class USaveGame;
 class UInputMappingContext;
 class UInputAction;
+class UUserWidget;
 
 /**
  * 
@@ -44,11 +46,24 @@ class TWITCHPROTOTYPE_API ATP_PlayerController : public APlayerController
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* stompAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* attackAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* stopAttackAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* pauseAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TEST INPUTS", meta = (AllowPrivateAccess = "true"))
+	UInputAction* testCollectibleAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "TEST INPUTS", meta = (AllowPrivateAccess = "true"))
+	UInputAction* testSaveAction;
 	
 protected:
 	virtual void BeginPlay() override;
-
-	
 
 	UFUNCTION()
 	void PlayerMove(const FInputActionValue& Value);
@@ -71,16 +86,47 @@ protected:
 	UFUNCTION()
 	void PlayerStomp();
 
+	UFUNCTION()
+	void PlayerAttack();
+
+	UFUNCTION()
+	void StopHoldingPlayerAttack();
+
+	UFUNCTION()
+	void PauseTheGame();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void TestCollectibleTmaps();
+	
 	bool GetDoesImplementInterface();
 
 	void HandleForwardInput(FVector ForwardDirection, float ForwardScale, APawn* ControlledPawn);
 	
 	virtual void SetupInputComponent() override;
+
+	UFUNCTION()
+	void TempSave();
+
+	void SaveTheGame(FString slotName);
+
+	void LoadTheGame(FString slotName);
 	
 public:
 	
 private:
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UUserWidget> pauseMenuClass;
+
+	UPROPERTY()
+	UUserWidget* pauseMenu;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<USaveGame> saveGameClass;
+
+	UPROPERTY()
+	USaveGame* saveGame;
+	
 public:
 
 	

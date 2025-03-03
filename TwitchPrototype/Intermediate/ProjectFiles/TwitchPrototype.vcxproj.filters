@@ -27,6 +27,9 @@
     <None Include="..\..\Config\DefaultGame.ini">
       <Filter>Config</Filter>
     </None>
+    <None Include="..\..\Config\DefaultGameplayTags.ini">
+      <Filter>Config</Filter>
+    </None>
     <None Include="..\..\Config\DefaultInput.ini">
       <Filter>Config</Filter>
     </None>
@@ -168,6 +171,21 @@
     <ClCompile Include="..\..\Source\TwitchPrototype\Private\AbilitySystem\TPBaseAbilitySystemComp.cpp">
       <Filter>Source\TwitchPrototype\Private\AbilitySystem</Filter>
     </ClCompile>
+    <Filter Include="Source\TwitchPrototype\Private\Collectible">
+      <UniqueIdentifier>{0989C8E8-5063-37A2-B57D-8F47AD495B1B}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Collectible\TP_CollectibleBase.cpp">
+      <Filter>Source\TwitchPrototype\Private\Collectible</Filter>
+    </ClCompile>
+    <Filter Include="Source\TwitchPrototype\Private\Interaction">
+      <UniqueIdentifier>{3DB59942-FB99-3CC2-AB9E-DFDA56D991E8}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Interaction\TPChargeInterface.cpp">
+      <Filter>Source\TwitchPrototype\Private\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Interaction\TPCollectibleInterface.cpp">
+      <Filter>Source\TwitchPrototype\Private\Interaction</Filter>
+    </ClCompile>
     <Filter Include="Source\TwitchPrototype\Private\Player">
       <UniqueIdentifier>{7C90F863-B2CE-3A79-B2EB-4F84C016A2D1}</UniqueIdentifier>
     </Filter>
@@ -207,6 +225,9 @@
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\AIPatrolPath.h">
       <Filter>Source\TwitchPrototype\Public</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\CollectibleTypes.h">
+      <Filter>Source\TwitchPrototype\Public</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\EnemyAIStates.h">
       <Filter>Source\TwitchPrototype\Public</Filter>
     </ClInclude>
@@ -242,6 +263,21 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\AbilitySystem\TPBaseAbilitySystemComp.h">
       <Filter>Source\TwitchPrototype\Public\AbilitySystem</Filter>
+    </ClInclude>
+    <Filter Include="Source\TwitchPrototype\Public\Collectible">
+      <UniqueIdentifier>{B9E5DE41-DCE7-37AC-86EA-08A461FD4042}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Collectible\TP_CollectibleBase.h">
+      <Filter>Source\TwitchPrototype\Public\Collectible</Filter>
+    </ClInclude>
+    <Filter Include="Source\TwitchPrototype\Public\Interaction">
+      <UniqueIdentifier>{08576603-782A-31C2-A807-0ADD434771D0}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Interaction\TPChargeInterface.h">
+      <Filter>Source\TwitchPrototype\Public\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Interaction\TPCollectibleInterface.h">
+      <Filter>Source\TwitchPrototype\Public\Interaction</Filter>
     </ClInclude>
     <Filter Include="Source\TwitchPrototype\Public\Player">
       <UniqueIdentifier>{19966AA3-BAED-3F6A-93D8-071FFBD62EAD}</UniqueIdentifier>

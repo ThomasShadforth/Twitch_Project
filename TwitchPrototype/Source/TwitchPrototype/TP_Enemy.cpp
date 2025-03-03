@@ -2,9 +2,8 @@
 
 
 #include "TP_Enemy.h"
-
-#include "EnemyAIStates.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 ATP_Enemy::ATP_Enemy()
@@ -15,6 +14,28 @@ ATP_Enemy::ATP_Enemy()
 	projectileFirePoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Fire Point"));
 	projectileFirePoint->SetupAttachment(RootComponent);
 	
+}
+
+void ATP_Enemy::Landed(const FHitResult& Hit)
+{
+	Super::Landed(Hit);
+
+	if(bIsDying)
+	{
+		//To do: Visual effect for enemy death plays here
+		DestroyEnemy();
+	}
+}
+
+void ATP_Enemy::DamageCharacter_Implementation(AActor* DamageCauser, float KnockbackModifier)
+{
+	ITPDamageInterface::DamageCharacter_Implementation(DamageCauser, KnockbackModifier);
+
+	ApplyKnockback(DamageCauser->GetActorLocation(), KnockbackModifier);
+
+	bIsDying = true;
+
+	GetEnemyController()->GetBlackboardComp()->SetValueAsBool(FName("bIsDying"), true);
 }
 
 // Called when the game starts or when spawned
@@ -29,6 +50,24 @@ void ATP_Enemy::BeginPlay()
 		GetEnemyController()->RunBehaviorTree(GetBehaviourTree());
 	}
 	
+}
+
+void ATP_Enemy::ApplyKnockback(FVector InitiatorLocation, float KnockbackModifier)
+{
+	FVector knockbackDirection = GetActorLocation() - InitiatorLocation;
+	knockbackDirection.Normalize();
+	knockbackDirection.Z = 1.f;
+
+	knockbackDirection *= KnockbackModifier;
+
+	//GetCharacterMovement()->Velocity = knockbackDirection;
+	GetCharacterMovement()->AddImpulse(knockbackDirection, true);
+	//GEngine->AddOnScreenDebugMessage(0, 4.f, FColor::Red, FString::Printf(TEXT("APPLIED KNOCKBACK!")));
+}
+
+void ATP_Enemy::DestroyEnemy()
+{
+	Destroy();
 }
 
 // Called every frame
@@ -82,7 +121,7 @@ float ATP_Enemy::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent,
 	AActor* DamageCauser)
 {
 
-	UE_LOG(LogTemp, Warning, TEXT("ENEMY TAKING DAMAGE!!"));
+	DestroyEnemy();
 	
 	return DamageAmount;
 }
@@ -92,6 +131,31 @@ void ATP_Enemy::DamageEnemy_Implementation()
 	ITPEnemyInterface::DamageEnemy_Implementation();
 
 	UE_LOG(LogTemp, Warning, TEXT("ENEMY IS BEING DAMAGED. KILL THEM"));
+}
+
+void ATP_Enemy::StompObject_Implementation(FHitResult hit)
+{
+	IStompInterface::StompObject_Implementation(hit);
+
+	UE_LOG(LogTemp, Warning, TEXT("Enemy is being stomped. Handle as needed"));
+
+	DestroyEnemy();
+}
+
+void ATP_Enemy::ObjectChargedInto_Implementation(FVector InitiatorLocation, float knockbackModifier)
+{
+	ITPChargeInterface::ObjectChargedInto_Implementation(InitiatorLocation, knockbackModifier);
+
+	UE_LOG(LogTemp, Warning, TEXT("Enemy has been charged into!"));
+
+	//To Do: Calculate Knockback direction and apply force
+	ApplyKnockback(InitiatorLocation, knockbackModifier);
+
+	bIsDying = true;
+
+	GetEnemyController()->GetBlackboardComp()->SetValueAsBool(FName("bIsDying"), true);
+	
+	//DestroyEnemy();
 }
 
 void ATP_Enemy::SetStateAsPassive()
@@ -128,5 +192,10 @@ void ATP_Enemy::SetStateAsRetreat()
 
 	GetEnemyController()->GetBlackboardComp()->SetValueAsEnum(FName("CurrentState"), (uint8)EEnemyAIStates::EEAIS_Retreat);
 	bIsRetreating = true;
+}
+
+EEnemyAIStates ATP_Enemy::GetCurrentState()
+{
+	return (EEnemyAIStates)GetEnemyController()->GetBlackboardComp()->GetValueAsEnum(FName("CurrentState"));
 }
 

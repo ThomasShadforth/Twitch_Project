@@ -3,6 +3,8 @@
 
 #include "TP_BaseProjectile.h"
 
+#include "AbilitySystemComponent.h"
+#include "AbilitySystemBlueprintLibrary.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
 // Sets default values
@@ -20,6 +22,23 @@ void ATP_BaseProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+void ATP_BaseProjectile::ApplyGameplayEffectToTarget(AActor* TargetActor,
+	TSubclassOf<UGameplayEffect> GameplayEffectClass)
+{
+	UAbilitySystemComponent* targetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+
+	if(targetASC == nullptr) return;
+
+	UE_LOG(LogTemp, Warning, TEXT("ASC FOUND ON TARGET!!"));
+	
+	check(GameplayEffectClass);
+	FGameplayEffectContextHandle effectContextHandle = targetASC->MakeEffectContext();
+	effectContextHandle.AddSourceObject(this);
+
+	FGameplayEffectSpecHandle effectSpecHandle = targetASC->MakeOutgoingSpec(GameplayEffectClass, 1, effectContextHandle);
+	const FActiveGameplayEffectHandle activeEffectHandle = targetASC->ApplyGameplayEffectSpecToSelf(*effectSpecHandle.Data.Get());
 }
 
 // Called every frame

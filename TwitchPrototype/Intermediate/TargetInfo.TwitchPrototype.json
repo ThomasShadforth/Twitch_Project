@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "TwitchPrototype",
+			"Path": "..\\Source\\TwitchPrototype.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "TwitchPrototypeEditor",
+			"Path": "..\\Source\\TwitchPrototypeEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

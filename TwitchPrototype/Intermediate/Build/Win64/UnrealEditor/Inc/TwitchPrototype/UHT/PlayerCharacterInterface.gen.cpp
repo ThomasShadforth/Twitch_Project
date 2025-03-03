@@ -10,17 +10,47 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 // Cross Module References
 	COREUOBJECT_API UClass* Z_Construct_UClass_UInterface();
+	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 	ENGINE_API UClass* Z_Construct_UClass_UCharacterMovementComponent_NoRegister();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATP_PlayerController_NoRegister();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_UPlayerCharacterInterface();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_UPlayerCharacterInterface_NoRegister();
 	UPackage* Z_Construct_UPackage__Script_TwitchPrototype();
 // End Cross Module References
+	DEFINE_FUNCTION(IPlayerCharacterInterface::execApplyKnockback)
+	{
+		P_GET_STRUCT(FVector,Z_Param_directionKnockbackForce);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->ApplyKnockback_Implementation(Z_Param_directionKnockbackForce);
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(IPlayerCharacterInterface::execGetIsOnGround)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		*(bool*)Z_Param__Result=P_THIS->GetIsOnGround_Implementation();
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(IPlayerCharacterInterface::execGetPlayerMovementComponent)
 	{
 		P_FINISH;
 		P_NATIVE_BEGIN;
 		*(UCharacterMovementComponent**)Z_Param__Result=P_THIS->GetPlayerMovementComponent_Implementation();
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(IPlayerCharacterInterface::execStopHoldingPlayerAttack)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->StopHoldingPlayerAttack_Implementation();
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(IPlayerCharacterInterface::execStartPlayerAttack)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->StartPlayerAttack_Implementation();
 		P_NATIVE_END;
 	}
 	DEFINE_FUNCTION(IPlayerCharacterInterface::execGetIsOnLadder)
@@ -102,12 +132,26 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 		P_THIS->PlayerJump_Implementation();
 		P_NATIVE_END;
 	}
+	struct PlayerCharacterInterface_eventApplyKnockback_Parms
+	{
+		FVector directionKnockbackForce;
+	};
 	struct PlayerCharacterInterface_eventGetHasPlayerBeenHit_Parms
 	{
 		bool ReturnValue;
 
 		/** Constructor, initializes return property only **/
 		PlayerCharacterInterface_eventGetHasPlayerBeenHit_Parms()
+			: ReturnValue(false)
+		{
+		}
+	};
+	struct PlayerCharacterInterface_eventGetIsOnGround_Parms
+	{
+		bool ReturnValue;
+
+		/** Constructor, initializes return property only **/
+		PlayerCharacterInterface_eventGetIsOnGround_Parms()
 			: ReturnValue(false)
 		{
 		}
@@ -160,10 +204,20 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 	{
 		bool bOnLadder;
 	};
+	void IPlayerCharacterInterface::ApplyKnockback(FVector directionKnockbackForce)
+	{
+		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_ApplyKnockback instead.");
+	}
 	bool IPlayerCharacterInterface::GetHasPlayerBeenHit()
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_GetHasPlayerBeenHit instead.");
 		PlayerCharacterInterface_eventGetHasPlayerBeenHit_Parms Parms;
+		return Parms.ReturnValue;
+	}
+	bool IPlayerCharacterInterface::GetIsOnGround()
+	{
+		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_GetIsOnGround instead.");
+		PlayerCharacterInterface_eventGetIsOnGround_Parms Parms;
 		return Parms.ReturnValue;
 	}
 	bool IPlayerCharacterInterface::GetIsOnLadder()
@@ -218,11 +272,21 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_SetIsOnLadder instead.");
 	}
+	void IPlayerCharacterInterface::StartPlayerAttack()
+	{
+		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_StartPlayerAttack instead.");
+	}
+	void IPlayerCharacterInterface::StopHoldingPlayerAttack()
+	{
+		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_StopHoldingPlayerAttack instead.");
+	}
 	void UPlayerCharacterInterface::StaticRegisterNativesUPlayerCharacterInterface()
 	{
 		UClass* Class = UPlayerCharacterInterface::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
+			{ "ApplyKnockback", &IPlayerCharacterInterface::execApplyKnockback },
 			{ "GetHasPlayerBeenHit", &IPlayerCharacterInterface::execGetHasPlayerBeenHit },
+			{ "GetIsOnGround", &IPlayerCharacterInterface::execGetIsOnGround },
 			{ "GetIsOnLadder", &IPlayerCharacterInterface::execGetIsOnLadder },
 			{ "GetPlayerCharacterController", &IPlayerCharacterInterface::execGetPlayerCharacterController },
 			{ "GetPlayerMoveDisabled", &IPlayerCharacterInterface::execGetPlayerMoveDisabled },
@@ -234,8 +298,40 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 			{ "PlayerStopSprint", &IPlayerCharacterInterface::execPlayerStopSprint },
 			{ "SetHasPlayerBeenHit", &IPlayerCharacterInterface::execSetHasPlayerBeenHit },
 			{ "SetIsOnLadder", &IPlayerCharacterInterface::execSetIsOnLadder },
+			{ "StartPlayerAttack", &IPlayerCharacterInterface::execStartPlayerAttack },
+			{ "StopHoldingPlayerAttack", &IPlayerCharacterInterface::execStopHoldingPlayerAttack },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
+	}
+	struct Z_Construct_UFunction_UPlayerCharacterInterface_ApplyKnockback_Statics
+	{
+		static const UECodeGen_Private::FStructPropertyParams NewProp_directionKnockbackForce;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UPlayerCharacterInterface_ApplyKnockback_Statics::NewProp_directionKnockbackForce = { "directionKnockbackForce", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(PlayerCharacterInterface_eventApplyKnockback_Parms, directionKnockbackForce), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UPlayerCharacterInterface_ApplyKnockback_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UPlayerCharacterInterface_ApplyKnockback_Statics::NewProp_directionKnockbackForce,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UPlayerCharacterInterface_ApplyKnockback_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/Player/PlayerCharacterInterface.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UPlayerCharacterInterface_ApplyKnockback_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UPlayerCharacterInterface, nullptr, "ApplyKnockback", nullptr, nullptr, Z_Construct_UFunction_UPlayerCharacterInterface_ApplyKnockback_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UPlayerCharacterInterface_ApplyKnockback_Statics::PropPointers), sizeof(PlayerCharacterInterface_eventApplyKnockback_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C820C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UPlayerCharacterInterface_ApplyKnockback_Statics::Function_MetaDataParams), Z_Construct_UFunction_UPlayerCharacterInterface_ApplyKnockback_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UPlayerCharacterInterface_ApplyKnockback_Statics::PropPointers) < 2048);
+	static_assert(sizeof(PlayerCharacterInterface_eventApplyKnockback_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_UPlayerCharacterInterface_ApplyKnockback()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UPlayerCharacterInterface_ApplyKnockback_Statics::FuncParams);
+		}
+		return ReturnFunction;
 	}
 	struct Z_Construct_UFunction_UPlayerCharacterInterface_GetHasPlayerBeenHit_Statics
 	{
@@ -269,6 +365,41 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 		if (!ReturnFunction)
 		{
 			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UPlayerCharacterInterface_GetHasPlayerBeenHit_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround_Statics
+	{
+		static void NewProp_ReturnValue_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+	void Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround_Statics::NewProp_ReturnValue_SetBit(void* Obj)
+	{
+		((PlayerCharacterInterface_eventGetIsOnGround_Parms*)Obj)->ReturnValue = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(PlayerCharacterInterface_eventGetIsOnGround_Parms), &Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround_Statics::NewProp_ReturnValue,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/Player/PlayerCharacterInterface.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UPlayerCharacterInterface, nullptr, "GetIsOnGround", nullptr, nullptr, Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround_Statics::PropPointers), sizeof(PlayerCharacterInterface_eventGetIsOnGround_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround_Statics::Function_MetaDataParams), Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround_Statics::PropPointers) < 2048);
+	static_assert(sizeof(PlayerCharacterInterface_eventGetIsOnGround_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -590,6 +721,50 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_UPlayerCharacterInterface_StartPlayerAttack_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UPlayerCharacterInterface_StartPlayerAttack_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/Player/PlayerCharacterInterface.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UPlayerCharacterInterface_StartPlayerAttack_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UPlayerCharacterInterface, nullptr, "StartPlayerAttack", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UPlayerCharacterInterface_StartPlayerAttack_Statics::Function_MetaDataParams), Z_Construct_UFunction_UPlayerCharacterInterface_StartPlayerAttack_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_UPlayerCharacterInterface_StartPlayerAttack()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UPlayerCharacterInterface_StartPlayerAttack_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_UPlayerCharacterInterface_StopHoldingPlayerAttack_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UPlayerCharacterInterface_StopHoldingPlayerAttack_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/Player/PlayerCharacterInterface.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UPlayerCharacterInterface_StopHoldingPlayerAttack_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UPlayerCharacterInterface, nullptr, "StopHoldingPlayerAttack", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UPlayerCharacterInterface_StopHoldingPlayerAttack_Statics::Function_MetaDataParams), Z_Construct_UFunction_UPlayerCharacterInterface_StopHoldingPlayerAttack_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_UPlayerCharacterInterface_StopHoldingPlayerAttack()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UPlayerCharacterInterface_StopHoldingPlayerAttack_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(UPlayerCharacterInterface);
 	UClass* Z_Construct_UClass_UPlayerCharacterInterface_NoRegister()
 	{
@@ -611,7 +786,9 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UPlayerCharacterInterface_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_UPlayerCharacterInterface_Statics::FuncInfo[] = {
+		{ &Z_Construct_UFunction_UPlayerCharacterInterface_ApplyKnockback, "ApplyKnockback" }, // 1655523331
 		{ &Z_Construct_UFunction_UPlayerCharacterInterface_GetHasPlayerBeenHit, "GetHasPlayerBeenHit" }, // 2872598587
+		{ &Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnGround, "GetIsOnGround" }, // 2527625690
 		{ &Z_Construct_UFunction_UPlayerCharacterInterface_GetIsOnLadder, "GetIsOnLadder" }, // 2572014229
 		{ &Z_Construct_UFunction_UPlayerCharacterInterface_GetPlayerCharacterController, "GetPlayerCharacterController" }, // 2787586995
 		{ &Z_Construct_UFunction_UPlayerCharacterInterface_GetPlayerMoveDisabled, "GetPlayerMoveDisabled" }, // 3987612312
@@ -623,6 +800,8 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 		{ &Z_Construct_UFunction_UPlayerCharacterInterface_PlayerStopSprint, "PlayerStopSprint" }, // 1604169277
 		{ &Z_Construct_UFunction_UPlayerCharacterInterface_SetHasPlayerBeenHit, "SetHasPlayerBeenHit" }, // 2556938231
 		{ &Z_Construct_UFunction_UPlayerCharacterInterface_SetIsOnLadder, "SetIsOnLadder" }, // 1346952138
+		{ &Z_Construct_UFunction_UPlayerCharacterInterface_StartPlayerAttack, "StartPlayerAttack" }, // 3105447893
+		{ &Z_Construct_UFunction_UPlayerCharacterInterface_StopHoldingPlayerAttack, "StopHoldingPlayerAttack" }, // 3945305664
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UPlayerCharacterInterface_Statics::FuncInfo) < 2048);
 #if WITH_METADATA
@@ -663,6 +842,23 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 	UPlayerCharacterInterface::UPlayerCharacterInterface(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UPlayerCharacterInterface);
 	UPlayerCharacterInterface::~UPlayerCharacterInterface() {}
+	static FName NAME_UPlayerCharacterInterface_ApplyKnockback = FName(TEXT("ApplyKnockback"));
+	void IPlayerCharacterInterface::Execute_ApplyKnockback(UObject* O, FVector directionKnockbackForce)
+	{
+		check(O != NULL);
+		check(O->GetClass()->ImplementsInterface(UPlayerCharacterInterface::StaticClass()));
+		PlayerCharacterInterface_eventApplyKnockback_Parms Parms;
+		UFunction* const Func = O->FindFunction(NAME_UPlayerCharacterInterface_ApplyKnockback);
+		if (Func)
+		{
+			Parms.directionKnockbackForce=directionKnockbackForce;
+			O->ProcessEvent(Func, &Parms);
+		}
+		else if (auto I = (IPlayerCharacterInterface*)(O->GetNativeInterfaceAddress(UPlayerCharacterInterface::StaticClass())))
+		{
+			I->ApplyKnockback_Implementation(directionKnockbackForce);
+		}
+	}
 	static FName NAME_UPlayerCharacterInterface_GetHasPlayerBeenHit = FName(TEXT("GetHasPlayerBeenHit"));
 	bool IPlayerCharacterInterface::Execute_GetHasPlayerBeenHit(UObject* O)
 	{
@@ -677,6 +873,23 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 		else if (auto I = (IPlayerCharacterInterface*)(O->GetNativeInterfaceAddress(UPlayerCharacterInterface::StaticClass())))
 		{
 			Parms.ReturnValue = I->GetHasPlayerBeenHit_Implementation();
+		}
+		return Parms.ReturnValue;
+	}
+	static FName NAME_UPlayerCharacterInterface_GetIsOnGround = FName(TEXT("GetIsOnGround"));
+	bool IPlayerCharacterInterface::Execute_GetIsOnGround(UObject* O)
+	{
+		check(O != NULL);
+		check(O->GetClass()->ImplementsInterface(UPlayerCharacterInterface::StaticClass()));
+		PlayerCharacterInterface_eventGetIsOnGround_Parms Parms;
+		UFunction* const Func = O->FindFunction(NAME_UPlayerCharacterInterface_GetIsOnGround);
+		if (Func)
+		{
+			O->ProcessEvent(Func, &Parms);
+		}
+		else if (auto I = (IPlayerCharacterInterface*)(O->GetNativeInterfaceAddress(UPlayerCharacterInterface::StaticClass())))
+		{
+			Parms.ReturnValue = I->GetIsOnGround_Implementation();
 		}
 		return Parms.ReturnValue;
 	}
@@ -857,15 +1070,45 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 			I->SetIsOnLadder_Implementation(bOnLadder);
 		}
 	}
-	struct Z_CompiledInDeferFile_FID_Unreal_Projects_Github_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_Statics
+	static FName NAME_UPlayerCharacterInterface_StartPlayerAttack = FName(TEXT("StartPlayerAttack"));
+	void IPlayerCharacterInterface::Execute_StartPlayerAttack(UObject* O)
+	{
+		check(O != NULL);
+		check(O->GetClass()->ImplementsInterface(UPlayerCharacterInterface::StaticClass()));
+		UFunction* const Func = O->FindFunction(NAME_UPlayerCharacterInterface_StartPlayerAttack);
+		if (Func)
+		{
+			O->ProcessEvent(Func, NULL);
+		}
+		else if (auto I = (IPlayerCharacterInterface*)(O->GetNativeInterfaceAddress(UPlayerCharacterInterface::StaticClass())))
+		{
+			I->StartPlayerAttack_Implementation();
+		}
+	}
+	static FName NAME_UPlayerCharacterInterface_StopHoldingPlayerAttack = FName(TEXT("StopHoldingPlayerAttack"));
+	void IPlayerCharacterInterface::Execute_StopHoldingPlayerAttack(UObject* O)
+	{
+		check(O != NULL);
+		check(O->GetClass()->ImplementsInterface(UPlayerCharacterInterface::StaticClass()));
+		UFunction* const Func = O->FindFunction(NAME_UPlayerCharacterInterface_StopHoldingPlayerAttack);
+		if (Func)
+		{
+			O->ProcessEvent(Func, NULL);
+		}
+		else if (auto I = (IPlayerCharacterInterface*)(O->GetNativeInterfaceAddress(UPlayerCharacterInterface::StaticClass())))
+		{
+			I->StopHoldingPlayerAttack_Implementation();
+		}
+	}
+	struct Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Unreal_Projects_Github_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UPlayerCharacterInterface, UPlayerCharacterInterface::StaticClass, TEXT("UPlayerCharacterInterface"), &Z_Registration_Info_UClass_UPlayerCharacterInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerCharacterInterface), 2458221685U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UPlayerCharacterInterface, UPlayerCharacterInterface::StaticClass, TEXT("UPlayerCharacterInterface"), &Z_Registration_Info_UClass_UPlayerCharacterInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerCharacterInterface), 1366293929U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Unreal_Projects_Github_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_1390191212(TEXT("/Script/TwitchPrototype"),
-		Z_CompiledInDeferFile_FID_Unreal_Projects_Github_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Unreal_Projects_Github_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_3353319990(TEXT("/Script/TwitchPrototype"),
+		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

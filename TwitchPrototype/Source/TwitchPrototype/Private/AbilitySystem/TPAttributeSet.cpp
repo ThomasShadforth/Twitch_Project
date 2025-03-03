@@ -8,8 +8,8 @@
 
 UTPAttributeSet::UTPAttributeSet()
 {
-	InitHealth(40.f);
-	InitMaxHealth(40.f);
+	InitHealth(5.f);
+	InitMaxHealth(5.f);
 }
 
 void UTPAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -24,6 +24,7 @@ void UTPAttributeSet::OnRep_Health(const FGameplayAttributeData& oldHealth) cons
 {
 	//Informs the ability system that a value (Health) has changed, oldHealth is stored in case it needs to be rolled back
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UTPAttributeSet, Health, oldHealth);
+	UE_LOG(LogTemp, Warning, TEXT("HEALTH CHANGED: %f"), Health.GetBaseValue());
 }
 
 void UTPAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& oldMaxHealth) const

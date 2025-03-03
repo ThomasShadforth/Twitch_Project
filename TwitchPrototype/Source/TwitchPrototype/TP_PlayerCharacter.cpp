@@ -18,7 +18,12 @@
 #include "StompInterface.h"
 #include "FrameTypes.h"
 #include "TPEnemyInterface.h"
+#include "TP_BaseProjectile.h"
 #include "TP_PlayerController.h"
+#include "AbilitySystem/TPBaseAbilitySystemComp.h"
+#include "Components/BoxComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "Interaction/TPChargeInterface.h"
 #include "Kismet/GameplayStatics.h"
 #include "Player/TPPlayerState.h"
 #include "UI/HUD/TPHUD.h"
@@ -33,7 +38,8 @@ sprintStartInterpSpeed(1.f),
 sprintStopInterpSpeed(2.f),
 wallCheckRadius(20.0f),
 wallCheckDistance(200.0f),
-wallSlideRate(1800.f)
+wallSlideRate(1800.f),
+bIsKnockedBack(false)
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -59,6 +65,15 @@ wallSlideRate(1800.f)
 	stompLandSquashTimeline = CreateDefaultSubobject<UTimelineComponent>(TEXT("Stomp Land Squash Timeline"));
 	stompLandSquashFunc.BindUFunction(this, FName("StompLandSquashUpdate"));
 	stompLandFinishedFunc.BindUFunction(this, FName("StompLandSquashFinished"));
+
+	playerChargeOverlapBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Charge Overlap"));
+	playerChargeOverlapBox->SetupAttachment(RootComponent);
+
+	projectileThrowPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Throw Point"));
+	projectileThrowPoint->SetupAttachment(RootComponent);
+
+	groundCheckPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Ground Check Point"));
+	groundCheckPoint->SetupAttachment(RootComponent);
 	
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.f, 0.0f);
@@ -71,6 +86,8 @@ wallSlideRate(1800.f)
 void ATP_PlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
+
+	InitAbilityActorInfo();
 }
 
 void ATP_PlayerCharacter::Landed(const FHitResult& Hit)
@@ -106,6 +123,8 @@ void ATP_PlayerCharacter::PlayerSprint_Implementation()
 	IPlayerCharacterInterface::PlayerSprint_Implementation();
 
 	bIsSprinting = true;
+
+	SetChargeBoxCollision(true);
 	
 }
 
@@ -114,6 +133,9 @@ void ATP_PlayerCharacter::PlayerStopSprint_Implementation()
 	IPlayerCharacterInterface::PlayerStopSprint_Implementation();
 
 	bIsSprinting = false;
+
+	SetChargeBoxCollision(false);
+	
 }
 
 void ATP_PlayerCharacter::PlayerJump_Implementation()
@@ -183,9 +205,55 @@ bool ATP_PlayerCharacter::GetIsOnLadder_Implementation()
 	return bIsOnLadder;
 }
 
+void ATP_PlayerCharacter::StartPlayerAttack_Implementation()
+{
+	bIsAimingThrow = true;
+
+	//UE_LOG(LogTemp, Warning, TEXT("STARTED TO AIM THROW"));
+}
+
+void ATP_PlayerCharacter::StopHoldingPlayerAttack_Implementation()
+{
+	bIsAimingThrow = false;
+
+	//UE_LOG(LogTemp, Warning, TEXT("STOPPED AIMING. PREPARING TO THROW!"));
+
+	HandlePlayerThrow();
+	//Do what is needed to throw projectile
+}
+
 UCharacterMovementComponent* ATP_PlayerCharacter::GetPlayerMovementComponent_Implementation()
 {
 	return GetCharacterMovement();
+}
+
+bool ATP_PlayerCharacter::GetIsOnGround_Implementation()
+{
+	return bIsOnGround;
+}
+
+void ATP_PlayerCharacter::ApplyKnockback_Implementation(FVector directionKnockbackForce)
+{
+	LaunchCharacter(directionKnockbackForce, false, false);
+	//GetCharacterMovement()->Velocity = directionKnockbackForce;
+	bIsKnockedBack = true;
+
+	//Set timer for resetting knockback state
+	GetWorldTimerManager().SetTimer(knockbackResetHandle, this, &ATP_PlayerCharacter::ResetHasBeenKnocked, .35f, false);
+}
+
+void ATP_PlayerCharacter::DamageCharacter_Implementation(AActor* DamageCauser, float KnockbackModifier)
+{
+	ITPDamageInterface::DamageCharacter_Implementation(DamageCauser, KnockbackModifier);
+
+	FVector knockbackDirection = GetActorLocation() - DamageCauser->GetActorLocation();
+	knockbackDirection.Normalize();
+
+	knockbackDirection.Z = 1;
+
+	knockbackDirection *= KnockbackModifier;
+
+	GetCharacterMovement()->AddImpulse(knockbackDirection, true);
 }
 
 // Called when the game starts or when spawned
@@ -193,18 +261,7 @@ void ATP_PlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	APlayerController* pController = Cast<APlayerController>(Controller);
-
-	if(pController)
-	{
-		UEnhancedInputLocalPlayerSubsystem* subSystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(pController->GetLocalPlayer());
-
-		if(subSystem)
-		{
-			subSystem->AddMappingContext(playerDefaultMappingContext, 0);
-		}
-	}
-
+	
 	if(GetCharacterMovement())
 	{
 		currentMovementSpeed = GetCharacterMovement()->MaxWalkSpeed;
@@ -213,6 +270,14 @@ void ATP_PlayerCharacter::BeginPlay()
 
 	currentCameraFOV = cameraDefaultFOV;
 
+	//Bind Callbacks to Delegates - Charge Box
+	playerChargeOverlapBox->OnComponentBeginOverlap.AddDynamic(this, &ATP_PlayerCharacter::ChargeBoxOverlap);
+
+	//Set Charge Box Collision Presets
+	playerChargeOverlapBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	playerChargeOverlapBox->SetCollisionResponseToAllChannels(ECR_Ignore);
+	playerChargeOverlapBox->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	
 	//Define timeline parameters
 	//Check if squash curve is valid
 	if(jumpSquashCurve)
@@ -238,6 +303,10 @@ void ATP_PlayerCharacter::BeginPlay()
 	}
 
 	baseScale = GetMesh()->GetRelativeScale3D();
+
+	FTimerHandle groundCheckHandle;
+
+	GetWorldTimerManager().SetTimer(groundCheckHandle, this, &ATP_PlayerCharacter::CheckForGround, .5f, true);
 }
 
 bool ATP_PlayerCharacter::CanJumpInternal_Implementation() const
@@ -382,13 +451,31 @@ void ATP_PlayerCharacter::SetInterpFOV(float DeltaTime)
 	mainCamera->SetFieldOfView(currentCameraFOV);
 }
 
+void ATP_PlayerCharacter::Aim(float DeltaTime)
+{
+	if(!bIsAimingThrow) return;
+
+	timeSpentAiming += DeltaTime;
+
+	if(timeSpentAiming >= aimingTimeThreshold)
+	{
+		if(!bHasFullyAimed)
+		{
+			bHasFullyAimed = true;
+		}
+		
+		aimingDirection = mainCamera->GetForwardVector();
+		
+	}
+}
+
 bool ATP_PlayerCharacter::CheckForWallJump(FHitResult& outWallHit)
 {
 	const FVector traceStart = GetMesh()->GetBoneLocation(sphereCastPoint) + FVector(0, 0, 80);
 	const FVector traceEnd = traceStart + (GetActorForwardVector() * wallCheckDistance);
 	TArray<AActor*> ignoredObjects;
 	
-	UKismetSystemLibrary::SphereTraceSingle(this, traceStart, traceEnd, wallCheckRadius, UEngineTypes::ConvertToTraceType(ECC_GameTraceChannel2), false, ignoredObjects, EDrawDebugTrace::ForDuration, outWallHit, true);
+	UKismetSystemLibrary::SphereTraceSingle(this, traceStart, traceEnd, wallCheckRadius, UEngineTypes::ConvertToTraceType(ECC_GameTraceChannel2), false, ignoredObjects, EDrawDebugTrace::None, outWallHit, true);
 	
 	if(outWallHit.bBlockingHit)
 	{
@@ -427,18 +514,13 @@ void ATP_PlayerCharacter::CheckForStompTarget()
 	FVector traceStart = GetMesh()->GetBoneLocation(sphereCastPoint);
 	
 	
-	UKismetSystemLibrary::SphereTraceSingle(this, traceStart, traceStart, 60.f, TraceTypeQuery1, false, ignoredObjects, EDrawDebugTrace::ForDuration, stompHit, true);
+	UKismetSystemLibrary::SphereTraceSingle(this, traceStart, traceStart, 60.f, TraceTypeQuery1, false, ignoredObjects, EDrawDebugTrace::None, stompHit, true);
 
 	if(stompHit.GetComponent())
 	{
 		if(UKismetSystemLibrary::DoesImplementInterface(stompHit.GetActor(), UStompInterface::StaticClass()))
 		{
 			IStompInterface::Execute_StompObject(stompHit.GetActor(), stompHit);
-		}
-
-		if(UKismetSystemLibrary::DoesImplementInterface(stompHit.GetActor(), UTPEnemyInterface::StaticClass()))
-		{
-			ITPEnemyInterface::Execute_DamageEnemy(stompHit.GetActor());
 		}
 	}
 	
@@ -495,8 +577,10 @@ bool ATP_PlayerCharacter::CheckCoyoteTime()
 	return GetWorldTimerManager().GetTimerRemaining(coyoteTimeHandle) > 0.0f;
 }
 
-void ATP_PlayerCharacter::CheckForWallSlide(float DeltaTime)
+void ATP_PlayerCharacter::WallSlide(float DeltaTime)
 {
+
+	//TO DO: Adjust wall slide code to reduce frequency of line traces (For performance reasons)
 	if(GetCharacterMovement()->IsFalling() && GetCharacterMovement()->Velocity.Z < 0){
 		FHitResult wallCheckHit;
 		FVector traceStart = GetActorLocation();
@@ -533,6 +617,75 @@ void ATP_PlayerCharacter::CheckForWallSlide(float DeltaTime)
 	bHasSnappedToWall = false;
 }
 
+void ATP_PlayerCharacter::ChargeBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	UE_LOG(LogTemp, Warning, TEXT("CHARGED INTO OBJECT"))
+	
+	if(UKismetSystemLibrary::DoesImplementInterface(OtherActor, UTPChargeInterface::StaticClass()))
+	{
+		ITPChargeInterface::Execute_ObjectChargedInto(OtherActor, GetActorLocation(), chargeKnockbackModifier);
+	}
+}
+
+void ATP_PlayerCharacter::SetChargeBoxCollision(bool bEnableCollision)
+{
+	playerChargeOverlapBox->SetCollisionEnabled(bEnableCollision ? ECollisionEnabled::QueryAndPhysics : ECollisionEnabled::NoCollision);
+}
+
+void ATP_PlayerCharacter::HandlePlayerThrow()
+{
+
+	if(projectileClass == nullptr) return;
+	
+	FVector throwDirection;
+	
+	if(bHasFullyAimed)
+	{
+		throwDirection = aimingDirection;
+	} else
+	{
+		throwDirection = GetActorForwardVector();
+	}
+
+	ATP_BaseProjectile* projectile = GetWorld()->SpawnActor<ATP_BaseProjectile>(projectileClass, projectileThrowPoint->GetComponentLocation(), throwDirection.Rotation());
+	projectile->SetOwningActor(this);
+	projectile->GetProjectileMovement()->Velocity = throwDirection * 500.f;
+	
+	bHasFullyAimed = false;
+	timeSpentAiming = 0.0f;
+}
+
+void ATP_PlayerCharacter::CheckForGround()
+{
+	FHitResult groundCheckResult;
+
+	FVector checkStart = groundCheckPoint->GetComponentLocation();
+	FVector checkEnd = checkStart + (GetActorUpVector() * -1) * groundCheckLength;
+
+	TArray<AActor*> ignoredActors;
+	
+	UKismetSystemLibrary::LineTraceSingle(this, checkStart, checkEnd, TraceTypeQuery1, false, ignoredActors, EDrawDebugTrace::None, groundCheckResult, true);
+
+	if(groundCheckResult.bBlockingHit)
+	{
+		bIsOnGround = true;
+	} else
+	{
+		bIsOnGround = false;
+	}
+}
+
+void ATP_PlayerCharacter::WallSlideTrace()
+{
+	
+}
+
+void ATP_PlayerCharacter::ResetHasBeenKnocked()
+{
+	bIsKnockedBack = false;
+}
+
 void ATP_PlayerCharacter::InitAbilityActorInfo()
 {
 	ATPPlayerState* tpPlayerState = GetPlayerState<ATPPlayerState>();
@@ -540,6 +693,7 @@ void ATP_PlayerCharacter::InitAbilityActorInfo()
 	check(tpPlayerState);
 
 	tpPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(tpPlayerState, this);
+	Cast<UTPBaseAbilitySystemComp>(tpPlayerState->GetAbilitySystemComponent())->AbilityActorInfoSet();
 	abilitySystemComp = tpPlayerState->GetAbilitySystemComponent();
 
 	attributeSet = tpPlayerState->GetAttributeSet();
@@ -551,6 +705,9 @@ void ATP_PlayerCharacter::InitAbilityActorInfo()
 			tpHUD->InitOverlay(tpPlayerController, tpPlayerState, abilitySystemComp, attributeSet);
 		}
 	}
+
+	//To Do (Optional): Set Default Attribute Values
+	
 }
 
 void ATP_PlayerCharacter::SetHasBeenHitFalse()
@@ -565,8 +722,9 @@ void ATP_PlayerCharacter::Tick(float DeltaTime)
 
 	SetInterpMovementSpeed(DeltaTime);
 	SetInterpFOV(DeltaTime);
-	CheckForWallSlide(DeltaTime);
+	WallSlide(DeltaTime);
 
+	Aim(DeltaTime);
 	
 	if(bIsStomping)
 	{

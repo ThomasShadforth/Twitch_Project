@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UnrealWidget.h"
 #include "GameFramework/HUD.h"
 #include "TPHUD.generated.h"
 
