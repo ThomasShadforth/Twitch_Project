@@ -17,6 +17,7 @@ class TWITCHPROTOTYPE_API UTPWidgetBase : public UUserWidget
 public:
 
 	//Generic UObject Reference for Widget Controller
+	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<UObject> widgetController;
 	
 protected:

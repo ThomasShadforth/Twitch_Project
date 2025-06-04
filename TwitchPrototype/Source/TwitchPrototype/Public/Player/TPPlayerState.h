@@ -18,6 +18,12 @@ class UGameSaveData;
 /**
  * 
  */
+
+
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnFruitCollected, int32);
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnCheeseCollected, int32);
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnLivesChanged, int32);
+
 UCLASS()
 class TWITCHPROTOTYPE_API ATPPlayerState : public APlayerState, public IAbilitySystemInterface, public ITPCollectibleInterface, public ITPLivesInterface
 {
@@ -40,6 +46,12 @@ public:
 	virtual void SetCurrentLives_Implementation(int32 lifeAmount) override;
 
 	virtual void PostInitializeComponents() override;
+
+	FOnCheeseCollected OnCheeseCollected;
+
+	FOnFruitCollected OnFruitCollected;
+
+	FOnLivesChanged OnLivesChanged;
 	
 protected:
 
@@ -54,13 +66,18 @@ protected:
 
 	UFUNCTION()
 	void OnSaveGameLoaded(bool bSuccess);
+
+	UFUNCTION()
+	void HandleHealthZero(UAttributeSet* inAttributeSet);
+
+	void LoadLifeCount(int32 LifeCount);
+
+	void LoadPlayerHealth(float PlayerMaxHealth);
 	
 private:
 
 	UPROPERTY(EditDefaultsOnly)
 	int32 livesCount;
-
-	//To do: Go into attribute set and add hit points
 	
 	UPROPERTY(VisibleAnywhere)
 	int32 cheeseCount;
@@ -85,6 +102,6 @@ public:
 	FORCEINLINE TMap<FString, ATP_CollectibleBase*> GetCheeseMap() const {return cheeseMap;}
 	FORCEINLINE TMap<FString, ATP_CollectibleBase*> GetFruitMap() const {return fruitMap;}
 
-	
+	FORCEINLINE int32 GetLifeCount() const {return livesCount;}
 	
 };

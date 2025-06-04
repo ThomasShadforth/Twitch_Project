@@ -9,7 +9,8 @@
 #include "Data/GameSaveData.h"
 #include "Subsystems/TP_SaveSubsystem.h"
 
-ATPPlayerState::ATPPlayerState()
+ATPPlayerState::ATPPlayerState() :
+livesCount(3)
 {
 	NetUpdateFrequency = 100.f;
 	
@@ -36,6 +37,11 @@ void ATPPlayerState::PostInitializeComponents()
 void ATPPlayerState::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if(UTPAttributeSet* tpAS = Cast<UTPAttributeSet>(attributeSet))
+	{
+		tpAS->healthZeroSignature.AddDynamic(this, &ATPPlayerState::HandleHealthZero);
+	}
 }
 
 void ATPPlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -52,8 +58,11 @@ void ATPPlayerState::OnSaveStarted(UGameSaveData* SaveGame)
 {
 	UE_LOG(LogTemp, Warning, TEXT("SAVING GAME STARTED!!"));
 
+	
 	SaveGame->cheeseMap = cheeseMap;
 	SaveGame->fruitMap = fruitMap;
+	SaveGame->livesCount = livesCount;
+	SaveGame->PlayerMaxHealth = Cast<UTPAttributeSet>(attributeSet)->GetMaxHealth();
 }
 
 void ATPPlayerState::OnSaveGameLoaded(bool bSuccess)
@@ -67,7 +76,39 @@ void ATPPlayerState::OnSaveGameLoaded(bool bSuccess)
 		
 		LoadCollectibleMap(SaveSubsystem->recentlyAccessedSave->fruitMap, false);
 		LoadCollectibleMap(SaveSubsystem->recentlyAccessedSave->cheeseMap, true);
+		LoadLifeCount(SaveSubsystem->recentlyAccessedSave->livesCount);
 	}
+}
+
+void ATPPlayerState::HandleHealthZero(UAttributeSet* inAttributeSet)
+{
+	UE_LOG(LogTemp, Warning, TEXT("HEALTH IS NOW ZERO!!"));
+
+	UTPAttributeSet* tpAS = Cast<UTPAttributeSet>(inAttributeSet);
+
+	if(tpAS == nullptr) return;
+
+	if(inAttributeSet == attributeSet && tpAS->GetHealth() <= 0.0f)
+	{
+		//Handle Lives and such
+		livesCount--;
+		OnLivesChanged.Broadcast(livesCount);
+	}
+	
+}
+
+void ATPPlayerState::LoadLifeCount(int32 LifeCount)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Life Count Loaded!"));
+	livesCount = LifeCount;
+	OnLivesChanged.Broadcast(LifeCount);
+}
+
+void ATPPlayerState::LoadPlayerHealth(float PlayerMaxHealth)
+{
+	Cast<UTPAttributeSet>(attributeSet)->SetMaxHealth(PlayerMaxHealth);
+	Cast<UTPAttributeSet>(attributeSet)->SetHealth(PlayerMaxHealth);
+	
 }
 
 void ATPPlayerState::CollectedCollectible_Implementation(ATP_CollectibleBase* Collectible)
@@ -92,7 +133,8 @@ void ATPPlayerState::TestCollectedCollectible_Implementation()
 
 void ATPPlayerState::SetCurrentLives_Implementation(int32 lifeAmount)
 {	
-	livesCount += lifeAmount;	
+	livesCount += lifeAmount;
+	OnLivesChanged.Broadcast(livesCount);
 }
 
 void ATPPlayerState::AddCollectibleToMap(ATP_CollectibleBase* Collectible)
@@ -116,6 +158,7 @@ void ATPPlayerState::AddCollectibleToMap(ATP_CollectibleBase* Collectible)
 		{
 			cheeseMap.Add(collectibleObjectID, Collectible);
 			cheeseCount++;
+			OnCheeseCollected.Broadcast(cheeseCount);
 		}
 	} else if(Collectible->GetCollectibleType() == ECollectibleTypes::ECT_Secondary)
 	{
@@ -126,6 +169,7 @@ void ATPPlayerState::AddCollectibleToMap(ATP_CollectibleBase* Collectible)
 		{
 			fruitMap.Add(collectibleObjectID, Collectible);
 			fruitCount++;
+			OnFruitCollected.Broadcast(fruitCount);
 		}
 	}
 	
@@ -144,11 +188,16 @@ void ATPPlayerState::LoadCollectibleMap(TMap<FString, ATP_CollectibleBase*> coll
 		if(isCheese)
 		{
 			cheeseMap.Add(elem);
+			elem.Value->HideCollectible();
 			cheeseCount++;
 		} else
 		{
 			fruitMap.Add(elem);
+			elem.Value->HideCollectible();
 			fruitCount++;
 		}
 	}
+
+	OnCheeseCollected.Broadcast(cheeseCount);
+	OnFruitCollected.Broadcast(fruitCount);
 }

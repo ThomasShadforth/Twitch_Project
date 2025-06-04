@@ -42,6 +42,11 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString slotName;
-	
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	int32 livesCount;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float PlayerMaxHealth;
 	
 };

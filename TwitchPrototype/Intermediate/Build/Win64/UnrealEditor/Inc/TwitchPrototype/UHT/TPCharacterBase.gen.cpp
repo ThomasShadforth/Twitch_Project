@@ -9,10 +9,12 @@
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeTPCharacterBase() {}
 // Cross Module References
+	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 	ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 	GAMEPLAYABILITIES_API UClass* Z_Construct_UClass_UAbilitySystemComponent_NoRegister();
 	GAMEPLAYABILITIES_API UClass* Z_Construct_UClass_UAbilitySystemInterface_NoRegister();
 	GAMEPLAYABILITIES_API UClass* Z_Construct_UClass_UAttributeSet_NoRegister();
+	GAMEPLAYABILITIES_API UClass* Z_Construct_UClass_UGameplayEffect_NoRegister();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATPCharacterBase();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATPCharacterBase_NoRegister();
 	UPackage* Z_Construct_UPackage__Script_TwitchPrototype();
@@ -39,6 +41,10 @@ void EmptyLinkFunctionForGeneratedCodeTPCharacterBase() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_attributeSet_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_attributeSet;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_defaultAttributes_MetaData[];
+#endif
+		static const UECodeGen_Private::FClassPropertyParams NewProp_defaultAttributes;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
@@ -70,9 +76,17 @@ void EmptyLinkFunctionForGeneratedCodeTPCharacterBase() {}
 	};
 #endif
 	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_ATPCharacterBase_Statics::NewProp_attributeSet = { "attributeSet", nullptr, (EPropertyFlags)0x0024080000080008, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATPCharacterBase, attributeSet), Z_Construct_UClass_UAttributeSet_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATPCharacterBase_Statics::NewProp_attributeSet_MetaData), Z_Construct_UClass_ATPCharacterBase_Statics::NewProp_attributeSet_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATPCharacterBase_Statics::NewProp_defaultAttributes_MetaData[] = {
+		{ "Category", "Attributes" },
+		{ "ModuleRelativePath", "Public/TPCharacterBase.h" },
+	};
+#endif
+	const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ATPCharacterBase_Statics::NewProp_defaultAttributes = { "defaultAttributes", nullptr, (EPropertyFlags)0x0024080000000015, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATPCharacterBase, defaultAttributes), Z_Construct_UClass_UClass, Z_Construct_UClass_UGameplayEffect_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATPCharacterBase_Statics::NewProp_defaultAttributes_MetaData), Z_Construct_UClass_ATPCharacterBase_Statics::NewProp_defaultAttributes_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATPCharacterBase_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATPCharacterBase_Statics::NewProp_abilitySystemComp,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATPCharacterBase_Statics::NewProp_attributeSet,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATPCharacterBase_Statics::NewProp_defaultAttributes,
 	};
 		const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_ATPCharacterBase_Statics::InterfaceParams[] = {
 			{ Z_Construct_UClass_UAbilitySystemInterface_NoRegister, (int32)VTABLE_OFFSET(ATPCharacterBase, IAbilitySystemInterface), false },  // 3195502011
@@ -116,9 +130,9 @@ void EmptyLinkFunctionForGeneratedCodeTPCharacterBase() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_TPCharacterBase_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ATPCharacterBase, ATPCharacterBase::StaticClass, TEXT("ATPCharacterBase"), &Z_Registration_Info_UClass_ATPCharacterBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATPCharacterBase), 1998056748U) },
+		{ Z_Construct_UClass_ATPCharacterBase, ATPCharacterBase::StaticClass, TEXT("ATPCharacterBase"), &Z_Registration_Info_UClass_ATPCharacterBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATPCharacterBase), 3704876653U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_TPCharacterBase_h_3415984404(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_TPCharacterBase_h_2291993982(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_TPCharacterBase_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_TPCharacterBase_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

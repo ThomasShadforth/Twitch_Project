@@ -11,6 +11,8 @@
  * 
  */
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHealthZeroSignature, UAttributeSet*, InAttributeSet);
+
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
 GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
@@ -36,11 +38,17 @@ public:
 	
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+	
 	UFUNCTION()
 	void OnRep_Health(const FGameplayAttributeData& oldHealth) const;
 
 	UFUNCTION()
 	void OnRep_MaxHealth(const FGameplayAttributeData& oldMaxHealth) const;
+	
+	FHealthZeroSignature healthZeroSignature;
 	
 protected:
 

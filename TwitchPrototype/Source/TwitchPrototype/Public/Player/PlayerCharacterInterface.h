@@ -71,5 +71,8 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void ApplyKnockback(FVector directionKnockbackForce);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void CollectExtraLife();
 	
 };

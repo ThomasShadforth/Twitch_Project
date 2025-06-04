@@ -4,7 +4,9 @@
 #include "AbilitySystem/TPAttributeSet.h"
 
 #include "Net/UnrealNetwork.h"
-
+#include "AbilitySystemBlueprintLibrary.h"
+#include "GameFramework/Character.h"
+#include "GameplayEffectExtension.h"
 
 UTPAttributeSet::UTPAttributeSet()
 {
@@ -18,6 +20,32 @@ void UTPAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 
 	DOREPLIFETIME_CONDITION_NOTIFY(UTPAttributeSet, Health, COND_None, REPNOTIFY_Always);
 	DOREPLIFETIME_CONDITION_NOTIFY(UTPAttributeSet, MaxHealth, COND_None, REPNOTIFY_Always);
+}
+
+void UTPAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
+{
+	Super::PreAttributeChange(Attribute, NewValue);
+
+	if(Attribute == GetHealthAttribute())
+	{
+		NewValue = FMath::Clamp(NewValue, 0.f, GetMaxHealth());
+	}
+}
+
+void UTPAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
+{
+	Super::PostGameplayEffectExecute(Data);
+
+	if(Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
+	}
+
+	if(GetHealth() == 0.f)
+	{
+		//To Do: Create Delegate for 0 Health
+		healthZeroSignature.Broadcast(this);
+	}
 }
 
 void UTPAttributeSet::OnRep_Health(const FGameplayAttributeData& oldHealth) const

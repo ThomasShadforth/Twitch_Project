@@ -2,6 +2,9 @@
 
 
 #include "TP_Enemy.h"
+
+#include "AbilitySystem/TPAttributeSet.h"
+#include "AbilitySystem/TPBaseAbilitySystemComp.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -13,6 +16,13 @@ ATP_Enemy::ATP_Enemy()
 	
 	projectileFirePoint = CreateDefaultSubobject<USceneComponent>(TEXT("Projectile Fire Point"));
 	projectileFirePoint->SetupAttachment(RootComponent);
+
+	abilitySystemComp = CreateDefaultSubobject<UTPBaseAbilitySystemComp>(TEXT("Ability System Comp"));
+	abilitySystemComp->SetIsReplicated(true);
+	abilitySystemComp->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+
+	attributeSet = CreateDefaultSubobject<UTPAttributeSet>(TEXT("Attribute Set"));
+	
 	
 }
 
@@ -32,10 +42,6 @@ void ATP_Enemy::DamageCharacter_Implementation(AActor* DamageCauser, float Knock
 	ITPDamageInterface::DamageCharacter_Implementation(DamageCauser, KnockbackModifier);
 
 	ApplyKnockback(DamageCauser->GetActorLocation(), KnockbackModifier);
-
-	bIsDying = true;
-
-	GetEnemyController()->GetBlackboardComp()->SetValueAsBool(FName("bIsDying"), true);
 }
 
 // Called when the game starts or when spawned
@@ -49,7 +55,13 @@ void ATP_Enemy::BeginPlay()
 	{
 		GetEnemyController()->RunBehaviorTree(GetBehaviourTree());
 	}
-	
+
+	InitAbilityActorInfo();
+
+	if(UTPAttributeSet* tpAS = Cast<UTPAttributeSet>(attributeSet))
+	{
+		tpAS->healthZeroSignature.AddDynamic(this, &ATP_Enemy::HandleHealthZero);
+	}
 }
 
 void ATP_Enemy::ApplyKnockback(FVector InitiatorLocation, float KnockbackModifier)
@@ -68,6 +80,27 @@ void ATP_Enemy::ApplyKnockback(FVector InitiatorLocation, float KnockbackModifie
 void ATP_Enemy::DestroyEnemy()
 {
 	Destroy();
+}
+
+void ATP_Enemy::InitAbilityActorInfo()
+{
+	Super::InitAbilityActorInfo();
+
+	abilitySystemComp->InitAbilityActorInfo(this, this);
+	Cast<UTPBaseAbilitySystemComp>(abilitySystemComp)->AbilityActorInfoSet();
+	InitializeDefaultAttributes();
+}
+
+void ATP_Enemy::HandleHealthZero(UAttributeSet* InAttributeSet)
+{
+	UTPAttributeSet* tpAS = Cast<UTPAttributeSet>(InAttributeSet);
+	
+	if(InAttributeSet == attributeSet && tpAS->GetHealth() <= 0)
+	{
+		bIsDying = true;
+
+		GetEnemyController()->GetBlackboardComp()->SetValueAsBool(FName("bIsDying"), true);
+	}
 }
 
 // Called every frame

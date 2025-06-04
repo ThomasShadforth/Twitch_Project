@@ -20,8 +20,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void HideCollectible();
+	
 	
 private:
 
@@ -31,6 +30,9 @@ private:
 	UPROPERTY(EditAnywhere)
 	ECollectibleTypes collectibleType;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta =(AllowPrivateAccess = "true"))
+	class USoundCue* collectSoundEffect;
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Collectible Properties", meta = (AllowPrivateAccess = "true"))
 	UStaticMeshComponent* collectibleMesh;
 	
@@ -43,6 +45,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void RevealCollectible();
 
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void HideCollectible();
+	
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE ECollectibleTypes GetCollectibleType() const {return collectibleType;}
 

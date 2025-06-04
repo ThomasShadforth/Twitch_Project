@@ -9,6 +9,7 @@
 #include "GameFramework/Character.h"
 #include "Interaction/TPChargeInterface.h"
 #include "EnemyAIStates.h"
+#include "TPCharacterBase.h"
 #include "Interaction/TPDamageInterface.h"
 #include "TP_Enemy.generated.h"
 
@@ -17,7 +18,7 @@ class ATP_EnemyController;
 class ATP_BaseProjectile;
 
 UCLASS()
-class TWITCHPROTOTYPE_API ATP_Enemy : public ACharacter, public ITPEnemyInterface, public IStompInterface, public ITPChargeInterface, public ITPDamageInterface
+class TWITCHPROTOTYPE_API ATP_Enemy : public ATPCharacterBase, public ITPEnemyInterface, public IStompInterface, public ITPChargeInterface, public ITPDamageInterface
 {
 	GENERATED_BODY()
 
@@ -40,6 +41,11 @@ protected:
 	void ApplyKnockback(FVector InitiatorLocation, float KnockbackModifier);
 	
 	void DestroyEnemy();
+
+	virtual void InitAbilityActorInfo() override;
+
+	UFUNCTION()
+	void HandleHealthZero(UAttributeSet* InAttributeSet);
 	
 private:
 	UPROPERTY(EditAnywhere, Category = "Behaviour Tree", meta = (AllowPrivateAccess = true))

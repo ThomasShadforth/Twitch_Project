@@ -3,6 +3,8 @@
 
 #include "TPCharacterBase.h"
 
+#include "AbilitySystemComponent.h"
+
 // Sets default values
 ATPCharacterBase::ATPCharacterBase()
 {
@@ -21,6 +23,29 @@ void ATPCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+void ATPCharacterBase::InitAbilityActorInfo()
+{
+	
+}
+
+void ATPCharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const
+{
+	check(IsValid(GetAbilitySystemComponent()));
+
+	check(GameplayEffectClass);
+
+	FGameplayEffectContextHandle contextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+	contextHandle.AddSourceObject(this);
+	const FGameplayEffectSpecHandle specHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(GameplayEffectClass, Level, contextHandle);
+
+	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToTarget(*specHandle.Data.Get(), GetAbilitySystemComponent());
+}
+
+void ATPCharacterBase::InitializeDefaultAttributes() const
+{
+	ApplyEffectToSelf(defaultAttributes, 1.f);
 }
 
 

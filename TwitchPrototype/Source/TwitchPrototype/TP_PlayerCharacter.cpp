@@ -26,6 +26,7 @@
 #include "Interaction/TPChargeInterface.h"
 #include "Kismet/GameplayStatics.h"
 #include "Player/TPPlayerState.h"
+#include "Sound/SoundCue.h"
 #include "UI/HUD/TPHUD.h"
 
 
@@ -39,7 +40,9 @@ sprintStopInterpSpeed(2.f),
 wallCheckRadius(20.0f),
 wallCheckDistance(200.0f),
 wallSlideRate(1800.f),
-bIsKnockedBack(false)
+bIsKnockedBack(false),
+bShouldPlayWallSlideSound(true),
+bShouldPlayDamageSound(true)
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -97,9 +100,11 @@ void ATP_PlayerCharacter::Landed(const FHitResult& Hit)
 	if(landSquashCurve && !bIsStomping)
 	{
 		landSquashTimeline->PlayFromStart();
+		PlaySoundCue(playerNormalLandingSound);
 	} else if(landSquashCurve && bIsStomping)
 	{
 		stompLandSquashTimeline->PlayFromStart();
+		PlaySoundCue(playerStompLandingSound);
 	}
 
 	airDashCount = 0;
@@ -246,6 +251,13 @@ void ATP_PlayerCharacter::DamageCharacter_Implementation(AActor* DamageCauser, f
 {
 	ITPDamageInterface::DamageCharacter_Implementation(DamageCauser, KnockbackModifier);
 
+	if(bShouldPlayDamageSound)
+	{
+		bShouldPlayDamageSound = false;
+		PlaySoundCue(playerDamageSound);
+		GetWorldTimerManager().SetTimer(playerDamageSoundTimer, this, &ATP_PlayerCharacter::ResetDamageSoundTimer, playerDamageSoundResetTime);
+	}	
+
 	FVector knockbackDirection = GetActorLocation() - DamageCauser->GetActorLocation();
 	knockbackDirection.Normalize();
 
@@ -254,6 +266,16 @@ void ATP_PlayerCharacter::DamageCharacter_Implementation(AActor* DamageCauser, f
 	knockbackDirection *= KnockbackModifier;
 
 	GetCharacterMovement()->AddImpulse(knockbackDirection, true);
+}
+
+void ATP_PlayerCharacter::CollectExtraLife_Implementation()
+{
+	IPlayerCharacterInterface::CollectExtraLife_Implementation();
+
+	if(ATPPlayerState* tpPlayerState = GetPlayerState<ATPPlayerState>())
+	{
+		tpPlayerState->SetCurrentLives_Implementation(1);
+	}
 }
 
 // Called when the game starts or when spawned
@@ -363,6 +385,7 @@ void ATP_PlayerCharacter::PlayerJump()
 	if(!GetCharacterMovement()->IsFalling() && jumpSquashCurve)
 	{
 		jumpSquashTimeline->PlayFromStart();
+		PlaySoundCue(playerJumpSound);
 	}
 	
 	ACharacter::Jump();
@@ -374,6 +397,7 @@ void ATP_PlayerCharacter::PlayerJump()
 	if(GetCharacterMovement()->IsFalling() && bHasFoundWall)
 	{
 		WallJump(wallHit);
+		PlaySoundCue(playerWallJumpSound);
 	} else if(!bHasAirDashed && GetCharacterMovement()->IsFalling() && !bHasFoundWall && !CheckCoyoteTime())
 	{
 		if(bAirDashing) return;
@@ -385,6 +409,7 @@ void ATP_PlayerCharacter::PlayerJump()
 		{
 			airDashCount++;
 			AirDash();
+			PlaySoundCue(playerAirDashSound);
 		}
 	}
 }
@@ -489,7 +514,7 @@ bool ATP_PlayerCharacter::CheckForWallJump(FHitResult& outWallHit)
 
 void ATP_PlayerCharacter::StartStomp()
 {
-	if(GetDisableMovement()) return;
+	if(GetDisableMovement() || !GetCharacterMovement()->IsFalling()) return;
 
 	
 	bStompStart = true;
@@ -587,7 +612,7 @@ void ATP_PlayerCharacter::WallSlide(float DeltaTime)
 		FVector traceEnd = traceStart + (GetActorForwardVector() * wallSlideCheckDistance);
 		TArray<AActor*> ignoredObjects;
 		
-		UKismetSystemLibrary::LineTraceSingle(this, traceStart, traceEnd, UEngineTypes::ConvertToTraceType(ECC_GameTraceChannel2), false, ignoredObjects, EDrawDebugTrace::ForDuration, wallCheckHit, true);
+		UKismetSystemLibrary::LineTraceSingle(this, traceStart, traceEnd, UEngineTypes::ConvertToTraceType(ECC_GameTraceChannel2), false, ignoredObjects, EDrawDebugTrace::None, wallCheckHit, true);
 
 		if(wallCheckHit.bBlockingHit)
 		{
@@ -604,6 +629,13 @@ void ATP_PlayerCharacter::WallSlide(float DeltaTime)
 			//UE_LOG(LogTemp, Warning, TEXT("WALL SLIDE TARGET FOUND"));
 			bWallSliding = true;
 
+			if(bShouldPlayWallSlideSound)
+			{
+				bShouldPlayWallSlideSound = false;
+				GetWorldTimerManager().SetTimer(playerWallSlideSoundTimer, this, &ATP_PlayerCharacter::ResetWallSlideSoundTimer, wallSlideSoundResetTime);
+				PlaySoundCue(playerWallSlideSound);
+			}
+			
 			GetCharacterMovement()->Velocity = UKismetMathLibrary::VInterpTo_Constant(GetCharacterMovement()->Velocity, FVector(0,0,0), DeltaTime, wallSlideRate);
 			
 		} else
@@ -688,6 +720,8 @@ void ATP_PlayerCharacter::ResetHasBeenKnocked()
 
 void ATP_PlayerCharacter::InitAbilityActorInfo()
 {
+	Super::InitAbilityActorInfo();
+	
 	ATPPlayerState* tpPlayerState = GetPlayerState<ATPPlayerState>();
 
 	check(tpPlayerState);
@@ -703,11 +737,36 @@ void ATP_PlayerCharacter::InitAbilityActorInfo()
 		if(ATPHUD* tpHUD = Cast<ATPHUD>(tpPlayerController->GetHUD()))
 		{
 			tpHUD->InitOverlay(tpPlayerController, tpPlayerState, abilitySystemComp, attributeSet);
+		} else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("DERIVED ATPHUD CLASS DOES NOT EXIST. PLEASE CREATE AND POPULATE HUD SETTINGS IN GM"));
 		}
 	}
 
 	//To Do (Optional): Set Default Attribute Values
+	InitializeDefaultAttributes();
 	
+}
+
+void ATP_PlayerCharacter::PlaySoundCue(USoundCue* InSoundCue)
+{
+	if(InSoundCue)
+	{
+		UGameplayStatics::PlaySound2D(this, InSoundCue);
+	} else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("SOUND CUE HAS NOT BEEN POPULATED"));
+	}
+}
+
+void ATP_PlayerCharacter::ResetWallSlideSoundTimer()
+{
+	bShouldPlayWallSlideSound = true;
+}
+
+void ATP_PlayerCharacter::ResetDamageSoundTimer()
+{
+	bShouldPlayDamageSound = true;
 }
 
 void ATP_PlayerCharacter::SetHasBeenHitFalse()

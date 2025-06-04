@@ -14,5 +14,7 @@ void UTPBaseAbilitySystemComp::EffectApplied(UAbilitySystemComponent* ASC, const
 	FGameplayTagContainer tagContainer;
 	EffectSpec.GetAllAssetTags(tagContainer);
 
+	UE_LOG(LogTemp, Warning, TEXT("EFFECT HAS BEEN APPLIED TO ENTITY"));
+	
 	effectAssetTags.Broadcast(tagContainer);
 }

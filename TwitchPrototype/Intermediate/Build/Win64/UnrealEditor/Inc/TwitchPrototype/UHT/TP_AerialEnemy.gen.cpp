@@ -101,9 +101,9 @@ void EmptyLinkFunctionForGeneratedCodeTP_AerialEnemy() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_TP_AerialEnemy_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ATP_AerialEnemy, ATP_AerialEnemy::StaticClass, TEXT("ATP_AerialEnemy"), &Z_Registration_Info_UClass_ATP_AerialEnemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_AerialEnemy), 452879687U) },
+		{ Z_Construct_UClass_ATP_AerialEnemy, ATP_AerialEnemy::StaticClass, TEXT("ATP_AerialEnemy"), &Z_Registration_Info_UClass_ATP_AerialEnemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_AerialEnemy), 154551222U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_TP_AerialEnemy_h_3516583236(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_TP_AerialEnemy_h_4200133766(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_TP_AerialEnemy_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_TP_AerialEnemy_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

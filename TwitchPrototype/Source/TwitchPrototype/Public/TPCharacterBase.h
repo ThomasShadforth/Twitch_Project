@@ -7,6 +7,7 @@
 #include "AbilitySystemInterface.h"
 #include "TPCharacterBase.generated.h"
 
+class UGameplayEffect;
 class UAbilitySystemComponent;
 class UAttributeSet;
 
@@ -30,6 +31,15 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> attributeSet;
+	
+	virtual void InitAbilityActorInfo();
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+	TSubclassOf<UGameplayEffect> defaultAttributes;
+
+	void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const;
+
+	void InitializeDefaultAttributes() const;
 	
 public:
 

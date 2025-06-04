@@ -12,12 +12,13 @@ void EmptyLinkFunctionForGeneratedCodeTP_Enemy() {}
 	AIMODULE_API UClass* Z_Construct_UClass_UBehaviorTree_NoRegister();
 	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
-	ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 	ENGINE_API UClass* Z_Construct_UClass_USceneComponent_NoRegister();
+	GAMEPLAYABILITIES_API UClass* Z_Construct_UClass_UAttributeSet_NoRegister();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_AAIPatrolPath_NoRegister();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATP_BaseProjectile_NoRegister();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATP_Enemy();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATP_Enemy_NoRegister();
+	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATPCharacterBase();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_UStompInterface_NoRegister();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_UTPChargeInterface_NoRegister();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_UTPDamageInterface_NoRegister();
@@ -76,6 +77,14 @@ void EmptyLinkFunctionForGeneratedCodeTP_Enemy() {}
 		*(AAIPatrolPath**)Z_Param__Result=P_THIS->GetEnemyPatrolPath();
 		P_NATIVE_END;
 	}
+	DEFINE_FUNCTION(ATP_Enemy::execHandleHealthZero)
+	{
+		P_GET_OBJECT(UAttributeSet,Z_Param_InAttributeSet);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->HandleHealthZero(Z_Param_InAttributeSet);
+		P_NATIVE_END;
+	}
 	void ATP_Enemy::StaticRegisterNativesATP_Enemy()
 	{
 		UClass* Class = ATP_Enemy::StaticClass();
@@ -83,6 +92,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_Enemy() {}
 			{ "FinishRetreating", &ATP_Enemy::execFinishRetreating },
 			{ "GetCurrentState", &ATP_Enemy::execGetCurrentState },
 			{ "GetEnemyPatrolPath", &ATP_Enemy::execGetEnemyPatrolPath },
+			{ "HandleHealthZero", &ATP_Enemy::execHandleHealthZero },
 			{ "SetStateAsAttack", &ATP_Enemy::execSetStateAsAttack },
 			{ "SetStateAsCower", &ATP_Enemy::execSetStateAsCower },
 			{ "SetStateAsPassive", &ATP_Enemy::execSetStateAsPassive },
@@ -180,6 +190,48 @@ void EmptyLinkFunctionForGeneratedCodeTP_Enemy() {}
 		if (!ReturnFunction)
 		{
 			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_Enemy_GetEnemyPatrolPath_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics
+	{
+		struct TP_Enemy_eventHandleHealthZero_Parms
+		{
+			UAttributeSet* InAttributeSet;
+		};
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_InAttributeSet_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_InAttributeSet;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::NewProp_InAttributeSet_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::NewProp_InAttributeSet = { "InAttributeSet", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_Enemy_eventHandleHealthZero_Parms, InAttributeSet), Z_Construct_UClass_UAttributeSet_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::NewProp_InAttributeSet_MetaData), Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::NewProp_InAttributeSet_MetaData) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::NewProp_InAttributeSet,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "TP_Enemy.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_Enemy, nullptr, "HandleHealthZero", nullptr, nullptr, Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::PropPointers), sizeof(Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::TP_Enemy_eventHandleHealthZero_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::TP_Enemy_eventHandleHealthZero_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_ATP_Enemy_HandleHealthZero()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_Enemy_HandleHealthZero_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -334,7 +386,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_Enemy() {}
 		static const UECodeGen_Private::FClassParams ClassParams;
 	};
 	UObject* (*const Z_Construct_UClass_ATP_Enemy_Statics::DependentSingletons[])() = {
-		(UObject* (*)())Z_Construct_UClass_ACharacter,
+		(UObject* (*)())Z_Construct_UClass_ATPCharacterBase,
 		(UObject* (*)())Z_Construct_UPackage__Script_TwitchPrototype,
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_Enemy_Statics::DependentSingletons) < 16);
@@ -342,6 +394,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_Enemy() {}
 		{ &Z_Construct_UFunction_ATP_Enemy_FinishRetreating, "FinishRetreating" }, // 281380106
 		{ &Z_Construct_UFunction_ATP_Enemy_GetCurrentState, "GetCurrentState" }, // 3949060708
 		{ &Z_Construct_UFunction_ATP_Enemy_GetEnemyPatrolPath, "GetEnemyPatrolPath" }, // 4190105828
+		{ &Z_Construct_UFunction_ATP_Enemy_HandleHealthZero, "HandleHealthZero" }, // 3954869469
 		{ &Z_Construct_UFunction_ATP_Enemy_SetStateAsAttack, "SetStateAsAttack" }, // 1998579877
 		{ &Z_Construct_UFunction_ATP_Enemy_SetStateAsCower, "SetStateAsCower" }, // 1430423860
 		{ &Z_Construct_UFunction_ATP_Enemy_SetStateAsPassive, "SetStateAsPassive" }, // 1792655226
@@ -448,9 +501,9 @@ void EmptyLinkFunctionForGeneratedCodeTP_Enemy() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_Enemy_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ATP_Enemy, ATP_Enemy::StaticClass, TEXT("ATP_Enemy"), &Z_Registration_Info_UClass_ATP_Enemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_Enemy), 1705373647U) },
+		{ Z_Construct_UClass_ATP_Enemy, ATP_Enemy::StaticClass, TEXT("ATP_Enemy"), &Z_Registration_Info_UClass_ATP_Enemy, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_Enemy), 2540987210U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_Enemy_h_76651135(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_Enemy_h_637971794(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_Enemy_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_Enemy_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

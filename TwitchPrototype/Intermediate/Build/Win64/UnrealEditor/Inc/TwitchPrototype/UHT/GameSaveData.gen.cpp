@@ -54,6 +54,14 @@ void EmptyLinkFunctionForGeneratedCodeGameSaveData() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_slotName_MetaData[];
 #endif
 		static const UECodeGen_Private::FStrPropertyParams NewProp_slotName;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_livesCount_MetaData[];
+#endif
+		static const UECodeGen_Private::FIntPropertyParams NewProp_livesCount;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_PlayerMaxHealth_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_PlayerMaxHealth;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
@@ -108,6 +116,20 @@ void EmptyLinkFunctionForGeneratedCodeGameSaveData() {}
 	};
 #endif
 	const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_UGameSaveData_Statics::NewProp_slotName = { "slotName", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGameSaveData, slotName), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UGameSaveData_Statics::NewProp_slotName_MetaData), Z_Construct_UClass_UGameSaveData_Statics::NewProp_slotName_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UGameSaveData_Statics::NewProp_livesCount_MetaData[] = {
+		{ "Category", "GameSaveData" },
+		{ "ModuleRelativePath", "Public/Data/GameSaveData.h" },
+	};
+#endif
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_UGameSaveData_Statics::NewProp_livesCount = { "livesCount", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGameSaveData, livesCount), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UGameSaveData_Statics::NewProp_livesCount_MetaData), Z_Construct_UClass_UGameSaveData_Statics::NewProp_livesCount_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UGameSaveData_Statics::NewProp_PlayerMaxHealth_MetaData[] = {
+		{ "Category", "GameSaveData" },
+		{ "ModuleRelativePath", "Public/Data/GameSaveData.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UGameSaveData_Statics::NewProp_PlayerMaxHealth = { "PlayerMaxHealth", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UGameSaveData, PlayerMaxHealth), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UGameSaveData_Statics::NewProp_PlayerMaxHealth_MetaData), Z_Construct_UClass_UGameSaveData_Statics::NewProp_PlayerMaxHealth_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UGameSaveData_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGameSaveData_Statics::NewProp_playerState,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGameSaveData_Statics::NewProp_cheeseMap_ValueProp,
@@ -118,6 +140,8 @@ void EmptyLinkFunctionForGeneratedCodeGameSaveData() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGameSaveData_Statics::NewProp_fruitMap,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGameSaveData_Statics::NewProp_lastSavedLevel,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGameSaveData_Statics::NewProp_slotName,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGameSaveData_Statics::NewProp_livesCount,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UGameSaveData_Statics::NewProp_PlayerMaxHealth,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UGameSaveData_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UGameSaveData>::IsAbstract,
@@ -157,9 +181,9 @@ void EmptyLinkFunctionForGeneratedCodeGameSaveData() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Data_GameSaveData_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UGameSaveData, UGameSaveData::StaticClass, TEXT("UGameSaveData"), &Z_Registration_Info_UClass_UGameSaveData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UGameSaveData), 240412580U) },
+		{ Z_Construct_UClass_UGameSaveData, UGameSaveData::StaticClass, TEXT("UGameSaveData"), &Z_Registration_Info_UClass_UGameSaveData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UGameSaveData), 2547171594U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Data_GameSaveData_h_499476996(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Data_GameSaveData_h_1378280345(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Data_GameSaveData_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Data_GameSaveData_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

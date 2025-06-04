@@ -16,6 +16,7 @@ class UCurveFloat;
 class ATP_PlayerController;
 class UBoxComponent;
 class ATP_BaseProjectile;
+class USoundCue;
 
 UENUM()
 enum class EPlayerStates
@@ -74,6 +75,8 @@ public:
 	virtual void ApplyKnockback_Implementation(FVector directionKnockbackForce) override;
 
 	virtual void DamageCharacter_Implementation(AActor* DamageCauser, float KnockbackModifier) override;
+
+	virtual void CollectExtraLife_Implementation() override;
 	
 protected:
 	// Called when the game starts or when spawned
@@ -144,6 +147,16 @@ protected:
 	void WallSlideTrace();
 
 	void ResetHasBeenKnocked();
+
+	virtual void InitAbilityActorInfo() override;
+
+	void PlaySoundCue(USoundCue* InSoundCue);
+
+	UFUNCTION()
+	void ResetWallSlideSoundTimer();
+
+	UFUNCTION()
+	void ResetDamageSoundTimer();
 	
 private:
 
@@ -320,8 +333,6 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Ladder Climbing")
 	float groundCheckLength;
-	
-	void InitAbilityActorInfo();
 
 	void SetHasBeenHitFalse();
 	
@@ -333,6 +344,47 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Charging")
 	float chargeKnockbackModifier;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Player Sound Effects", meta = (AllowPrivateAccess = "true"))
+	USoundCue* projectileAttackSound;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Player Sound Effects", meta = (AllowPrivateAccess = "true"))
+	USoundCue* playerJumpSound;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Player Sound Effects", meta = (AllowPrivateAccess = "true"))
+	USoundCue* playerDamageSound;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Player Sound Effects", meta = (AllowPrivateAccess = "true"))
+	USoundCue* playerNormalLandingSound;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Player Sound Effects", meta = (AllowPrivateAccess = "true"))
+	USoundCue* playerStompLandingSound;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Player Sound Effects", meta = (AllowPrivateAccess = "true"))
+	USoundCue* playerAirDashSound;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Player Sound Effects", meta = (AllowPrivateAccess = "true"))
+	USoundCue* playerWallJumpSound;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Player Sound Effects", meta = (AllowPrivateAccess = "true"))
+	USoundCue* playerWallSlideSound;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Player Sound Effects", meta = (AllowPrivateAccess = "true"))
+	USoundCue* playerDeathSound;
+
+	FTimerHandle playerWallSlideSoundTimer;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Sound Effect Properties" ,meta = (AllowPrivateAccess = "true"))
+	float wallSlideSoundResetTime;
+
+	bool bShouldPlayWallSlideSound;
+
+	FTimerHandle playerDamageSoundTimer;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Sound Effect Properties" ,meta = (AllowPrivateAccess = "true"))
+	float playerDamageSoundResetTime;
+
+	bool bShouldPlayDamageSound;
 	
 public:	
 	// Called every frame

@@ -18,6 +18,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 	ENGINE_API UClass* Z_Construct_UClass_UCurveFloat_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UPrimitiveComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_USceneComponent_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_USoundCue_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
 	ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FHitResult();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATP_BaseProjectile_NoRegister();
@@ -85,6 +86,20 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EPlayerStates.InnerSingleton, Z_Construct_UEnum_TwitchPrototype_EPlayerStates_Statics::EnumParams);
 		}
 		return Z_Registration_Info_UEnum_EPlayerStates.InnerSingleton;
+	}
+	DEFINE_FUNCTION(ATP_PlayerCharacter::execResetDamageSoundTimer)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->ResetDamageSoundTimer();
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(ATP_PlayerCharacter::execResetWallSlideSoundTimer)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->ResetWallSlideSoundTimer();
+		P_NATIVE_END;
 	}
 	DEFINE_FUNCTION(ATP_PlayerCharacter::execChargeBoxOverlap)
 	{
@@ -161,6 +176,8 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 			{ "LandSquashFinished", &ATP_PlayerCharacter::execLandSquashFinished },
 			{ "LandSquashUpdate", &ATP_PlayerCharacter::execLandSquashUpdate },
 			{ "OnCoyoteTimeEnd", &ATP_PlayerCharacter::execOnCoyoteTimeEnd },
+			{ "ResetDamageSoundTimer", &ATP_PlayerCharacter::execResetDamageSoundTimer },
+			{ "ResetWallSlideSoundTimer", &ATP_PlayerCharacter::execResetWallSlideSoundTimer },
 			{ "StompLandSquashFinished", &ATP_PlayerCharacter::execStompLandSquashFinished },
 			{ "StompLandSquashUpdate", &ATP_PlayerCharacter::execStompLandSquashUpdate },
 		};
@@ -380,6 +397,50 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		if (!ReturnFunction)
 		{
 			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_PlayerCharacter_OnCoyoteTimeEnd_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_ATP_PlayerCharacter_ResetDamageSoundTimer_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_ResetDamageSoundTimer_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_PlayerCharacter_ResetDamageSoundTimer_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_PlayerCharacter, nullptr, "ResetDamageSoundTimer", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_ResetDamageSoundTimer_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_PlayerCharacter_ResetDamageSoundTimer_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_ATP_PlayerCharacter_ResetDamageSoundTimer()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_PlayerCharacter_ResetDamageSoundTimer_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_ATP_PlayerCharacter_ResetWallSlideSoundTimer_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_ResetWallSlideSoundTimer_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_PlayerCharacter_ResetWallSlideSoundTimer_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_PlayerCharacter, nullptr, "ResetWallSlideSoundTimer", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_ResetWallSlideSoundTimer_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_PlayerCharacter_ResetWallSlideSoundTimer_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_ATP_PlayerCharacter_ResetWallSlideSoundTimer()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_PlayerCharacter_ResetWallSlideSoundTimer_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -607,6 +668,50 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_chargeKnockbackModifier_MetaData[];
 #endif
 		static const UECodeGen_Private::FFloatPropertyParams NewProp_chargeKnockbackModifier;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_projectileAttackSound_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_projectileAttackSound;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_playerJumpSound_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_playerJumpSound;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_playerDamageSound_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_playerDamageSound;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_playerNormalLandingSound_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_playerNormalLandingSound;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_playerStompLandingSound_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_playerStompLandingSound;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_playerAirDashSound_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_playerAirDashSound;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_playerWallJumpSound_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_playerWallJumpSound;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_playerWallSlideSound_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_playerWallSlideSound;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_playerDeathSound_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_playerDeathSound;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_wallSlideSoundResetTime_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_wallSlideSoundResetTime;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_playerDamageSoundResetTime_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_playerDamageSoundResetTime;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
@@ -624,6 +729,8 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_LandSquashFinished, "LandSquashFinished" }, // 3383075559
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_LandSquashUpdate, "LandSquashUpdate" }, // 3648626628
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_OnCoyoteTimeEnd, "OnCoyoteTimeEnd" }, // 2657618391
+		{ &Z_Construct_UFunction_ATP_PlayerCharacter_ResetDamageSoundTimer, "ResetDamageSoundTimer" }, // 376609028
+		{ &Z_Construct_UFunction_ATP_PlayerCharacter_ResetWallSlideSoundTimer, "ResetWallSlideSoundTimer" }, // 3208635789
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_StompLandSquashFinished, "StompLandSquashFinished" }, // 3209178486
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_StompLandSquashUpdate, "StompLandSquashUpdate" }, // 1997411083
 	};
@@ -960,6 +1067,94 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 	};
 #endif
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_chargeKnockbackModifier = { "chargeKnockbackModifier", nullptr, (EPropertyFlags)0x0040000000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, chargeKnockbackModifier), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_chargeKnockbackModifier_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_chargeKnockbackModifier_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_projectileAttackSound_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Player Sound Effects" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_projectileAttackSound = { "projectileAttackSound", nullptr, (EPropertyFlags)0x0040000000010005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, projectileAttackSound), Z_Construct_UClass_USoundCue_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_projectileAttackSound_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_projectileAttackSound_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerJumpSound_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Player Sound Effects" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerJumpSound = { "playerJumpSound", nullptr, (EPropertyFlags)0x0040000000010005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, playerJumpSound), Z_Construct_UClass_USoundCue_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerJumpSound_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerJumpSound_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDamageSound_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Player Sound Effects" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDamageSound = { "playerDamageSound", nullptr, (EPropertyFlags)0x0040000000010005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, playerDamageSound), Z_Construct_UClass_USoundCue_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDamageSound_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDamageSound_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerNormalLandingSound_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Player Sound Effects" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerNormalLandingSound = { "playerNormalLandingSound", nullptr, (EPropertyFlags)0x0040000000010005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, playerNormalLandingSound), Z_Construct_UClass_USoundCue_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerNormalLandingSound_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerNormalLandingSound_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerStompLandingSound_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Player Sound Effects" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerStompLandingSound = { "playerStompLandingSound", nullptr, (EPropertyFlags)0x0040000000010005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, playerStompLandingSound), Z_Construct_UClass_USoundCue_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerStompLandingSound_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerStompLandingSound_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerAirDashSound_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Player Sound Effects" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerAirDashSound = { "playerAirDashSound", nullptr, (EPropertyFlags)0x0040000000010005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, playerAirDashSound), Z_Construct_UClass_USoundCue_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerAirDashSound_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerAirDashSound_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerWallJumpSound_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Player Sound Effects" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerWallJumpSound = { "playerWallJumpSound", nullptr, (EPropertyFlags)0x0040000000010005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, playerWallJumpSound), Z_Construct_UClass_USoundCue_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerWallJumpSound_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerWallJumpSound_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerWallSlideSound_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Player Sound Effects" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerWallSlideSound = { "playerWallSlideSound", nullptr, (EPropertyFlags)0x0040000000010005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, playerWallSlideSound), Z_Construct_UClass_USoundCue_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerWallSlideSound_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerWallSlideSound_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDeathSound_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Player Sound Effects" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDeathSound = { "playerDeathSound", nullptr, (EPropertyFlags)0x0040000000010005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, playerDeathSound), Z_Construct_UClass_USoundCue_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDeathSound_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDeathSound_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideSoundResetTime_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Sound Effect Properties" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideSoundResetTime = { "wallSlideSoundResetTime", nullptr, (EPropertyFlags)0x0040000000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, wallSlideSoundResetTime), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideSoundResetTime_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideSoundResetTime_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDamageSoundResetTime_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Sound Effect Properties" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDamageSoundResetTime = { "playerDamageSoundResetTime", nullptr, (EPropertyFlags)0x0040000000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, playerDamageSoundResetTime), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDamageSoundResetTime_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDamageSoundResetTime_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATP_PlayerCharacter_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_cameraBoom,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_mainCamera,
@@ -1000,9 +1195,20 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_groundCheckPoint,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_groundCheckLength,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_chargeKnockbackModifier,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_projectileAttackSound,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerJumpSound,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDamageSound,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerNormalLandingSound,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerStompLandingSound,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerAirDashSound,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerWallJumpSound,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerWallSlideSound,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDeathSound,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideSoundResetTime,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDamageSoundResetTime,
 	};
 		const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::InterfaceParams[] = {
-			{ Z_Construct_UClass_UPlayerCharacterInterface_NoRegister, (int32)VTABLE_OFFSET(ATP_PlayerCharacter, IPlayerCharacterInterface), false },  // 1366293929
+			{ Z_Construct_UClass_UPlayerCharacterInterface_NoRegister, (int32)VTABLE_OFFSET(ATP_PlayerCharacter, IPlayerCharacterInterface), false },  // 2632207592
 			{ Z_Construct_UClass_UTPDamageInterface_NoRegister, (int32)VTABLE_OFFSET(ATP_PlayerCharacter, ITPDamageInterface), false },  // 1129312699
 		};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::InterfaceParams) < 64);
@@ -1048,9 +1254,9 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		{ EPlayerStates_StaticEnum, TEXT("EPlayerStates"), &Z_Registration_Info_UEnum_EPlayerStates, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 845008250U) },
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ATP_PlayerCharacter, ATP_PlayerCharacter::StaticClass, TEXT("ATP_PlayerCharacter"), &Z_Registration_Info_UClass_ATP_PlayerCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_PlayerCharacter), 4169444002U) },
+		{ Z_Construct_UClass_ATP_PlayerCharacter, ATP_PlayerCharacter::StaticClass, TEXT("ATP_PlayerCharacter"), &Z_Registration_Info_UClass_ATP_PlayerCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_PlayerCharacter), 3369308587U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_706270521(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_1954094290(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo),
 		nullptr, 0,
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::EnumInfo));

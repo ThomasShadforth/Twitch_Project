@@ -10,6 +10,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeTP_CollectibleBase() {}
 // Cross Module References
 	ENGINE_API UClass* Z_Construct_UClass_AActor();
+	ENGINE_API UClass* Z_Construct_UClass_USoundCue_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATP_CollectibleBase();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATP_CollectibleBase_NoRegister();
@@ -140,7 +141,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_CollectibleBase() {}
 		{ "ModuleRelativePath", "Public/Collectible/TP_CollectibleBase.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_CollectibleBase_HideCollectible_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_CollectibleBase, nullptr, "HideCollectible", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C080800, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_CollectibleBase_HideCollectible_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_CollectibleBase_HideCollectible_Statics::Function_MetaDataParams) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_CollectibleBase_HideCollectible_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_CollectibleBase, nullptr, "HideCollectible", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020800, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_CollectibleBase_HideCollectible_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_CollectibleBase_HideCollectible_Statics::Function_MetaDataParams) };
 	UFunction* Z_Construct_UFunction_ATP_CollectibleBase_HideCollectible()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -194,6 +195,10 @@ void EmptyLinkFunctionForGeneratedCodeTP_CollectibleBase() {}
 #endif
 		static const UECodeGen_Private::FEnumPropertyParams NewProp_collectibleType;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_collectSoundEffect_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_collectSoundEffect;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_collectibleMesh_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPropertyParams NewProp_collectibleMesh;
@@ -209,7 +214,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_CollectibleBase() {}
 	const FClassFunctionLinkInfo Z_Construct_UClass_ATP_CollectibleBase_Statics::FuncInfo[] = {
 		{ &Z_Construct_UFunction_ATP_CollectibleBase_GetCollectibleMesh, "GetCollectibleMesh" }, // 637986293
 		{ &Z_Construct_UFunction_ATP_CollectibleBase_GetCollectibleType, "GetCollectibleType" }, // 1490631611
-		{ &Z_Construct_UFunction_ATP_CollectibleBase_HideCollectible, "HideCollectible" }, // 2289735159
+		{ &Z_Construct_UFunction_ATP_CollectibleBase_HideCollectible, "HideCollectible" }, // 2320599292
 		{ &Z_Construct_UFunction_ATP_CollectibleBase_RevealCollectible, "RevealCollectible" }, // 3780681159
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_CollectibleBase_Statics::FuncInfo) < 2048);
@@ -235,6 +240,14 @@ void EmptyLinkFunctionForGeneratedCodeTP_CollectibleBase() {}
 #endif
 	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_ATP_CollectibleBase_Statics::NewProp_collectibleType = { "collectibleType", nullptr, (EPropertyFlags)0x0040000000000001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_CollectibleBase, collectibleType), Z_Construct_UEnum_TwitchPrototype_ECollectibleTypes, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_CollectibleBase_Statics::NewProp_collectibleType_MetaData), Z_Construct_UClass_ATP_CollectibleBase_Statics::NewProp_collectibleType_MetaData) }; // 3620290035
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_CollectibleBase_Statics::NewProp_collectSoundEffect_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "TP_CollectibleBase" },
+		{ "ModuleRelativePath", "Public/Collectible/TP_CollectibleBase.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_CollectibleBase_Statics::NewProp_collectSoundEffect = { "collectSoundEffect", nullptr, (EPropertyFlags)0x0040000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_CollectibleBase, collectSoundEffect), Z_Construct_UClass_USoundCue_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_CollectibleBase_Statics::NewProp_collectSoundEffect_MetaData), Z_Construct_UClass_ATP_CollectibleBase_Statics::NewProp_collectSoundEffect_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_CollectibleBase_Statics::NewProp_collectibleMesh_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Collectible Properties" },
@@ -247,6 +260,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_CollectibleBase() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_CollectibleBase_Statics::NewProp_collectibleID,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_CollectibleBase_Statics::NewProp_collectibleType_Underlying,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_CollectibleBase_Statics::NewProp_collectibleType,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_CollectibleBase_Statics::NewProp_collectSoundEffect,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_CollectibleBase_Statics::NewProp_collectibleMesh,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_ATP_CollectibleBase_Statics::StaticCppClassTypeInfo = {
@@ -287,9 +301,9 @@ void EmptyLinkFunctionForGeneratedCodeTP_CollectibleBase() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Collectible_TP_CollectibleBase_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ATP_CollectibleBase, ATP_CollectibleBase::StaticClass, TEXT("ATP_CollectibleBase"), &Z_Registration_Info_UClass_ATP_CollectibleBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_CollectibleBase), 3880118391U) },
+		{ Z_Construct_UClass_ATP_CollectibleBase, ATP_CollectibleBase::StaticClass, TEXT("ATP_CollectibleBase"), &Z_Registration_Info_UClass_ATP_CollectibleBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_CollectibleBase), 1734960086U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Collectible_TP_CollectibleBase_h_1497678168(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Collectible_TP_CollectibleBase_h_3855658282(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Collectible_TP_CollectibleBase_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Collectible_TP_CollectibleBase_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

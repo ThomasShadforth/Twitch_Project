@@ -89,10 +89,11 @@ void EmptyLinkFunctionForGeneratedCodeTPHUD() {}
 	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_ATPHUD_Statics::NewProp_overlayWidgetController = { "overlayWidgetController", nullptr, (EPropertyFlags)0x0044000000000000, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATPHUD, overlayWidgetController), Z_Construct_UClass_UOverlayWidgetController_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATPHUD_Statics::NewProp_overlayWidgetController_MetaData), Z_Construct_UClass_ATPHUD_Statics::NewProp_overlayWidgetController_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATPHUD_Statics::NewProp_overlayWidgetControllerClass_MetaData[] = {
+		{ "Category", "TPHUD" },
 		{ "ModuleRelativePath", "Public/UI/HUD/TPHUD.h" },
 	};
 #endif
-	const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ATPHUD_Statics::NewProp_overlayWidgetControllerClass = { "overlayWidgetControllerClass", nullptr, (EPropertyFlags)0x0044000000000000, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATPHUD, overlayWidgetControllerClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UOverlayWidgetController_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATPHUD_Statics::NewProp_overlayWidgetControllerClass_MetaData), Z_Construct_UClass_ATPHUD_Statics::NewProp_overlayWidgetControllerClass_MetaData) };
+	const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ATPHUD_Statics::NewProp_overlayWidgetControllerClass = { "overlayWidgetControllerClass", nullptr, (EPropertyFlags)0x0044000000000001, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATPHUD, overlayWidgetControllerClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UOverlayWidgetController_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATPHUD_Statics::NewProp_overlayWidgetControllerClass_MetaData), Z_Construct_UClass_ATPHUD_Statics::NewProp_overlayWidgetControllerClass_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATPHUD_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATPHUD_Statics::NewProp_overlayWidget,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATPHUD_Statics::NewProp_overlayWidgetClass,
@@ -138,9 +139,9 @@ void EmptyLinkFunctionForGeneratedCodeTPHUD() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_UI_HUD_TPHUD_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ATPHUD, ATPHUD::StaticClass, TEXT("ATPHUD"), &Z_Registration_Info_UClass_ATPHUD, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATPHUD), 346914246U) },
+		{ Z_Construct_UClass_ATPHUD, ATPHUD::StaticClass, TEXT("ATPHUD"), &Z_Registration_Info_UClass_ATPHUD, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATPHUD), 1817982403U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_UI_HUD_TPHUD_h_3760093698(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_UI_HUD_TPHUD_h_935001315(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_UI_HUD_TPHUD_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_UI_HUD_TPHUD_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

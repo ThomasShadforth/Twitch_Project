@@ -21,6 +21,14 @@ void EmptyLinkFunctionForGeneratedCodeTPPlayerState() {}
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_UTPLivesInterface_NoRegister();
 	UPackage* Z_Construct_UPackage__Script_TwitchPrototype();
 // End Cross Module References
+	DEFINE_FUNCTION(ATPPlayerState::execHandleHealthZero)
+	{
+		P_GET_OBJECT(UAttributeSet,Z_Param_inAttributeSet);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->HandleHealthZero(Z_Param_inAttributeSet);
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(ATPPlayerState::execOnSaveGameLoaded)
 	{
 		P_GET_UBOOL(Z_Param_bSuccess);
@@ -41,10 +49,53 @@ void EmptyLinkFunctionForGeneratedCodeTPPlayerState() {}
 	{
 		UClass* Class = ATPPlayerState::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
+			{ "HandleHealthZero", &ATPPlayerState::execHandleHealthZero },
 			{ "OnSaveGameLoaded", &ATPPlayerState::execOnSaveGameLoaded },
 			{ "OnSaveStarted", &ATPPlayerState::execOnSaveStarted },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
+	}
+	struct Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics
+	{
+		struct TPPlayerState_eventHandleHealthZero_Parms
+		{
+			UAttributeSet* inAttributeSet;
+		};
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_inAttributeSet_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_inAttributeSet;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::NewProp_inAttributeSet_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::NewProp_inAttributeSet = { "inAttributeSet", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TPPlayerState_eventHandleHealthZero_Parms, inAttributeSet), Z_Construct_UClass_UAttributeSet_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::NewProp_inAttributeSet_MetaData), Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::NewProp_inAttributeSet_MetaData) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::NewProp_inAttributeSet,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/Player/TPPlayerState.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATPPlayerState, nullptr, "HandleHealthZero", nullptr, nullptr, Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::PropPointers), sizeof(Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::TPPlayerState_eventHandleHealthZero_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::TPPlayerState_eventHandleHealthZero_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_ATPPlayerState_HandleHealthZero()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATPPlayerState_HandleHealthZero_Statics::FuncParams);
+		}
+		return ReturnFunction;
 	}
 	struct Z_Construct_UFunction_ATPPlayerState_OnSaveGameLoaded_Statics
 	{
@@ -174,15 +225,13 @@ void EmptyLinkFunctionForGeneratedCodeTPPlayerState() {}
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATPPlayerState_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_ATPPlayerState_Statics::FuncInfo[] = {
+		{ &Z_Construct_UFunction_ATPPlayerState_HandleHealthZero, "HandleHealthZero" }, // 2616852628
 		{ &Z_Construct_UFunction_ATPPlayerState_OnSaveGameLoaded, "OnSaveGameLoaded" }, // 2383206493
 		{ &Z_Construct_UFunction_ATPPlayerState_OnSaveStarted, "OnSaveStarted" }, // 1765960768
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATPPlayerState_Statics::FuncInfo) < 2048);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATPPlayerState_Statics::Class_MetaDataParams[] = {
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "/**\n * \n */" },
-#endif
 		{ "HideCategories", "Input Movement Collision Rendering HLOD WorldPartition DataLayers Transformation" },
 		{ "IncludePath", "Player/TPPlayerState.h" },
 		{ "ModuleRelativePath", "Public/Player/TPPlayerState.h" },
@@ -214,13 +263,7 @@ void EmptyLinkFunctionForGeneratedCodeTPPlayerState() {}
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATPPlayerState_Statics::NewProp_cheeseCount_MetaData[] = {
 		{ "Category", "TPPlayerState" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "//To do: Go into attribute set and add hit points\n" },
-#endif
 		{ "ModuleRelativePath", "Public/Player/TPPlayerState.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "To do: Go into attribute set and add hit points" },
-#endif
 	};
 #endif
 	const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_ATPPlayerState_Statics::NewProp_cheeseCount = { "cheeseCount", nullptr, (EPropertyFlags)0x0040000000020001, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATPPlayerState, cheeseCount), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATPPlayerState_Statics::NewProp_cheeseCount_MetaData), Z_Construct_UClass_ATPPlayerState_Statics::NewProp_cheeseCount_MetaData) };
@@ -306,9 +349,9 @@ void EmptyLinkFunctionForGeneratedCodeTPPlayerState() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_TPPlayerState_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ATPPlayerState, ATPPlayerState::StaticClass, TEXT("ATPPlayerState"), &Z_Registration_Info_UClass_ATPPlayerState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATPPlayerState), 3648945157U) },
+		{ Z_Construct_UClass_ATPPlayerState, ATPPlayerState::StaticClass, TEXT("ATPPlayerState"), &Z_Registration_Info_UClass_ATPPlayerState, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATPPlayerState), 3944933452U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_TPPlayerState_h_2186516553(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_TPPlayerState_h_157136796(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_TPPlayerState_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_TPPlayerState_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
