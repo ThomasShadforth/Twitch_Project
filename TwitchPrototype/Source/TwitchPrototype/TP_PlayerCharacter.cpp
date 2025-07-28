@@ -32,8 +32,8 @@
 
 // Sets default values
 ATP_PlayerCharacter::ATP_PlayerCharacter() :
-walkSpeed(600.f),
-sprintSpeed(900.f),
+walkSpeed(700.f),
+sprintSpeed(1000.f),
 currentMovementSpeed(0.f),
 sprintStartInterpSpeed(1.f),
 sprintStopInterpSpeed(2.f),
@@ -110,7 +110,14 @@ void ATP_PlayerCharacter::Landed(const FHitResult& Hit)
 	airDashCount = 0;
 	bHasAirDashed = false;
 	bIsStomping = false;
+	bWallSliding = false;
+	bHasSnappedToWall = false;
+	wallSlideRate = startingWallSlideRate;
 	GetWorldTimerManager().ClearTimer(coyoteTimeHandle);
+
+	FTimerHandle resetWasStompHandle;
+	
+	GetWorldTimerManager().SetTimer(resetWasStompHandle, this, &ATP_PlayerCharacter::ResetWasStomp, .1f);
 }
 
 void ATP_PlayerCharacter::OnMovementModeChanged(EMovementMode PrevMovementMode, uint8 PreviousCustomMode)
@@ -329,6 +336,8 @@ void ATP_PlayerCharacter::BeginPlay()
 	FTimerHandle groundCheckHandle;
 
 	GetWorldTimerManager().SetTimer(groundCheckHandle, this, &ATP_PlayerCharacter::CheckForGround, .5f, true);
+
+	wallSlideRate = startingWallSlideRate;
 }
 
 bool ATP_PlayerCharacter::CanJumpInternal_Implementation() const
@@ -476,6 +485,15 @@ void ATP_PlayerCharacter::SetInterpFOV(float DeltaTime)
 	mainCamera->SetFieldOfView(currentCameraFOV);
 }
 
+void ATP_PlayerCharacter::SetInterpWallSlideSpeed(float DeltaTime)
+{
+	if(!bWallSliding) return;
+
+	UE_LOG(LogTemp, Warning, TEXT("ADJUSTING WALL SLIDE SPEED!"));
+	
+	wallSlideRate = FMath::FInterpTo(wallSlideRate, minWallSlideRate, DeltaTime, wallSlideRateChangeSpeed);
+}
+
 void ATP_PlayerCharacter::Aim(float DeltaTime)
 {
 	if(!bIsAimingThrow) return;
@@ -519,6 +537,7 @@ void ATP_PlayerCharacter::StartStomp()
 	
 	bStompStart = true;
 	bIsStomping = true;
+	bWasStomping = true;
 	GetCharacterMovement()->GravityScale = 0.f;
 	GetCharacterMovement()->Velocity = FVector::Zero();
 	GetWorldTimerManager().SetTimer(stompHandle, this, &ATP_PlayerCharacter::ApplyStomp, stompDelayTime);
@@ -626,7 +645,6 @@ void ATP_PlayerCharacter::WallSlide(float DeltaTime)
 				GetCharacterMovement()->Velocity = FVector(0, 0, -50.f);
 			}
 			
-			//UE_LOG(LogTemp, Warning, TEXT("WALL SLIDE TARGET FOUND"));
 			bWallSliding = true;
 
 			if(bShouldPlayWallSlideSound)
@@ -642,11 +660,13 @@ void ATP_PlayerCharacter::WallSlide(float DeltaTime)
 		{
 			bWallSliding = false;
 			bHasSnappedToWall = false;
+			wallSlideRate = startingWallSlideRate;
 		}
 	}
 
-	bWallSliding = false;
+	/*bWallSliding = false;
 	bHasSnappedToWall = false;
+	wallSlideRate = startingWallSlideRate;*/
 }
 
 void ATP_PlayerCharacter::ChargeBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
@@ -769,6 +789,11 @@ void ATP_PlayerCharacter::ResetDamageSoundTimer()
 	bShouldPlayDamageSound = true;
 }
 
+void ATP_PlayerCharacter::ResetWasStomp()
+{
+	bWasStomping = false;
+}
+
 void ATP_PlayerCharacter::SetHasBeenHitFalse()
 {
 	SetHasPlayerBeenHit_Implementation(false);
@@ -782,7 +807,8 @@ void ATP_PlayerCharacter::Tick(float DeltaTime)
 	SetInterpMovementSpeed(DeltaTime);
 	SetInterpFOV(DeltaTime);
 	WallSlide(DeltaTime);
-
+	SetInterpWallSlideSpeed(DeltaTime);
+	
 	Aim(DeltaTime);
 	
 	if(bIsStomping)

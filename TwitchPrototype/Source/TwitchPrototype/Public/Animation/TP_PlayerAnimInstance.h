@@ -29,6 +29,8 @@ public:
 protected:
 
 	void SetShouldMove();
+	void SetIsSprinting();
+	void SetWasStomping();
 	
 private:
 
@@ -45,11 +47,16 @@ private:
 	FVector velocity;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	bool bIsSprinting;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	bool bIsFalling;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	bool bShouldMove;
 	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	bool bWasStomping;
 	
 public:
 	

@@ -20,12 +20,6 @@
 			]
 		},
 		{
-			"ShaderMapHash": "B919EF09D42DE7F5808192831CCBE27C08400599",
-			"Assets": [
-				"/Game/LevelPrototyping/Materials/MI_PrototypeGrid_Gray"
-			]
-		},
-		{
 			"ShaderMapHash": "740906101A6FADF71754BCAF0E0A831106816B97",
 			"Assets": [
 				"/Interchange/gltf/MaterialInstances/MI_Unlit_Blend"
@@ -41,12 +35,6 @@
 			"ShaderMapHash": "0CBA1E11538F0617658F2D3F395F9E3BEF557F71",
 			"Assets": [
 				"/Engine/EngineMaterials/RemoveSurfaceMaterial"
-			]
-		},
-		{
-			"ShaderMapHash": "6632D1149718EC7FE67F2D891E942260167A3752",
-			"Assets": [
-				"/Game/_Game/Materials/M_PS1_PP"
 			]
 		},
 		{
@@ -107,6 +95,15 @@
 			"ShaderMapHash": "295E27370D68D6F64A9BFEC63B855D2678657E1D",
 			"Assets": [
 				"/Interchange/gltf/MaterialInstances/MI_Default_Mask"
+			]
+		},
+		{
+			"ShaderMapHash": "5922483EA908A99D5AD832A2C0B766C5FE00C411",
+			"Assets": [
+				"/Game/_Game/Models/Collectibles/Cheese/Material_001",
+				"/Game/_Game/Models/Collectibles/Fruit/Apples/AppleMat",
+				"/Game/_Game/Models/Collectibles/Fruit/Orange/ORANGEPEEL",
+				"/Game/_Game/Models/Collectibles/Fruit/Pear/PearMat"
 			]
 		},
 		{
@@ -188,12 +185,6 @@
 			]
 		},
 		{
-			"ShaderMapHash": "D1FF1674643A1EDC6F0B130E5CEE6D7AB0CCF73B",
-			"Assets": [
-				"/Game/LevelPrototyping/Materials/M_PrototypeGrid"
-			]
-		},
-		{
 			"ShaderMapHash": "A4657E759045A7781BDFD5DB5C00547BEEC7A756",
 			"Assets": [
 				"/Interchange/gltf/MaterialInstances/MI_SpecularGlossiness_Mask_DS"
@@ -203,12 +194,6 @@
 			"ShaderMapHash": "F2171879C7CB478DB02F0EE6AD327D029A6947F0",
 			"Assets": [
 				"/Engine/EngineSky/M_Sky_Panning_Clouds2"
-			]
-		},
-		{
-			"ShaderMapHash": "296B507C6F9A4A23EF3426017BA2525F95DA2B7C",
-			"Assets": [
-				"/Game/LevelPrototyping/Materials/MI_PrototypeGrid_TopDark"
 			]
 		},
 		{
@@ -238,6 +223,7 @@
 		{
 			"ShaderMapHash": "DE44638A0663CBCC855CA25AD0EE4994C1CE0C2A",
 			"Assets": [
+				"/Game/_Game/Materials/M_TempGrey",
 				"/Game/_Game/Materials/M_TempWhite"
 			]
 		},
@@ -351,6 +337,12 @@
 			]
 		},
 		{
+			"ShaderMapHash": "B3FD06BB407ABDCCBBB4204C9FCAD8DBD4162732",
+			"Assets": [
+				"/Game/_Game/Models/Collectibles/Fruit/Orange/Leaf"
+			]
+		},
+		{
 			"ShaderMapHash": "A21DD3BB07B2D6829A4ACBAD60115EDAC4F5D6AA",
 			"Assets": [
 				"/Engine/EngineMaterials/PhAT_JointLimitMaterial"
@@ -384,12 +376,6 @@
 			"ShaderMapHash": "FC05AECBB6C43F0C9D054FC16E9D7742BE56251B",
 			"Assets": [
 				"/ControlRig/M_Manip"
-			]
-		},
-		{
-			"ShaderMapHash": "07DEB0D374F02B529D6F7C2B41F23B92F5A30F5B",
-			"Assets": [
-				"/Game/_Game/Materials/M_PS1_Shader"
 			]
 		},
 		{
@@ -458,6 +444,12 @@
 			"ShaderMapHash": "FF6A5EF2A3C767990A27ED872CC3F4B45A34618C",
 			"Assets": [
 				"/Engine/EngineMaterials/DefaultMaterial"
+			]
+		},
+		{
+			"ShaderMapHash": "553FAFF33EE5F62671F7B79321C480AACDED100F",
+			"Assets": [
+				"/Game/Characters/Temp_Model/M_CharacterTexture"
 			]
 		},
 		{

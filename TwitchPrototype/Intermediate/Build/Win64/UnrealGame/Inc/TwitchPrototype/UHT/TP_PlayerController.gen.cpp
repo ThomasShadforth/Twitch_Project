@@ -12,6 +12,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 // Cross Module References
 	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 	ENGINE_API UClass* Z_Construct_UClass_APlayerController();
+	ENGINE_API UClass* Z_Construct_UClass_USaveGame_NoRegister();
 	ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputAction_NoRegister();
 	ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputMappingContext_NoRegister();
 	ENHANCEDINPUT_API UScriptStruct* Z_Construct_UScriptStruct_FInputActionValue();
@@ -20,6 +21,13 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 	UMG_API UClass* Z_Construct_UClass_UUserWidget_NoRegister();
 	UPackage* Z_Construct_UPackage__Script_TwitchPrototype();
 // End Cross Module References
+	DEFINE_FUNCTION(ATP_PlayerController::execTempSave)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->TempSave();
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(ATP_PlayerController::execPauseTheGame)
 	{
 		P_FINISH;
@@ -111,6 +119,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 			{ "StopHoldingPlayerAttack", &ATP_PlayerController::execStopHoldingPlayerAttack },
 			{ "StopPlayerJump", &ATP_PlayerController::execStopPlayerJump },
 			{ "StopPlayerSprint", &ATP_PlayerController::execStopPlayerSprint },
+			{ "TempSave", &ATP_PlayerController::execTempSave },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 	}
@@ -374,6 +383,28 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_ATP_PlayerController_TempSave_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerController_TempSave_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "TP_PlayerController.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_PlayerController_TempSave_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_PlayerController, nullptr, "TempSave", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerController_TempSave_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_PlayerController_TempSave_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_ATP_PlayerController_TempSave()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_PlayerController_TempSave_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	struct Z_Construct_UFunction_ATP_PlayerController_TestCollectibleTmaps_Statics
 	{
 #if WITH_METADATA
@@ -457,9 +488,25 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 #endif
 		static const UECodeGen_Private::FObjectPropertyParams NewProp_testCollectibleAction;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_testSaveAction_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_testSaveAction;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_pauseMenuClass_MetaData[];
 #endif
 		static const UECodeGen_Private::FClassPropertyParams NewProp_pauseMenuClass;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_pauseMenu_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_pauseMenu;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_saveGameClass_MetaData[];
+#endif
+		static const UECodeGen_Private::FClassPropertyParams NewProp_saveGameClass;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_saveGame_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_saveGame;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
@@ -480,6 +527,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 		{ &Z_Construct_UFunction_ATP_PlayerController_StopHoldingPlayerAttack, "StopHoldingPlayerAttack" }, // 1432435431
 		{ &Z_Construct_UFunction_ATP_PlayerController_StopPlayerJump, "StopPlayerJump" }, // 2826970226
 		{ &Z_Construct_UFunction_ATP_PlayerController_StopPlayerSprint, "StopPlayerSprint" }, // 1158834353
+		{ &Z_Construct_UFunction_ATP_PlayerController_TempSave, "TempSave" }, // 2509131301
 		{ &Z_Construct_UFunction_ATP_PlayerController_TestCollectibleTmaps, "TestCollectibleTmaps" }, // 1132244125
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerController_Statics::FuncInfo) < 2048);
@@ -590,12 +638,40 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 #endif
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_testCollectibleAction = { "testCollectibleAction", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerController, testCollectibleAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_testCollectibleAction_MetaData), Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_testCollectibleAction_MetaData) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_testSaveAction_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "TEST INPUTS" },
+		{ "ModuleRelativePath", "TP_PlayerController.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_testSaveAction = { "testSaveAction", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerController, testSaveAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_testSaveAction_MetaData), Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_testSaveAction_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_pauseMenuClass_MetaData[] = {
 		{ "Category", "TP_PlayerController" },
 		{ "ModuleRelativePath", "TP_PlayerController.h" },
 	};
 #endif
 	const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_pauseMenuClass = { "pauseMenuClass", nullptr, (EPropertyFlags)0x0044000000000001, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerController, pauseMenuClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_pauseMenuClass_MetaData), Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_pauseMenuClass_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_pauseMenu_MetaData[] = {
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "TP_PlayerController.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_pauseMenu = { "pauseMenu", nullptr, (EPropertyFlags)0x0040000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerController, pauseMenu), Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_pauseMenu_MetaData), Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_pauseMenu_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_saveGameClass_MetaData[] = {
+		{ "Category", "TP_PlayerController" },
+		{ "ModuleRelativePath", "TP_PlayerController.h" },
+	};
+#endif
+	const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_saveGameClass = { "saveGameClass", nullptr, (EPropertyFlags)0x0044000000000001, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerController, saveGameClass), Z_Construct_UClass_UClass, Z_Construct_UClass_USaveGame_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_saveGameClass_MetaData), Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_saveGameClass_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_saveGame_MetaData[] = {
+		{ "ModuleRelativePath", "TP_PlayerController.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_saveGame = { "saveGame", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerController, saveGame), Z_Construct_UClass_USaveGame_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_saveGame_MetaData), Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_saveGame_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATP_PlayerController_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_playerDefaultContext,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_moveAction,
@@ -609,7 +685,11 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_stopAttackAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_pauseAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_testCollectibleAction,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_testSaveAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_pauseMenuClass,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_pauseMenu,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_saveGameClass,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_saveGame,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_ATP_PlayerController_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<ATP_PlayerController>::IsAbstract,
@@ -649,9 +729,9 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerController_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ATP_PlayerController, ATP_PlayerController::StaticClass, TEXT("ATP_PlayerController"), &Z_Registration_Info_UClass_ATP_PlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_PlayerController), 2643222342U) },
+		{ Z_Construct_UClass_ATP_PlayerController, ATP_PlayerController::StaticClass, TEXT("ATP_PlayerController"), &Z_Registration_Info_UClass_ATP_PlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_PlayerController), 527516306U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerController_h_2234198648(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerController_h_1308513662(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerController_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerController_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

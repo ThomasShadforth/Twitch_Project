@@ -86,12 +86,6 @@
 			]
 		},
 		{
-			"ShaderMapHash": "77C6051E0AB3DE99199E0B42E1A61113D3B10613",
-			"Assets": [
-				"/Game/LevelPrototyping/Materials/MI_PrototypeGrid_TopDark"
-			]
-		},
-		{
 			"ShaderMapHash": "E0B72E1E220B4807DCDF1B469A0FB2F77ED1FAAF",
 			"Assets": [
 				"/MeshModelingToolset/Materials/M_DynamicMeshComponentVtxColor"
@@ -202,14 +196,9 @@
 			]
 		},
 		{
-			"ShaderMapHash": "9B521F510274B57D2564A4E3B93ABD004D05905F",
-			"Assets": [
-				"/Game/LevelPrototyping/Materials/MI_PrototypeGrid_Gray"
-			]
-		},
-		{
 			"ShaderMapHash": "8A1FDE66CD878447F21541126C19A19E14D52451",
 			"Assets": [
+				"/Game/_Game/Materials/M_TempGrey",
 				"/Game/_Game/Materials/M_TempWhite"
 			]
 		},
@@ -247,6 +236,12 @@
 			"ShaderMapHash": "D0CAB370B33CE7B7A3D3ED890BAF3FE11FEFAFBC",
 			"Assets": [
 				"/Engine/EngineMaterials/Widget3DPassThrough_Translucent"
+			]
+		},
+		{
+			"ShaderMapHash": "1F3CA7778B8639FDA57DE8632B13E0231F424E75",
+			"Assets": [
+				"/Game/Characters/Temp_Model/M_CharacterTexture"
 			]
 		},
 		{
@@ -317,9 +312,9 @@
 			]
 		},
 		{
-			"ShaderMapHash": "C93CBD927D2F487D3F1CF90F72141019CCF2E3EF",
+			"ShaderMapHash": "73CB8794912666DD24EE3C86A3FEB3B60E6284AC",
 			"Assets": [
-				"/Game/_Game/Materials/M_PS1_Shader"
+				"/Game/_Game/Models/Collectibles/Fruit/Orange/Leaf"
 			]
 		},
 		{
@@ -365,12 +360,6 @@
 			]
 		},
 		{
-			"ShaderMapHash": "415443B031B6F94A150E5B03D96E7015674AF6BB",
-			"Assets": [
-				"/Game/LevelPrototyping/Materials/M_PrototypeGrid"
-			]
-		},
-		{
 			"ShaderMapHash": "B3602CB5BE34B235EC8ACE178C59D95B6347228F",
 			"Assets": [
 				"/Engine/EngineMaterials/EmissiveMeshMaterial"
@@ -389,6 +378,15 @@
 			]
 		},
 		{
+			"ShaderMapHash": "A6F927C2A8F39CB932DB84251C5BBC996CD3A1F3",
+			"Assets": [
+				"/Game/_Game/Models/Collectibles/Cheese/Material_001",
+				"/Game/_Game/Models/Collectibles/Fruit/Apples/AppleMat",
+				"/Game/_Game/Models/Collectibles/Fruit/Orange/ORANGEPEEL",
+				"/Game/_Game/Models/Collectibles/Fruit/Pear/PearMat"
+			]
+		},
+		{
 			"ShaderMapHash": "2B8F69C215EBFD12AAF73B462E9B4CABD3858E88",
 			"Assets": [
 				"/Interchange/gltf/M_SpecularGlossiness"
@@ -398,12 +396,6 @@
 			"ShaderMapHash": "38D40CCAEB82E9EB230018255E3E3485A98C9E5B",
 			"Assets": [
 				"/Interchange/gltf/M_Transmission"
-			]
-		},
-		{
-			"ShaderMapHash": "A83181D5BDFE0C9AE24F0E47212E77EE1439D6BB",
-			"Assets": [
-				"/Game/_Game/Materials/M_PS1_PP"
 			]
 		},
 		{

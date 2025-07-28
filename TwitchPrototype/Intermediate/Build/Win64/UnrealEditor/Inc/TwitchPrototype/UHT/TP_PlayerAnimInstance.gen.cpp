@@ -97,6 +97,11 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerAnimInstance() {}
 #endif
 		static const UECodeGen_Private::FStructPropertyParams NewProp_velocity;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_bIsSprinting_MetaData[];
+#endif
+		static void NewProp_bIsSprinting_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bIsSprinting;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_bIsFalling_MetaData[];
 #endif
 		static void NewProp_bIsFalling_SetBit(void* Obj);
@@ -106,6 +111,11 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerAnimInstance() {}
 #endif
 		static void NewProp_bShouldMove_SetBit(void* Obj);
 		static const UECodeGen_Private::FBoolPropertyParams NewProp_bShouldMove;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_bWasStomping_MetaData[];
+#endif
+		static void NewProp_bWasStomping_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bWasStomping;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
@@ -160,6 +170,18 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerAnimInstance() {}
 #endif
 	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_velocity = { "velocity", nullptr, (EPropertyFlags)0x0040000000020015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UTP_PlayerAnimInstance, velocity), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_velocity_MetaData), Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_velocity_MetaData) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsSprinting_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "TP_PlayerAnimInstance" },
+		{ "ModuleRelativePath", "Public/Animation/TP_PlayerAnimInstance.h" },
+	};
+#endif
+	void Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsSprinting_SetBit(void* Obj)
+	{
+		((UTP_PlayerAnimInstance*)Obj)->bIsSprinting = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsSprinting = { "bIsSprinting", nullptr, (EPropertyFlags)0x0040000000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UTP_PlayerAnimInstance), &Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsSprinting_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsSprinting_MetaData), Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsSprinting_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsFalling_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "TP_PlayerAnimInstance" },
@@ -183,13 +205,27 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerAnimInstance() {}
 		((UTP_PlayerAnimInstance*)Obj)->bShouldMove = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bShouldMove = { "bShouldMove", nullptr, (EPropertyFlags)0x0040000000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UTP_PlayerAnimInstance), &Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bShouldMove_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bShouldMove_MetaData), Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bShouldMove_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bWasStomping_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "TP_PlayerAnimInstance" },
+		{ "ModuleRelativePath", "Public/Animation/TP_PlayerAnimInstance.h" },
+	};
+#endif
+	void Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bWasStomping_SetBit(void* Obj)
+	{
+		((UTP_PlayerAnimInstance*)Obj)->bWasStomping = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bWasStomping = { "bWasStomping", nullptr, (EPropertyFlags)0x0040000000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UTP_PlayerAnimInstance), &Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bWasStomping_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bWasStomping_MetaData), Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bWasStomping_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_playerCharacter,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_characterMovement,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_groundSpeed,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_velocity,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsSprinting,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsFalling,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bShouldMove,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bWasStomping,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UTP_PlayerAnimInstance>::IsAbstract,
@@ -229,9 +265,9 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerAnimInstance() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_PlayerAnimInstance_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UTP_PlayerAnimInstance, UTP_PlayerAnimInstance::StaticClass, TEXT("UTP_PlayerAnimInstance"), &Z_Registration_Info_UClass_UTP_PlayerAnimInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UTP_PlayerAnimInstance), 2165160372U) },
+		{ Z_Construct_UClass_UTP_PlayerAnimInstance, UTP_PlayerAnimInstance::StaticClass, TEXT("UTP_PlayerAnimInstance"), &Z_Registration_Info_UClass_UTP_PlayerAnimInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UTP_PlayerAnimInstance), 120315873U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_PlayerAnimInstance_h_2211259431(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_PlayerAnimInstance_h_2275318451(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_PlayerAnimInstance_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_PlayerAnimInstance_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

@@ -38,9 +38,6 @@ void EmptyLinkFunctionForGeneratedCodeTPBaseAbilitySystemComp() {}
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UTPBaseAbilitySystemComp_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UTPBaseAbilitySystemComp_Statics::Class_MetaDataParams[] = {
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "/**\n * \n */" },
-#endif
 		{ "HideCategories", "Object LOD Lighting Transform Sockets TextureStreaming Object LOD Lighting Transform Sockets TextureStreaming" },
 		{ "IncludePath", "AbilitySystem/TPBaseAbilitySystemComp.h" },
 		{ "ModuleRelativePath", "Public/AbilitySystem/TPBaseAbilitySystemComp.h" },
@@ -84,9 +81,9 @@ void EmptyLinkFunctionForGeneratedCodeTPBaseAbilitySystemComp() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_AbilitySystem_TPBaseAbilitySystemComp_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UTPBaseAbilitySystemComp, UTPBaseAbilitySystemComp::StaticClass, TEXT("UTPBaseAbilitySystemComp"), &Z_Registration_Info_UClass_UTPBaseAbilitySystemComp, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UTPBaseAbilitySystemComp), 3718252663U) },
+		{ Z_Construct_UClass_UTPBaseAbilitySystemComp, UTPBaseAbilitySystemComp::StaticClass, TEXT("UTPBaseAbilitySystemComp"), &Z_Registration_Info_UClass_UTPBaseAbilitySystemComp, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UTPBaseAbilitySystemComp), 3448467019U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_AbilitySystem_TPBaseAbilitySystemComp_h_2984062182(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_AbilitySystem_TPBaseAbilitySystemComp_h_1519609862(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_AbilitySystem_TPBaseAbilitySystemComp_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_AbilitySystem_TPBaseAbilitySystemComp_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

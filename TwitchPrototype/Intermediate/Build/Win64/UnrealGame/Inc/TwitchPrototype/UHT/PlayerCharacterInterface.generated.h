@@ -20,6 +20,8 @@ class UCharacterMovementComponent;
 #define FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_13_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_13_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
+	virtual void CollectExtraLife_Implementation() {}; \
+	virtual void ApplyKnockback_Implementation(FVector directionKnockbackForce) {}; \
 	virtual bool GetIsOnGround_Implementation() { return false; }; \
 	virtual UCharacterMovementComponent* GetPlayerMovementComponent_Implementation() { return NULL; }; \
 	virtual void StopHoldingPlayerAttack_Implementation() {}; \
@@ -36,6 +38,8 @@ class UCharacterMovementComponent;
 	virtual void PlayerStopJump_Implementation() {}; \
 	virtual void PlayerJump_Implementation() {}; \
  \
+	DECLARE_FUNCTION(execCollectExtraLife); \
+	DECLARE_FUNCTION(execApplyKnockback); \
 	DECLARE_FUNCTION(execGetIsOnGround); \
 	DECLARE_FUNCTION(execGetPlayerMovementComponent); \
 	DECLARE_FUNCTION(execStopHoldingPlayerAttack); \
@@ -92,6 +96,8 @@ protected: \
 public: \
 	typedef UPlayerCharacterInterface UClassType; \
 	typedef IPlayerCharacterInterface ThisClass; \
+	static void Execute_ApplyKnockback(UObject* O, FVector directionKnockbackForce); \
+	static void Execute_CollectExtraLife(UObject* O); \
 	static bool Execute_GetHasPlayerBeenHit(UObject* O); \
 	static bool Execute_GetIsOnGround(UObject* O); \
 	static bool Execute_GetIsOnLadder(UObject* O); \

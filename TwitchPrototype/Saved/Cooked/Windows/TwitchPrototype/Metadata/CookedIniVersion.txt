@@ -3,7 +3,7 @@ Windows.Game:/Script/UnrealEd.ProjectPackagingSettings:bDeterministicShaderCodeO
 Windows.Game:/Script/Engine.AssetManagerSettings:PrimaryAssetTypesToScan:0=(PrimaryAssetType="Map",AssetBaseClass=/Script/Engine.World,bHasBlueprintClasses=False,bIsEditorOnly=True,Directories=((Path="/Game/Maps")),SpecificAssets=,Rules=(Priority=-1,ChunkId=-1,bApplyRecursively=True,CookRule=Unknown))
 Windows.Game:/Script/Engine.AssetManagerSettings:PrimaryAssetTypesToScan:1=(PrimaryAssetType="PrimaryAssetLabel",AssetBaseClass=/Script/Engine.PrimaryAssetLabel,bHasBlueprintClasses=False,bIsEditorOnly=True,Directories=((Path="/Game")),SpecificAssets=,Rules=(Priority=-1,ChunkId=-1,bApplyRecursively=True,CookRule=Unknown))
 Windows.Engine:/Script/EngineSettings.GameMapsSettings:GameInstanceClass:0=/Script/Engine.GameInstance
-Windows.Engine:/Script/EngineSettings.GameMapsSettings:GameDefaultMap:0=/Game/ThirdPerson/Maps/ThirdPersonMap.ThirdPersonMap
+Windows.Engine:/Script/EngineSettings.GameMapsSettings:GameDefaultMap:0=/Game/_Game/Maps/PrototypeMenu.PrototypeMenu
 Windows.Engine:/Script/EngineSettings.GameMapsSettings:ServerDefaultMap:0=/Engine/Maps/Entry
 Windows.Engine:/Script/EngineSettings.GameMapsSettings:GlobalDefaultGameMode:0=/Script/TwitchPrototype.TwitchPrototypeGameMode
 Windows.Engine:Core.System:CanUseUnversionedPropertySerialization:0=True
@@ -138,9 +138,19 @@ Engine:/Script/UdpMessaging.UdpMessagingSettings:bShareKnownNodesWithActiveConne
 Engine:/Script/UdpMessaging.UdpMessagingSettings:EnableTunnel:0=False
 Engine:/Script/UdpMessaging.UdpMessagingSettings:TunnelUnicastEndpoint:0=
 Engine:/Script/UdpMessaging.UdpMessagingSettings:TunnelMulticastEndpoint:0=
+Engine:/Script/UnrealEd.EditorEngine:FlipNormalMapGreenChannel:0=False
+Engine:/Script/UnrealEd.EditorEngine:GameCommandLine:0=-log
+Engine:/Script/UnrealEd.EditorEngine:UseAxisIndicator:0=True
+Engine:/Script/UnrealEd.EditorEngine:HeightMapExportClassName:0=TerrainHeightMapExporterTextT3D
+Engine:/Script/UnrealEd.EditorEngine:bCustomCameraAlignEmitter:0=true
+Engine:/Script/UnrealEd.EditorEngine:CustomCameraAlignEmitterDistance:0=100.0
+Engine:/Script/UnrealEd.EditorEngine:bDrawSocketsInGMode:0=false
+Engine:/Script/UnrealEd.EditorEngine:bSmoothFrameRate:0=false
+Engine:/Script/UnrealEd.EditorEngine:SmoothedFrameRateRange:0=(LowerBound=(Type="ERangeBoundTypesInclusive",Value=5),UpperBound=(Type="ERangeBoundTypesInclusive",Value=120))
+Engine:/Script/UnrealEd.EditorEngine:InEditorGameURLOptions:0=
 Engine:/Script/EngineSettings.GameMapsSettings:GameInstanceClass:0=/Script/Engine.GameInstance
 Engine:/Script/EngineSettings.GameMapsSettings:EditorStartupMap:0=/Game/ThirdPerson/Maps/ThirdPersonMap.ThirdPersonMap
-Engine:/Script/EngineSettings.GameMapsSettings:GameDefaultMap:0=/Game/ThirdPerson/Maps/ThirdPersonMap.ThirdPersonMap
+Engine:/Script/EngineSettings.GameMapsSettings:GameDefaultMap:0=/Game/_Game/Maps/PrototypeMenu.PrototypeMenu
 Engine:/Script/EngineSettings.GameMapsSettings:ServerDefaultMap:0=/Engine/Maps/Entry
 Engine:/Script/EngineSettings.GameMapsSettings:GlobalDefaultGameMode:0=/Script/TwitchPrototype.TwitchPrototypeGameMode
 Engine:/Script/EngineSettings.GameMapsSettings:LocalMapOptions:0=
@@ -401,8 +411,8 @@ Engine:/Script/Engine.RendererSettings:GreenChromaticityCoordinate:0=(X=0.300000
 Engine:/Script/Engine.RendererSettings:BlueChromaticityCoordinate:0=(X=0.150000,Y=0.060000)
 Engine:/Script/Engine.RendererSettings:WhiteChromaticityCoordinate:0=(X=0.312700,Y=0.329000)
 Engine:/Script/Engine.RendererSettings:r.ClearCoatNormal:0=False
-Engine:/Script/Engine.RendererSettings:r.DynamicGlobalIlluminationMethod:0=1
-Engine:/Script/Engine.RendererSettings:r.ReflectionMethod:0=1
+Engine:/Script/Engine.RendererSettings:r.DynamicGlobalIlluminationMethod:0=0
+Engine:/Script/Engine.RendererSettings:r.ReflectionMethod:0=0
 Engine:/Script/Engine.RendererSettings:r.ReflectionCaptureResolution:0=128
 Engine:/Script/Engine.RendererSettings:r.ReflectionEnvironmentLightmapMixBasedOnRoughness:0=True
 Engine:/Script/Engine.RendererSettings:r.Lumen.HardwareRayTracing:0=False
@@ -441,7 +451,7 @@ Engine:/Script/Engine.RendererSettings:r.DefaultFeature.LocalExposure.ShadowCont
 Engine:/Script/Engine.RendererSettings:r.DefaultFeature.MotionBlur:0=False
 Engine:/Script/Engine.RendererSettings:r.DefaultFeature.LensFlare:0=False
 Engine:/Script/Engine.RendererSettings:r.TemporalAA.Upsampling:0=True
-Engine:/Script/Engine.RendererSettings:r.AntiAliasingMethod:0=0
+Engine:/Script/Engine.RendererSettings:r.AntiAliasingMethod:0=2
 Engine:/Script/Engine.RendererSettings:r.MSAACount:0=4
 Engine:/Script/Engine.RendererSettings:r.DefaultFeature.LightUnits:0=1
 Engine:/Script/Engine.RendererSettings:r.DefaultBackBufferPixelFormat:0=4
@@ -532,15 +542,6 @@ Engine:/Script/OnlineSubsystemUtils.IpNetDriver:ResolutionConnectionTimeout:0=20
 Engine:/Script/Engine.DemoNetDriver:NetConnectionClassName:0=/Script/Engine.DemoNetConnection
 Engine:/Script/Engine.DemoNetDriver:SpawnPrioritySeconds:0=60.0
 Engine:TextureStreaming:MinTextureResidentMipCount:0=7
-Engine:/Script/UnrealEd.EditorEngine:GameCommandLine:0=-log
-Engine:/Script/UnrealEd.EditorEngine:UseAxisIndicator:0=True
-Engine:/Script/UnrealEd.EditorEngine:HeightMapExportClassName:0=TerrainHeightMapExporterTextT3D
-Engine:/Script/UnrealEd.EditorEngine:bCustomCameraAlignEmitter:0=true
-Engine:/Script/UnrealEd.EditorEngine:CustomCameraAlignEmitterDistance:0=100.0
-Engine:/Script/UnrealEd.EditorEngine:bDrawSocketsInGMode:0=false
-Engine:/Script/UnrealEd.EditorEngine:bSmoothFrameRate:0=false
-Engine:/Script/UnrealEd.EditorEngine:SmoothedFrameRateRange:0=(LowerBound=(Type="ERangeBoundTypesInclusive",Value=5),UpperBound=(Type="ERangeBoundTypesInclusive",Value=120))
-Engine:/Script/UnrealEd.EditorEngine:InEditorGameURLOptions:0=
 Engine:DevOptions.Shaders:bAllowCompilingThroughWorkers:0=True
 Engine:DevOptions.Shaders:bAllowAsynchronousShaderCompiling:0=True
 Engine:DevOptions.Shaders:NumUnusedShaderCompilingThreads:0=3
@@ -552,6 +553,7 @@ Engine:DevOptions.Shaders:bLogJobCompletionTimes:0=False
 Engine:DevOptions.Shaders:ProcessGameThreadTargetTime:0=.01
 Engine:DevOptions.Shaders:WorkerTimeToLive:0=20
 Engine:DevOptions.Shaders:BuildWorkerTimeToLive:0=1200
+Engine:DevOptions.Shaders:WorkerProcessPriority:0=-1
 Engine:DevOptions.Shaders:bForceUseSCWMemoryPressureLimits:0=False
 Engine:LogFiles:PurgeLogsDays:0=5
 Engine:LogFiles:MaxLogFilesOnDisk:0=10
@@ -833,7 +835,7 @@ Engine:/Script/AndroidFileServerEditor.AndroidFileServerRuntimeSettings:bReportS
 Engine:/Script/AndroidFileServerEditor.AndroidFileServerRuntimeSettings:ConnectionType:0=USBOnly
 Engine:/Script/AndroidFileServerEditor.AndroidFileServerRuntimeSettings:bUseManualIPAddress:0=False
 Engine:/Script/AndroidFileServerEditor.AndroidFileServerRuntimeSettings:ManualIPAddress:0=
-Game:/Script/DeveloperToolSettings.PlatformsMenuSettings:StagingDirectory:0=(Path="E/ProjectBuilds/Ratformer/TestBuild")
+Game:/Script/DeveloperToolSettings.PlatformsMenuSettings:StagingDirectory:0=(Path="E/ProjectBuilds/Ratformer/Prototype 1 - Movement")
 Game:/Script/DeveloperToolSettings.PlatformsMenuSettings:LaunchOnTarget:0=
 Game:/Script/DeveloperToolSettings.PlatformsMenuSettings:PerPlatformBuildConfig:0=()
 Game:/Script/DeveloperToolSettings.PlatformsMenuSettings:PerPlatformTargetFlavorName:0=(("Android", "Android_ASTC"))

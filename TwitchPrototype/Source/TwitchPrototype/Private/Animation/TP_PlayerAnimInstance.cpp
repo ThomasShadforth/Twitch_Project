@@ -35,7 +35,8 @@ void UTP_PlayerAnimInstance::UpdateAnimationProperties(float DeltaTime)
 		bIsFalling = characterMovement->IsFalling();
 
 		SetShouldMove();
-		
+		SetIsSprinting();
+		SetWasStomping();
 	}
 }
 
@@ -55,4 +56,14 @@ void UTP_PlayerAnimInstance::SetShouldMove()
 	bool bGroundSpeedActive = groundSpeed > 3.0f;
 
 	bShouldMove = bAccelerationNotZero && bGroundSpeedActive;
+}
+
+void UTP_PlayerAnimInstance::SetIsSprinting()
+{
+	bIsSprinting = playerCharacter->GetPlayerIsSprinting();
+}
+
+void UTP_PlayerAnimInstance::SetWasStomping()
+{
+	bWasStomping = playerCharacter->GetPlayerWasStomping();
 }

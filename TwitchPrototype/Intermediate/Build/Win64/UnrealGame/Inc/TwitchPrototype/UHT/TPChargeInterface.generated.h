@@ -18,7 +18,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Interaction_TPChargeInterface_h_13_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Interaction_TPChargeInterface_h_13_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Interaction_TPChargeInterface_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
-	virtual void ObjectChargedInto_Implementation() {}; \
+	virtual void ObjectChargedInto_Implementation(FVector InitiatorLocation, float knockbackModifier) {}; \
  \
 	DECLARE_FUNCTION(execObjectChargedInto);
 
@@ -62,7 +62,7 @@ protected: \
 public: \
 	typedef UTPChargeInterface UClassType; \
 	typedef ITPChargeInterface ThisClass; \
-	static void Execute_ObjectChargedInto(UObject* O); \
+	static void Execute_ObjectChargedInto(UObject* O, FVector InitiatorLocation, float knockbackModifier); \
 	virtual UObject* _getUObject() const { return nullptr; }
 
 

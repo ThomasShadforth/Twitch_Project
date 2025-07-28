@@ -9,9 +9,11 @@
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeTP_BaseProjectile() {}
 // Cross Module References
+	COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 	ENGINE_API UClass* Z_Construct_UClass_AActor();
 	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UProjectileMovementComponent_NoRegister();
+	GAMEPLAYABILITIES_API UClass* Z_Construct_UClass_UGameplayEffect_NoRegister();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATP_BaseProjectile();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATP_BaseProjectile_NoRegister();
 	UPackage* Z_Construct_UPackage__Script_TwitchPrototype();
@@ -38,15 +40,63 @@ void EmptyLinkFunctionForGeneratedCodeTP_BaseProjectile() {}
 		P_THIS->SetOwningActor(Z_Param_ownerActor);
 		P_NATIVE_END;
 	}
+	DEFINE_FUNCTION(ATP_BaseProjectile::execApplyGameplayEffectToTarget)
+	{
+		P_GET_OBJECT(AActor,Z_Param_TargetActor);
+		P_GET_OBJECT(UClass,Z_Param_GameplayEffectClass);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->ApplyGameplayEffectToTarget(Z_Param_TargetActor,Z_Param_GameplayEffectClass);
+		P_NATIVE_END;
+	}
 	void ATP_BaseProjectile::StaticRegisterNativesATP_BaseProjectile()
 	{
 		UClass* Class = ATP_BaseProjectile::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
+			{ "ApplyGameplayEffectToTarget", &ATP_BaseProjectile::execApplyGameplayEffectToTarget },
 			{ "GetProjectileMovement", &ATP_BaseProjectile::execGetProjectileMovement },
 			{ "GetProjectileSpeed", &ATP_BaseProjectile::execGetProjectileSpeed },
 			{ "SetOwningActor", &ATP_BaseProjectile::execSetOwningActor },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
+	}
+	struct Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics
+	{
+		struct TP_BaseProjectile_eventApplyGameplayEffectToTarget_Parms
+		{
+			AActor* TargetActor;
+			TSubclassOf<UGameplayEffect>  GameplayEffectClass;
+		};
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_TargetActor;
+		static const UECodeGen_Private::FClassPropertyParams NewProp_GameplayEffectClass;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics::NewProp_TargetActor = { "TargetActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_BaseProjectile_eventApplyGameplayEffectToTarget_Parms, TargetActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FClassPropertyParams Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics::NewProp_GameplayEffectClass = { "GameplayEffectClass", nullptr, (EPropertyFlags)0x0014000000000080, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_BaseProjectile_eventApplyGameplayEffectToTarget_Parms, GameplayEffectClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UGameplayEffect_NoRegister, METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics::NewProp_TargetActor,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics::NewProp_GameplayEffectClass,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/TP_BaseProjectile.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_BaseProjectile, nullptr, "ApplyGameplayEffectToTarget", nullptr, nullptr, Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics::PropPointers), sizeof(Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics::TP_BaseProjectile_eventApplyGameplayEffectToTarget_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics::TP_BaseProjectile_eventApplyGameplayEffectToTarget_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget_Statics::FuncParams);
+		}
+		return ReturnFunction;
 	}
 	struct Z_Construct_UFunction_ATP_BaseProjectile_GetProjectileMovement_Statics
 	{
@@ -171,6 +221,10 @@ void EmptyLinkFunctionForGeneratedCodeTP_BaseProjectile() {}
 		static const UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_DamageGameplayEffect_MetaData[];
+#endif
+		static const UECodeGen_Private::FClassPropertyParams NewProp_DamageGameplayEffect;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_owningActor_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPropertyParams NewProp_owningActor;
@@ -178,6 +232,10 @@ void EmptyLinkFunctionForGeneratedCodeTP_BaseProjectile() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_projectileMovement_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPropertyParams NewProp_projectileMovement;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_knockbackModifier_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_knockbackModifier;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_projectileSpeed_MetaData[];
 #endif
@@ -192,6 +250,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_BaseProjectile() {}
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_BaseProjectile_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_ATP_BaseProjectile_Statics::FuncInfo[] = {
+		{ &Z_Construct_UFunction_ATP_BaseProjectile_ApplyGameplayEffectToTarget, "ApplyGameplayEffectToTarget" }, // 3579613844
 		{ &Z_Construct_UFunction_ATP_BaseProjectile_GetProjectileMovement, "GetProjectileMovement" }, // 1340030164
 		{ &Z_Construct_UFunction_ATP_BaseProjectile_GetProjectileSpeed, "GetProjectileSpeed" }, // 2169261921
 		{ &Z_Construct_UFunction_ATP_BaseProjectile_SetOwningActor, "SetOwningActor" }, // 2424565560
@@ -203,6 +262,13 @@ void EmptyLinkFunctionForGeneratedCodeTP_BaseProjectile() {}
 		{ "ModuleRelativePath", "Public/TP_BaseProjectile.h" },
 	};
 #endif
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_DamageGameplayEffect_MetaData[] = {
+		{ "Category", "TP_BaseProjectile" },
+		{ "ModuleRelativePath", "Public/TP_BaseProjectile.h" },
+	};
+#endif
+	const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_DamageGameplayEffect = { "DamageGameplayEffect", nullptr, (EPropertyFlags)0x0024080000000015, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_BaseProjectile, DamageGameplayEffect), Z_Construct_UClass_UClass, Z_Construct_UClass_UGameplayEffect_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_DamageGameplayEffect_MetaData), Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_DamageGameplayEffect_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_owningActor_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
@@ -221,6 +287,14 @@ void EmptyLinkFunctionForGeneratedCodeTP_BaseProjectile() {}
 #endif
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_projectileMovement = { "projectileMovement", nullptr, (EPropertyFlags)0x004000000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_BaseProjectile, projectileMovement), Z_Construct_UClass_UProjectileMovementComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_projectileMovement_MetaData), Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_projectileMovement_MetaData) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_knockbackModifier_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "TP_BaseProjectile" },
+		{ "ModuleRelativePath", "Public/TP_BaseProjectile.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_knockbackModifier = { "knockbackModifier", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_BaseProjectile, knockbackModifier), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_knockbackModifier_MetaData), Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_knockbackModifier_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_projectileSpeed_MetaData[] = {
 		{ "Category", "TP_BaseProjectile" },
 		{ "ModuleRelativePath", "Public/TP_BaseProjectile.h" },
@@ -228,8 +302,10 @@ void EmptyLinkFunctionForGeneratedCodeTP_BaseProjectile() {}
 #endif
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_projectileSpeed = { "projectileSpeed", nullptr, (EPropertyFlags)0x0040000000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_BaseProjectile, projectileSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_projectileSpeed_MetaData), Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_projectileSpeed_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATP_BaseProjectile_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_DamageGameplayEffect,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_owningActor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_projectileMovement,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_knockbackModifier,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_BaseProjectile_Statics::NewProp_projectileSpeed,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_ATP_BaseProjectile_Statics::StaticCppClassTypeInfo = {
@@ -270,9 +346,9 @@ void EmptyLinkFunctionForGeneratedCodeTP_BaseProjectile() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_TP_BaseProjectile_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ATP_BaseProjectile, ATP_BaseProjectile::StaticClass, TEXT("ATP_BaseProjectile"), &Z_Registration_Info_UClass_ATP_BaseProjectile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_BaseProjectile), 1051085093U) },
+		{ Z_Construct_UClass_ATP_BaseProjectile, ATP_BaseProjectile::StaticClass, TEXT("ATP_BaseProjectile"), &Z_Registration_Info_UClass_ATP_BaseProjectile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_BaseProjectile), 879316128U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_TP_BaseProjectile_h_3335117245(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_TP_BaseProjectile_h_2230779620(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_TP_BaseProjectile_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_TP_BaseProjectile_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

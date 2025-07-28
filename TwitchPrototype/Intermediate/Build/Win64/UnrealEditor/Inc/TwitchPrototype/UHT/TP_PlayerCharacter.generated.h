@@ -22,6 +22,7 @@ struct FHitResult;
 #define FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_33_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_33_RPC_WRAPPERS_NO_PURE_DECLS \
  \
+	DECLARE_FUNCTION(execResetWasStomp); \
 	DECLARE_FUNCTION(execResetDamageSoundTimer); \
 	DECLARE_FUNCTION(execResetWallSlideSoundTimer); \
 	DECLARE_FUNCTION(execChargeBoxOverlap); \

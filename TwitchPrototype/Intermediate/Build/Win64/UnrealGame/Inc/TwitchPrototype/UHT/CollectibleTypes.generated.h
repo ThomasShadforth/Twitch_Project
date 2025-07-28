@@ -23,7 +23,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 	op(ECollectibleTypes::ECT_Primary) \
 	op(ECollectibleTypes::ECT_Secondary) 
 
-enum class ECollectibleTypes;
+enum class ECollectibleTypes : uint8;
 template<> struct TIsUEnumClass<ECollectibleTypes> { enum { Value = true }; };
 template<> TWITCHPROTOTYPE_API UEnum* StaticEnum<ECollectibleTypes>();
 

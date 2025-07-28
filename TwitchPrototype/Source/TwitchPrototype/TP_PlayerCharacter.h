@@ -100,6 +100,8 @@ protected:
 
 	void SetInterpFOV(float DeltaTime);
 
+	void SetInterpWallSlideSpeed(float DeltaTime);
+	
 	void Aim(float DeltaTime);
 	
 	bool CheckForWallJump(FHitResult& outWallHit);
@@ -157,6 +159,9 @@ protected:
 
 	UFUNCTION()
 	void ResetDamageSoundTimer();
+
+	UFUNCTION()
+	void ResetWasStomp();
 	
 private:
 
@@ -178,8 +183,11 @@ private:
 
 	bool bIsStomping;
 
+	bool bWasStomping;
+	
 	bool bStompStart;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Wall Sliding", meta = (AllowPrivateAccess = "true"))
 	bool bWallSliding;
 
 	bool bHasPlayerBeenHit;
@@ -289,6 +297,15 @@ private:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Wall Sliding", meta = (AllowPrivateAccess = "true"))
 	float wallSlideRate;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Wall Sliding", meta = (AllowPrivateAccess = "true"))
+	float startingWallSlideRate;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Wall Sliding", meta = (AllowPrivateAccess = "true"))
+	float minWallSlideRate;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Wall Sliding", meta = (AllowPrivateAccess = "true"))
+	float wallSlideRateChangeSpeed;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Wall Sliding",meta = (AllowPrivateAccess = "true"))
 	float wallSlideCheckDistance;
 	
@@ -400,4 +417,9 @@ public:
 	FORCEINLINE bool GetDisableMovement() const{return bAirDashing || bIsStomping || bIsKnockedBack;}
 
 	FORCEINLINE bool GetPlayerHasBeenHit() const {return bHasPlayerBeenHit;}
+
+	FORCEINLINE bool GetPlayerIsSprinting() const {return bIsSprinting;}
+
+	FORCEINLINE bool GetPlayerWasStomping() const {return false;}
+	
 };
