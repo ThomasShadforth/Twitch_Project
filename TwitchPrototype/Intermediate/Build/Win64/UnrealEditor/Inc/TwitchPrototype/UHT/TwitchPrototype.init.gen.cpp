@@ -9,10 +9,13 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeTwitchPrototype_init() {}
 	TWITCHPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_TwitchPrototype_HealthZeroSignature__DelegateSignature();
 	TWITCHPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_TwitchPrototype_OnCheeseCollectedSignature__DelegateSignature();
+	TWITCHPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_TwitchPrototype_OnExitSignature__DelegateSignature();
 	TWITCHPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_TwitchPrototype_OnFruitCollectedSignature__DelegateSignature();
 	TWITCHPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_TwitchPrototype_OnHealthChangedSignature__DelegateSignature();
 	TWITCHPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_TwitchPrototype_OnLivesChangedSignature__DelegateSignature();
 	TWITCHPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_TwitchPrototype_OnMaxHealthChangedSignature__DelegateSignature();
+	TWITCHPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_TwitchPrototype_OnReplyFinishedSignature__DelegateSignature();
+	TWITCHPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_TwitchPrototype_OnSpeakFinishedSignature__DelegateSignature();
 	TWITCHPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_TwitchPrototype_SaveSubSystemSaveGameCreated__DelegateSignature();
 	TWITCHPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_TwitchPrototype_SaveSubSystemSaveGameLoaded__DelegateSignature();
 	TWITCHPROTOTYPE_API UFunction* Z_Construct_UDelegateFunction_TwitchPrototype_SaveSubSystemSaveGameSaveStarted__DelegateSignature();
@@ -24,10 +27,13 @@ void EmptyLinkFunctionForGeneratedCodeTwitchPrototype_init() {}
 			static UObject* (*const SingletonFuncArray[])() = {
 				(UObject* (*)())Z_Construct_UDelegateFunction_TwitchPrototype_HealthZeroSignature__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_TwitchPrototype_OnCheeseCollectedSignature__DelegateSignature,
+				(UObject* (*)())Z_Construct_UDelegateFunction_TwitchPrototype_OnExitSignature__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_TwitchPrototype_OnFruitCollectedSignature__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_TwitchPrototype_OnHealthChangedSignature__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_TwitchPrototype_OnLivesChangedSignature__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_TwitchPrototype_OnMaxHealthChangedSignature__DelegateSignature,
+				(UObject* (*)())Z_Construct_UDelegateFunction_TwitchPrototype_OnReplyFinishedSignature__DelegateSignature,
+				(UObject* (*)())Z_Construct_UDelegateFunction_TwitchPrototype_OnSpeakFinishedSignature__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_TwitchPrototype_SaveSubSystemSaveGameCreated__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_TwitchPrototype_SaveSubSystemSaveGameLoaded__DelegateSignature,
 				(UObject* (*)())Z_Construct_UDelegateFunction_TwitchPrototype_SaveSubSystemSaveGameSaveStarted__DelegateSignature,
@@ -37,13 +43,13 @@ void EmptyLinkFunctionForGeneratedCodeTwitchPrototype_init() {}
 				SingletonFuncArray,
 				UE_ARRAY_COUNT(SingletonFuncArray),
 				PKG_CompiledIn | 0x00000000,
-				0x792A5684,
-				0x0FC5D31A,
+				0xF3F249F0,
+				0x27A362A0,
 				METADATA_PARAMS(0, nullptr)
 			};
 			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_TwitchPrototype.OuterSingleton, PackageParams);
 		}
 		return Z_Registration_Info_UPackage__Script_TwitchPrototype.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_TwitchPrototype(Z_Construct_UPackage__Script_TwitchPrototype, TEXT("/Script/TwitchPrototype"), Z_Registration_Info_UPackage__Script_TwitchPrototype, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x792A5684, 0x0FC5D31A));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_TwitchPrototype(Z_Construct_UPackage__Script_TwitchPrototype, TEXT("/Script/TwitchPrototype"), Z_Registration_Info_UPackage__Script_TwitchPrototype, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0xF3F249F0, 0x27A362A0));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

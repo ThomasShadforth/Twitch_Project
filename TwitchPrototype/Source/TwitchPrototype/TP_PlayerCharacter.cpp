@@ -22,8 +22,10 @@
 #include "TP_PlayerController.h"
 #include "AbilitySystem/TPBaseAbilitySystemComp.h"
 #include "Components/BoxComponent.h"
+#include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Interaction/TPChargeInterface.h"
+#include "Interaction/TPInteractInterface.h"
 #include "Kismet/GameplayStatics.h"
 #include "Player/TPPlayerState.h"
 #include "Sound/SoundCue.h"
@@ -72,6 +74,9 @@ bShouldPlayDamageSound(true)
 	playerChargeOverlapBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Charge Overlap"));
 	playerChargeOverlapBox->SetupAttachment(RootComponent);
 
+	interactOverlapSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Interaction Overlap"));
+	interactOverlapSphere->SetupAttachment(RootComponent);
+	
 	projectileThrowPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Throw Point"));
 	projectileThrowPoint->SetupAttachment(RootComponent);
 
@@ -285,6 +290,20 @@ void ATP_PlayerCharacter::CollectExtraLife_Implementation()
 	}
 }
 
+void ATP_PlayerCharacter::PlayerInteract_Implementation()
+{
+	IPlayerCharacterInterface::PlayerInteract_Implementation();
+
+	if(interactablesInRange.Num() > 0)
+	{
+		ITPInteractInterface::Execute_Interact(interactablesInRange[0], this);
+		UE_LOG(LogTemp, Warning, TEXT("STARTING TO INTERACT!"));
+	}
+
+	//If no interactables in range, do not do ANYTHING
+	
+}
+
 // Called when the game starts or when spawned
 void ATP_PlayerCharacter::BeginPlay()
 {
@@ -306,6 +325,15 @@ void ATP_PlayerCharacter::BeginPlay()
 	playerChargeOverlapBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	playerChargeOverlapBox->SetCollisionResponseToAllChannels(ECR_Ignore);
 	playerChargeOverlapBox->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+
+	interactOverlapSphere->OnComponentBeginOverlap.AddDynamic(this, &ATP_PlayerCharacter::InteractSphereOverlap);
+	interactOverlapSphere->OnComponentEndOverlap.AddDynamic(this, &ATP_PlayerCharacter::ATP_PlayerCharacter::InteractSphereEndOverlap);
+	
+	interactOverlapSphere->SetCollisionResponseToAllChannels(ECR_Ignore);
+	interactOverlapSphere->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	interactOverlapSphere->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Overlap);
+	interactOverlapSphere->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Overlap);
+
 	
 	//Define timeline parameters
 	//Check if squash curve is valid
@@ -680,6 +708,18 @@ void ATP_PlayerCharacter::ChargeBoxOverlap(UPrimitiveComponent* OverlappedCompon
 	}
 }
 
+void ATP_PlayerCharacter::InteractSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	ManageInteractableArray(OtherActor, true);
+}
+
+void ATP_PlayerCharacter::InteractSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	ManageInteractableArray(OtherActor, false);
+}
+
 void ATP_PlayerCharacter::SetChargeBoxCollision(bool bEnableCollision)
 {
 	playerChargeOverlapBox->SetCollisionEnabled(bEnableCollision ? ECollisionEnabled::QueryAndPhysics : ECollisionEnabled::NoCollision);
@@ -775,7 +815,7 @@ void ATP_PlayerCharacter::PlaySoundCue(USoundCue* InSoundCue)
 		UGameplayStatics::PlaySound2D(this, InSoundCue);
 	} else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("SOUND CUE HAS NOT BEEN POPULATED"));
+		//UE_LOG(LogTemp, Warning, TEXT("SOUND CUE HAS NOT BEEN POPULATED"));
 	}
 }
 
@@ -792,6 +832,28 @@ void ATP_PlayerCharacter::ResetDamageSoundTimer()
 void ATP_PlayerCharacter::ResetWasStomp()
 {
 	bWasStomping = false;
+}
+
+void ATP_PlayerCharacter::ManageInteractableArray(AActor* OtherActor, bool bIsAddItems)
+{
+	
+	if(UKismetSystemLibrary::DoesImplementInterface(OtherActor, UTPInteractInterface::StaticClass()))
+	{
+		bIsAddItems ? interactablesInRange.AddUnique(OtherActor) : interactablesInRange.Remove(OtherActor);
+
+		UE_LOG(LogTemp, Warning, TEXT("INTERACTABLE MANAGED"));
+		
+	} else
+	{
+		TArray<UActorComponent*> actorsComponents = OtherActor->GetComponentsByInterface(UTPInteractInterface::StaticClass());
+
+		for(UActorComponent* component : actorsComponents)
+		{
+			bIsAddItems ? interactablesInRange.AddUnique(component) : interactablesInRange.Remove(component);
+
+			UE_LOG(LogTemp, Warning, TEXT("INTERACTABLE MANAGED"));
+		}
+	}
 }
 
 void ATP_PlayerCharacter::SetHasBeenHitFalse()
@@ -822,7 +884,7 @@ float ATP_PlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Da
 	AActor* DamageCauser)
 {
 
-	UE_LOG(LogTemp, Warning, TEXT("DAMAGE DEALT!!"));
+	//UE_LOG(LogTemp, Warning, TEXT("DAMAGE DEALT!!"));
 	
 	return DamageAmount;
 }

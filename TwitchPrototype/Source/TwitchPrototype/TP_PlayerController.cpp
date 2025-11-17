@@ -139,7 +139,14 @@ void ATP_PlayerController::PlayerStomp()
 {
 	if(!GetDoesImplementInterface()) return;
 
-	IPlayerCharacterInterface::Execute_PlayerStomp(GetPawn());
+	//If the player is grounded, instead trigger the interact
+	if(!IPlayerCharacterInterface::Execute_GetIsOnGround(GetPawn()))
+	{
+		IPlayerCharacterInterface::Execute_PlayerStomp(GetPawn());
+	} else
+	{
+		IPlayerCharacterInterface::Execute_PlayerInteract(GetPawn());
+	}
 }
 
 void ATP_PlayerController::PlayerAttack()

@@ -15,8 +15,10 @@
 class UCurveFloat;
 class ATP_PlayerController;
 class UBoxComponent;
+class USphereComponent;
 class ATP_BaseProjectile;
 class USoundCue;
+class ITPInteractInterface;
 
 UENUM()
 enum class EPlayerStates
@@ -77,6 +79,8 @@ public:
 	virtual void DamageCharacter_Implementation(AActor* DamageCauser, float KnockbackModifier) override;
 
 	virtual void CollectExtraLife_Implementation() override;
+
+	virtual void PlayerInteract_Implementation() override;
 	
 protected:
 	// Called when the game starts or when spawned
@@ -140,6 +144,12 @@ protected:
 	UFUNCTION()
 	void ChargeBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	UFUNCTION()
+	void InteractSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+	void InteractSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	
 	void SetChargeBoxCollision(bool bEnableCollision);
 
 	void HandlePlayerThrow();
@@ -162,6 +172,8 @@ protected:
 
 	UFUNCTION()
 	void ResetWasStomp();
+
+	void ManageInteractableArray(AActor* OtherActor, bool bIsAddItems);
 	
 private:
 
@@ -401,6 +413,11 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Sound Effect Properties" ,meta = (AllowPrivateAccess = "true"))
 	float playerDamageSoundResetTime;
 
+	UPROPERTY(EditAnywhere)
+	USphereComponent* interactOverlapSphere;
+
+	TArray<UObject*> interactablesInRange;
+	
 	bool bShouldPlayDamageSound;
 	
 public:	
@@ -420,6 +437,12 @@ public:
 
 	FORCEINLINE bool GetPlayerIsSprinting() const {return bIsSprinting;}
 
-	FORCEINLINE bool GetPlayerWasStomping() const {return false;}
+	FORCEINLINE bool GetPlayerWasStomping() const {return bWasStomping;}
+
+	FORCEINLINE bool GetPlayerIsStomping() const {return bIsStomping;}
+
+	FORCEINLINE bool GetPlayerIsWallSliding() const {return bWallSliding;}
+
+	FORCEINLINE bool GetPlayerIsAirDashing() const {return bAirDashing;}
 	
 };

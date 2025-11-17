@@ -1,0 +1,28 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\npcdialogueaicontroller.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\twitchprototype\\definitions.twitchprototype.h",
+            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\source\\twitchprototype\\public\\dialoguesystem\\npcdialogueaicontroller.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\aimodule\\classes\\aicontroller.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\aimodule\\classes\\aitypes.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\navigationsystem\\public\\navigationsystemtypes.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\ai\\navigationsystemconfig.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\navigationsystemconfig.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\aitypes.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\aimodule\\classes\\perception\\aiperceptionlistenerinterface.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\aiperceptionlistenerinterface.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\aimodule\\classes\\genericteamagentinterface.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\genericteamagentinterface.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\public\\visuallogger\\visualloggerdebugsnapshotinterface.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\visualloggerdebugsnapshotinterface.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\aicontroller.generated.h",
+            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\npcdialogueaicontroller.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

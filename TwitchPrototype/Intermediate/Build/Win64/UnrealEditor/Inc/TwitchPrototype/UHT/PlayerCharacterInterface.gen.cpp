@@ -17,6 +17,13 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_UPlayerCharacterInterface_NoRegister();
 	UPackage* Z_Construct_UPackage__Script_TwitchPrototype();
 // End Cross Module References
+	DEFINE_FUNCTION(IPlayerCharacterInterface::execPlayerInteract)
+	{
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->PlayerInteract_Implementation();
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(IPlayerCharacterInterface::execCollectExtraLife)
 	{
 		P_FINISH;
@@ -255,6 +262,10 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 		PlayerCharacterInterface_eventGetPlayerMovementComponent_Parms Parms;
 		return Parms.ReturnValue;
 	}
+	void IPlayerCharacterInterface::PlayerInteract()
+	{
+		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_PlayerInteract instead.");
+	}
 	void IPlayerCharacterInterface::PlayerJump()
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_PlayerJump instead.");
@@ -303,6 +314,7 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 			{ "GetPlayerCharacterController", &IPlayerCharacterInterface::execGetPlayerCharacterController },
 			{ "GetPlayerMoveDisabled", &IPlayerCharacterInterface::execGetPlayerMoveDisabled },
 			{ "GetPlayerMovementComponent", &IPlayerCharacterInterface::execGetPlayerMovementComponent },
+			{ "PlayerInteract", &IPlayerCharacterInterface::execPlayerInteract },
 			{ "PlayerJump", &IPlayerCharacterInterface::execPlayerJump },
 			{ "PlayerSprint", &IPlayerCharacterInterface::execPlayerSprint },
 			{ "PlayerStomp", &IPlayerCharacterInterface::execPlayerStomp },
@@ -575,6 +587,28 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_UPlayerCharacterInterface_PlayerInteract_Statics
+	{
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UPlayerCharacterInterface_PlayerInteract_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/Player/PlayerCharacterInterface.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UPlayerCharacterInterface_PlayerInteract_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UPlayerCharacterInterface, nullptr, "PlayerInteract", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UPlayerCharacterInterface_PlayerInteract_Statics::Function_MetaDataParams), Z_Construct_UFunction_UPlayerCharacterInterface_PlayerInteract_Statics::Function_MetaDataParams) };
+	UFunction* Z_Construct_UFunction_UPlayerCharacterInterface_PlayerInteract()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UPlayerCharacterInterface_PlayerInteract_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	struct Z_Construct_UFunction_UPlayerCharacterInterface_PlayerJump_Statics
 	{
 #if WITH_METADATA
@@ -828,6 +862,7 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 		{ &Z_Construct_UFunction_UPlayerCharacterInterface_GetPlayerCharacterController, "GetPlayerCharacterController" }, // 2787586995
 		{ &Z_Construct_UFunction_UPlayerCharacterInterface_GetPlayerMoveDisabled, "GetPlayerMoveDisabled" }, // 3987612312
 		{ &Z_Construct_UFunction_UPlayerCharacterInterface_GetPlayerMovementComponent, "GetPlayerMovementComponent" }, // 22902655
+		{ &Z_Construct_UFunction_UPlayerCharacterInterface_PlayerInteract, "PlayerInteract" }, // 1184334368
 		{ &Z_Construct_UFunction_UPlayerCharacterInterface_PlayerJump, "PlayerJump" }, // 1074956268
 		{ &Z_Construct_UFunction_UPlayerCharacterInterface_PlayerSprint, "PlayerSprint" }, // 1613750693
 		{ &Z_Construct_UFunction_UPlayerCharacterInterface_PlayerStomp, "PlayerStomp" }, // 1997792366
@@ -1011,6 +1046,21 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 		}
 		return Parms.ReturnValue;
 	}
+	static FName NAME_UPlayerCharacterInterface_PlayerInteract = FName(TEXT("PlayerInteract"));
+	void IPlayerCharacterInterface::Execute_PlayerInteract(UObject* O)
+	{
+		check(O != NULL);
+		check(O->GetClass()->ImplementsInterface(UPlayerCharacterInterface::StaticClass()));
+		UFunction* const Func = O->FindFunction(NAME_UPlayerCharacterInterface_PlayerInteract);
+		if (Func)
+		{
+			O->ProcessEvent(Func, NULL);
+		}
+		else if (auto I = (IPlayerCharacterInterface*)(O->GetNativeInterfaceAddress(UPlayerCharacterInterface::StaticClass())))
+		{
+			I->PlayerInteract_Implementation();
+		}
+	}
 	static FName NAME_UPlayerCharacterInterface_PlayerJump = FName(TEXT("PlayerJump"));
 	void IPlayerCharacterInterface::Execute_PlayerJump(UObject* O)
 	{
@@ -1155,9 +1205,9 @@ void EmptyLinkFunctionForGeneratedCodePlayerCharacterInterface() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UPlayerCharacterInterface, UPlayerCharacterInterface::StaticClass, TEXT("UPlayerCharacterInterface"), &Z_Registration_Info_UClass_UPlayerCharacterInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerCharacterInterface), 2632207592U) },
+		{ Z_Construct_UClass_UPlayerCharacterInterface, UPlayerCharacterInterface::StaticClass, TEXT("UPlayerCharacterInterface"), &Z_Registration_Info_UClass_UPlayerCharacterInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPlayerCharacterInterface), 1465278579U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_3525768020(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_1672649435(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

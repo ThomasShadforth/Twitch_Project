@@ -12,7 +12,6 @@
 			"MovingPlatform.gen.cpp.obj",
 			"OverlayWidgetController.gen.cpp.obj",
 			"PlatformMovementComponent.gen.cpp.obj",
-			"PlayerCharacterInterface.gen.cpp.obj",
 			"RotationComponent.gen.cpp.obj",
 			"SplineMovingPlatform.gen.cpp.obj",
 			"StompInterface.gen.cpp.obj",
@@ -26,12 +25,17 @@
 			"TPHUD.gen.cpp.obj",
 			"TPLivesInterface.gen.cpp.obj",
 			"TPPlayerState.gen.cpp.obj",
+			"NPCDialogueAIController.gen.cpp.obj",
+			"NPCDialogueComponent.gen.cpp.obj",
+			"PlayerCharacterInterface.gen.cpp.obj",
+			"TPDialogBoxWidget.gen.cpp.obj",
+			"TPInteractInterface.gen.cpp.obj"
+		],
+		"Module.TwitchPrototype.2.cpp.obj": [
 			"TPWidgetBase.gen.cpp.obj",
 			"TP_AerialEnemy.gen.cpp.obj",
 			"TP_AIController.gen.cpp.obj",
-			"TP_BaseProjectile.gen.cpp.obj"
-		],
-		"Module.TwitchPrototype.2.cpp.obj": [
+			"TP_BaseProjectile.gen.cpp.obj",
 			"TP_CollectibleBase.gen.cpp.obj",
 			"TP_DamageInterface.gen.cpp.obj",
 			"TP_Enemy.gen.cpp.obj",
@@ -40,9 +44,13 @@
 			"TP_GameInstance.gen.cpp.obj",
 			"TP_GroundEnemy.gen.cpp.obj",
 			"TP_LevelItem.gen.cpp.obj",
-			"TP_PlayerAnimInstance.gen.cpp.obj",
+			"TP_NPC.gen.cpp.obj",
 			"TP_PlayerController.gen.cpp.obj",
 			"TP_SaveSubsystem.gen.cpp.obj",
+			"TP_PlayerAnimInstance.gen.cpp.obj",
+			"TP_PlayerCharacter.gen.cpp.obj"
+		],
+		"Module.TwitchPrototype.3.cpp.obj": [
 			"TP_TempEnemyPatroller.gen.cpp.obj",
 			"TwitchPrototypeCharacter.gen.cpp.obj",
 			"TwitchPrototypeGameMode.gen.cpp.obj",
@@ -50,10 +58,6 @@
 			"CustomCharacterMv.cpp.obj",
 			"LevelGameMode.cpp.obj",
 			"MovingPlatform.cpp.obj",
-			"TP_PlayerCharacter.gen.cpp.obj",
-			"TwitchPrototype.init.gen.cpp.obj"
-		],
-		"Module.TwitchPrototype.3.cpp.obj": [
 			"PlatformMovementComponent.cpp.obj",
 			"TPAttributeSet.cpp.obj",
 			"TPBaseAbilitySystemComp.cpp.obj",
@@ -65,7 +69,6 @@
 			"TPCollectibleInterface.cpp.obj",
 			"TPDamageInterface.cpp.obj",
 			"TP_LevelItem.cpp.obj",
-			"PlayerCharacterInterface.cpp.obj",
 			"TPLivesInterface.cpp.obj",
 			"TPPlayerState.cpp.obj",
 			"TP_SaveSubsystem.cpp.obj",
@@ -86,13 +89,20 @@
 			"TP_AIController.cpp.obj",
 			"TP_Enemy.cpp.obj",
 			"TP_EnemyController.cpp.obj",
-			"TP_PlayerController.cpp.obj",
 			"TP_TempEnemyPatroller.cpp.obj",
 			"TwitchPrototype.cpp.obj",
 			"TwitchPrototypeCharacter.cpp.obj",
 			"TwitchPrototypeGameMode.cpp.obj",
+			"TwitchPrototype.init.gen.cpp.obj",
 			"TP_PlayerAnimInstance.cpp.obj",
-			"TP_PlayerCharacter.cpp.obj"
+			"NPCDialogueAIController.cpp.obj",
+			"NPCDialogueComponent.cpp.obj",
+			"TPInteractInterface.cpp.obj",
+			"PlayerCharacterInterface.cpp.obj",
+			"TP_NPC.cpp.obj",
+			"TPDialogBoxWidget.cpp.obj",
+			"TP_PlayerCharacter.cpp.obj",
+			"TP_PlayerController.cpp.obj"
 		]
 	}
 }

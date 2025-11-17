@@ -19,6 +19,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 	ENGINE_API UClass* Z_Construct_UClass_UPrimitiveComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_USceneComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_USoundCue_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_USphereComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
 	ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FHitResult();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_ATP_BaseProjectile_NoRegister();
@@ -108,6 +109,30 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		P_THIS->ResetWallSlideSoundTimer();
 		P_NATIVE_END;
 	}
+	DEFINE_FUNCTION(ATP_PlayerCharacter::execInteractSphereEndOverlap)
+	{
+		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OverlappedComponent);
+		P_GET_OBJECT(AActor,Z_Param_OtherActor);
+		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OtherComp);
+		P_GET_PROPERTY(FIntProperty,Z_Param_OtherBodyIndex);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->InteractSphereEndOverlap(Z_Param_OverlappedComponent,Z_Param_OtherActor,Z_Param_OtherComp,Z_Param_OtherBodyIndex);
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(ATP_PlayerCharacter::execInteractSphereOverlap)
+	{
+		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OverlappedComponent);
+		P_GET_OBJECT(AActor,Z_Param_OtherActor);
+		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OtherComp);
+		P_GET_PROPERTY(FIntProperty,Z_Param_OtherBodyIndex);
+		P_GET_UBOOL(Z_Param_bFromSweep);
+		P_GET_STRUCT_REF(FHitResult,Z_Param_Out_SweepResult);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->InteractSphereOverlap(Z_Param_OverlappedComponent,Z_Param_OtherActor,Z_Param_OtherComp,Z_Param_OtherBodyIndex,Z_Param_bFromSweep,Z_Param_Out_SweepResult);
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(ATP_PlayerCharacter::execChargeBoxOverlap)
 	{
 		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OverlappedComponent);
@@ -178,6 +203,8 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		UClass* Class = ATP_PlayerCharacter::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
 			{ "ChargeBoxOverlap", &ATP_PlayerCharacter::execChargeBoxOverlap },
+			{ "InteractSphereEndOverlap", &ATP_PlayerCharacter::execInteractSphereEndOverlap },
+			{ "InteractSphereOverlap", &ATP_PlayerCharacter::execInteractSphereOverlap },
 			{ "JumpSquashFinished", &ATP_PlayerCharacter::execJumpSquashFinished },
 			{ "JumpSquashUpdate", &ATP_PlayerCharacter::execJumpSquashUpdate },
 			{ "LandSquashFinished", &ATP_PlayerCharacter::execLandSquashFinished },
@@ -271,6 +298,151 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		if (!ReturnFunction)
 		{
 			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxOverlap_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics
+	{
+		struct TP_PlayerCharacter_eventInteractSphereEndOverlap_Parms
+		{
+			UPrimitiveComponent* OverlappedComponent;
+			AActor* OtherActor;
+			UPrimitiveComponent* OtherComp;
+			int32 OtherBodyIndex;
+		};
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_OverlappedComponent_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OverlappedComponent;
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherActor;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_OtherComp_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherComp;
+		static const UECodeGen_Private::FIntPropertyParams NewProp_OtherBodyIndex;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::NewProp_OverlappedComponent_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::NewProp_OverlappedComponent = { "OverlappedComponent", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventInteractSphereEndOverlap_Parms, OverlappedComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::NewProp_OverlappedComponent_MetaData), Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::NewProp_OverlappedComponent_MetaData) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::NewProp_OtherActor = { "OtherActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventInteractSphereEndOverlap_Parms, OtherActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::NewProp_OtherComp_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::NewProp_OtherComp = { "OtherComp", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventInteractSphereEndOverlap_Parms, OtherComp), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::NewProp_OtherComp_MetaData), Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::NewProp_OtherComp_MetaData) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::NewProp_OtherBodyIndex = { "OtherBodyIndex", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventInteractSphereEndOverlap_Parms, OtherBodyIndex), METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::NewProp_OverlappedComponent,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::NewProp_OtherActor,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::NewProp_OtherComp,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::NewProp_OtherBodyIndex,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_PlayerCharacter, nullptr, "InteractSphereEndOverlap", nullptr, nullptr, Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::PropPointers), sizeof(Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::TP_PlayerCharacter_eventInteractSphereEndOverlap_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::TP_PlayerCharacter_eventInteractSphereEndOverlap_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics
+	{
+		struct TP_PlayerCharacter_eventInteractSphereOverlap_Parms
+		{
+			UPrimitiveComponent* OverlappedComponent;
+			AActor* OtherActor;
+			UPrimitiveComponent* OtherComp;
+			int32 OtherBodyIndex;
+			bool bFromSweep;
+			FHitResult SweepResult;
+		};
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_OverlappedComponent_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OverlappedComponent;
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherActor;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_OtherComp_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherComp;
+		static const UECodeGen_Private::FIntPropertyParams NewProp_OtherBodyIndex;
+		static void NewProp_bFromSweep_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bFromSweep;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_SweepResult_MetaData[];
+#endif
+		static const UECodeGen_Private::FStructPropertyParams NewProp_SweepResult;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_OverlappedComponent_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_OverlappedComponent = { "OverlappedComponent", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventInteractSphereOverlap_Parms, OverlappedComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_OverlappedComponent_MetaData), Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_OverlappedComponent_MetaData) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_OtherActor = { "OtherActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventInteractSphereOverlap_Parms, OtherActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_OtherComp_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_OtherComp = { "OtherComp", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventInteractSphereOverlap_Parms, OtherComp), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_OtherComp_MetaData), Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_OtherComp_MetaData) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_OtherBodyIndex = { "OtherBodyIndex", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventInteractSphereOverlap_Parms, OtherBodyIndex), METADATA_PARAMS(0, nullptr) };
+	void Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_bFromSweep_SetBit(void* Obj)
+	{
+		((TP_PlayerCharacter_eventInteractSphereOverlap_Parms*)Obj)->bFromSweep = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_bFromSweep = { "bFromSweep", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(TP_PlayerCharacter_eventInteractSphereOverlap_Parms), &Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_bFromSweep_SetBit, METADATA_PARAMS(0, nullptr) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_SweepResult_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_SweepResult = { "SweepResult", nullptr, (EPropertyFlags)0x0010008008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventInteractSphereOverlap_Parms, SweepResult), Z_Construct_UScriptStruct_FHitResult, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_SweepResult_MetaData), Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_SweepResult_MetaData) }; // 1891709922
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_OverlappedComponent,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_OtherActor,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_OtherComp,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_OtherBodyIndex,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_bFromSweep,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::NewProp_SweepResult,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_PlayerCharacter, nullptr, "InteractSphereOverlap", nullptr, nullptr, Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::PropPointers), sizeof(Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::TP_PlayerCharacter_eventInteractSphereOverlap_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00480401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::TP_PlayerCharacter_eventInteractSphereOverlap_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap_Statics::FuncParams);
 		}
 		return ReturnFunction;
 	}
@@ -759,6 +931,10 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_playerDamageSoundResetTime_MetaData[];
 #endif
 		static const UECodeGen_Private::FFloatPropertyParams NewProp_playerDamageSoundResetTime;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_interactOverlapSphere_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_interactOverlapSphere;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
@@ -771,6 +947,8 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_ATP_PlayerCharacter_Statics::FuncInfo[] = {
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxOverlap, "ChargeBoxOverlap" }, // 3881508809
+		{ &Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap, "InteractSphereEndOverlap" }, // 3715928445
+		{ &Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap, "InteractSphereOverlap" }, // 20596776
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_JumpSquashFinished, "JumpSquashFinished" }, // 1930837543
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_JumpSquashUpdate, "JumpSquashUpdate" }, // 2996724732
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_LandSquashFinished, "LandSquashFinished" }, // 3383075559
@@ -1239,6 +1417,14 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 	};
 #endif
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDamageSoundResetTime = { "playerDamageSoundResetTime", nullptr, (EPropertyFlags)0x0040000000010015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, playerDamageSoundResetTime), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDamageSoundResetTime_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDamageSoundResetTime_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_interactOverlapSphere_MetaData[] = {
+		{ "Category", "TP_PlayerCharacter" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_interactOverlapSphere = { "interactOverlapSphere", nullptr, (EPropertyFlags)0x0040000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, interactOverlapSphere), Z_Construct_UClass_USphereComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_interactOverlapSphere_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_interactOverlapSphere_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATP_PlayerCharacter_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_cameraBoom,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_mainCamera,
@@ -1294,9 +1480,10 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDeathSound,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideSoundResetTime,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDamageSoundResetTime,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_interactOverlapSphere,
 	};
 		const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::InterfaceParams[] = {
-			{ Z_Construct_UClass_UPlayerCharacterInterface_NoRegister, (int32)VTABLE_OFFSET(ATP_PlayerCharacter, IPlayerCharacterInterface), false },  // 2632207592
+			{ Z_Construct_UClass_UPlayerCharacterInterface_NoRegister, (int32)VTABLE_OFFSET(ATP_PlayerCharacter, IPlayerCharacterInterface), false },  // 1465278579
 			{ Z_Construct_UClass_UTPDamageInterface_NoRegister, (int32)VTABLE_OFFSET(ATP_PlayerCharacter, ITPDamageInterface), false },  // 1129312699
 		};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::InterfaceParams) < 64);
@@ -1342,9 +1529,9 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		{ EPlayerStates_StaticEnum, TEXT("EPlayerStates"), &Z_Registration_Info_UEnum_EPlayerStates, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 845008250U) },
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ATP_PlayerCharacter, ATP_PlayerCharacter::StaticClass, TEXT("ATP_PlayerCharacter"), &Z_Registration_Info_UClass_ATP_PlayerCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_PlayerCharacter), 1807218913U) },
+		{ Z_Construct_UClass_ATP_PlayerCharacter, ATP_PlayerCharacter::StaticClass, TEXT("ATP_PlayerCharacter"), &Z_Registration_Info_UClass_ATP_PlayerCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_PlayerCharacter), 2605364956U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_3056412182(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_1073882188(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo),
 		nullptr, 0,
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::EnumInfo));

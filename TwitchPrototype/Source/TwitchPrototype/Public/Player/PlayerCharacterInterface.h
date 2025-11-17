@@ -74,5 +74,8 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void CollectExtraLife();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void PlayerInteract();
 	
 };

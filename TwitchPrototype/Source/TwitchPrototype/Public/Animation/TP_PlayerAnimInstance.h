@@ -31,6 +31,9 @@ protected:
 	void SetShouldMove();
 	void SetIsSprinting();
 	void SetWasStomping();
+	void SetIsStomping();
+	void SetIsWallSliding();
+	void SetIsAirDashing();
 	
 private:
 
@@ -54,9 +57,18 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	bool bShouldMove;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	bool bIsStomping;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	bool bWasStomping;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	bool bIsWallSliding;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	bool bIsAirDashing;
 	
 public:
 	

@@ -112,10 +112,25 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerAnimInstance() {}
 		static void NewProp_bShouldMove_SetBit(void* Obj);
 		static const UECodeGen_Private::FBoolPropertyParams NewProp_bShouldMove;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_bIsStomping_MetaData[];
+#endif
+		static void NewProp_bIsStomping_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bIsStomping;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_bWasStomping_MetaData[];
 #endif
 		static void NewProp_bWasStomping_SetBit(void* Obj);
 		static const UECodeGen_Private::FBoolPropertyParams NewProp_bWasStomping;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_bIsWallSliding_MetaData[];
+#endif
+		static void NewProp_bIsWallSliding_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bIsWallSliding;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_bIsAirDashing_MetaData[];
+#endif
+		static void NewProp_bIsAirDashing_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bIsAirDashing;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
@@ -206,6 +221,18 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerAnimInstance() {}
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bShouldMove = { "bShouldMove", nullptr, (EPropertyFlags)0x0040000000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UTP_PlayerAnimInstance), &Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bShouldMove_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bShouldMove_MetaData), Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bShouldMove_MetaData) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsStomping_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "TP_PlayerAnimInstance" },
+		{ "ModuleRelativePath", "Public/Animation/TP_PlayerAnimInstance.h" },
+	};
+#endif
+	void Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsStomping_SetBit(void* Obj)
+	{
+		((UTP_PlayerAnimInstance*)Obj)->bIsStomping = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsStomping = { "bIsStomping", nullptr, (EPropertyFlags)0x0040000000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UTP_PlayerAnimInstance), &Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsStomping_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsStomping_MetaData), Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsStomping_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bWasStomping_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "TP_PlayerAnimInstance" },
@@ -217,6 +244,30 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerAnimInstance() {}
 		((UTP_PlayerAnimInstance*)Obj)->bWasStomping = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bWasStomping = { "bWasStomping", nullptr, (EPropertyFlags)0x0040000000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UTP_PlayerAnimInstance), &Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bWasStomping_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bWasStomping_MetaData), Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bWasStomping_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsWallSliding_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "TP_PlayerAnimInstance" },
+		{ "ModuleRelativePath", "Public/Animation/TP_PlayerAnimInstance.h" },
+	};
+#endif
+	void Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsWallSliding_SetBit(void* Obj)
+	{
+		((UTP_PlayerAnimInstance*)Obj)->bIsWallSliding = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsWallSliding = { "bIsWallSliding", nullptr, (EPropertyFlags)0x0040000000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UTP_PlayerAnimInstance), &Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsWallSliding_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsWallSliding_MetaData), Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsWallSliding_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsAirDashing_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "TP_PlayerAnimInstance" },
+		{ "ModuleRelativePath", "Public/Animation/TP_PlayerAnimInstance.h" },
+	};
+#endif
+	void Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsAirDashing_SetBit(void* Obj)
+	{
+		((UTP_PlayerAnimInstance*)Obj)->bIsAirDashing = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsAirDashing = { "bIsAirDashing", nullptr, (EPropertyFlags)0x0040000000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UTP_PlayerAnimInstance), &Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsAirDashing_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsAirDashing_MetaData), Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsAirDashing_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_playerCharacter,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_characterMovement,
@@ -225,7 +276,10 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerAnimInstance() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsSprinting,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsFalling,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bShouldMove,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsStomping,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bWasStomping,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsWallSliding,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::NewProp_bIsAirDashing,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UTP_PlayerAnimInstance_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UTP_PlayerAnimInstance>::IsAbstract,
@@ -265,9 +319,9 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerAnimInstance() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_PlayerAnimInstance_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UTP_PlayerAnimInstance, UTP_PlayerAnimInstance::StaticClass, TEXT("UTP_PlayerAnimInstance"), &Z_Registration_Info_UClass_UTP_PlayerAnimInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UTP_PlayerAnimInstance), 120315873U) },
+		{ Z_Construct_UClass_UTP_PlayerAnimInstance, UTP_PlayerAnimInstance::StaticClass, TEXT("UTP_PlayerAnimInstance"), &Z_Registration_Info_UClass_UTP_PlayerAnimInstance, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UTP_PlayerAnimInstance), 1528652084U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_PlayerAnimInstance_h_2275318451(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_PlayerAnimInstance_h_2334703193(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_PlayerAnimInstance_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_PlayerAnimInstance_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

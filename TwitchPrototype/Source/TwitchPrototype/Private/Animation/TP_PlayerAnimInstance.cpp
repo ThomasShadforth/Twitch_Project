@@ -36,7 +36,10 @@ void UTP_PlayerAnimInstance::UpdateAnimationProperties(float DeltaTime)
 
 		SetShouldMove();
 		SetIsSprinting();
+		SetIsStomping();
 		SetWasStomping();
+		SetIsWallSliding();
+		SetIsAirDashing();
 	}
 }
 
@@ -67,3 +70,19 @@ void UTP_PlayerAnimInstance::SetWasStomping()
 {
 	bWasStomping = playerCharacter->GetPlayerWasStomping();
 }
+
+void UTP_PlayerAnimInstance::SetIsStomping()
+{
+	bIsStomping = playerCharacter->GetPlayerIsStomping();
+}
+
+void UTP_PlayerAnimInstance::SetIsWallSliding()
+{
+	bIsWallSliding = playerCharacter->GetPlayerIsWallSliding();
+}
+
+void UTP_PlayerAnimInstance::SetIsAirDashing()
+{
+	bIsAirDashing = playerCharacter->GetPlayerIsAirDashing();
+}
+

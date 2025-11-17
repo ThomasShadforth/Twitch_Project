@@ -1,0 +1,42 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\source\\twitchprototype\\private\\ui\\widget\\tpdialogboxwidget.cpp",
+        "ProvidedModule": "",
+        "PCH": "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "Includes": [
+            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\twitchprototype\\definitions.twitchprototype.h",
+            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\source\\twitchprototype\\public\\ui\\widget\\tpdialogboxwidget.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\umg\\public\\blueprint\\userwidget.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\umg\\public\\blueprint\\widgetchild.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\widgetchild.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\coreuobject\\public\\uobject\\objectsavecontext.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\coreuobject\\public\\uobject\\objectsaveoverride.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\umg\\public\\components\\slatewrappertypes.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\slatewrappertypes.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\umg\\public\\components\\widget.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\fieldnotification\\public\\fieldnotificationdeclaration.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\fieldnotification\\public\\ifieldnotificationclassdescriptor.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\fieldnotification\\public\\inotifyfieldvaluechanged.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\fieldnotification\\uht\\inotifyfieldvaluechanged.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\umg\\public\\components\\visual.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\visual.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\umg\\public\\slate\\widgettransform.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\widgettransform.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\umg\\public\\blueprint\\widgetnavigation.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\slatecore\\public\\types\\navigationmetadata.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\widgetnavigation.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\widget.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\umg\\public\\components\\namedslotinterface.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\namedslotinterface.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\slate\\public\\widgets\\layout\\anchors.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\slate\\uht\\anchors.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\umg\\public\\animation\\widgetanimationevents.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\widgetanimationevents.generated.h",
+            "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\umg\\uht\\userwidget.generated.h",
+            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\tpdialogboxwidget.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
