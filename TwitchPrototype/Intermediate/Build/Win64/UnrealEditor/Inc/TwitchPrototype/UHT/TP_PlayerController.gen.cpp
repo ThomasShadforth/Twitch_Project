@@ -92,6 +92,14 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 		P_THIS->PlayerLook(Z_Param_Out_Value);
 		P_NATIVE_END;
 	}
+	DEFINE_FUNCTION(ATP_PlayerController::execPlayerStopMove)
+	{
+		P_GET_STRUCT_REF(FInputActionValue,Z_Param_Out_Value);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->PlayerStopMove(Z_Param_Out_Value);
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(ATP_PlayerController::execPlayerMove)
 	{
 		P_GET_STRUCT_REF(FInputActionValue,Z_Param_Out_Value);
@@ -116,6 +124,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 			{ "PlayerMove", &ATP_PlayerController::execPlayerMove },
 			{ "PlayerStartSprint", &ATP_PlayerController::execPlayerStartSprint },
 			{ "PlayerStomp", &ATP_PlayerController::execPlayerStomp },
+			{ "PlayerStopMove", &ATP_PlayerController::execPlayerStopMove },
 			{ "StopHoldingPlayerAttack", &ATP_PlayerController::execStopHoldingPlayerAttack },
 			{ "StopPlayerJump", &ATP_PlayerController::execStopPlayerJump },
 			{ "StopPlayerSprint", &ATP_PlayerController::execStopPlayerSprint },
@@ -317,6 +326,48 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics
+	{
+		struct TP_PlayerController_eventPlayerStopMove_Parms
+		{
+			FInputActionValue Value;
+		};
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_Value_MetaData[];
+#endif
+		static const UECodeGen_Private::FStructPropertyParams NewProp_Value;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::NewProp_Value_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerController_eventPlayerStopMove_Parms, Value), Z_Construct_UScriptStruct_FInputActionValue, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::NewProp_Value_MetaData), Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::NewProp_Value_MetaData) }; // 1693336646
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::NewProp_Value,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "TP_PlayerController.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_PlayerController, nullptr, "PlayerStopMove", nullptr, nullptr, Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::PropPointers), sizeof(Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::TP_PlayerController_eventPlayerStopMove_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00480401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::TP_PlayerController_eventPlayerStopMove_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	struct Z_Construct_UFunction_ATP_PlayerController_StopHoldingPlayerAttack_Statics
 	{
 #if WITH_METADATA
@@ -448,6 +499,10 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 #endif
 		static const UECodeGen_Private::FObjectPropertyParams NewProp_moveAction;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_stopMoveAction_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_stopMoveAction;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_jumpAction_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPropertyParams NewProp_jumpAction;
@@ -524,6 +579,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 		{ &Z_Construct_UFunction_ATP_PlayerController_PlayerMove, "PlayerMove" }, // 3659211591
 		{ &Z_Construct_UFunction_ATP_PlayerController_PlayerStartSprint, "PlayerStartSprint" }, // 1752397643
 		{ &Z_Construct_UFunction_ATP_PlayerController_PlayerStomp, "PlayerStomp" }, // 3673516157
+		{ &Z_Construct_UFunction_ATP_PlayerController_PlayerStopMove, "PlayerStopMove" }, // 1338996470
 		{ &Z_Construct_UFunction_ATP_PlayerController_StopHoldingPlayerAttack, "StopHoldingPlayerAttack" }, // 1432435431
 		{ &Z_Construct_UFunction_ATP_PlayerController_StopPlayerJump, "StopPlayerJump" }, // 2826970226
 		{ &Z_Construct_UFunction_ATP_PlayerController_StopPlayerSprint, "StopPlayerSprint" }, // 1158834353
@@ -557,6 +613,14 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 	};
 #endif
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_moveAction = { "moveAction", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerController, moveAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_moveAction_MetaData), Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_moveAction_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_stopMoveAction_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Input" },
+		{ "ModuleRelativePath", "TP_PlayerController.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_stopMoveAction = { "stopMoveAction", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerController, stopMoveAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_stopMoveAction_MetaData), Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_stopMoveAction_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_jumpAction_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
@@ -675,6 +739,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATP_PlayerController_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_playerDefaultContext,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_moveAction,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_stopMoveAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_jumpAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_stopJumpAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerController_Statics::NewProp_lookAction,
@@ -729,9 +794,9 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerController() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerController_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ATP_PlayerController, ATP_PlayerController::StaticClass, TEXT("ATP_PlayerController"), &Z_Registration_Info_UClass_ATP_PlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_PlayerController), 527516306U) },
+		{ Z_Construct_UClass_ATP_PlayerController, ATP_PlayerController::StaticClass, TEXT("ATP_PlayerController"), &Z_Registration_Info_UClass_ATP_PlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_PlayerController), 2394595934U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerController_h_1308513662(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerController_h_4250992872(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerController_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerController_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

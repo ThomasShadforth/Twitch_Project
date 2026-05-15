@@ -162,6 +162,9 @@
     <ClCompile Include="..\..\Source\TwitchPrototype\Private\TP_GroundEnemy.cpp">
       <Filter>Source\TwitchPrototype\Private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\TP_NPC.cpp">
+      <Filter>Source\TwitchPrototype\Private</Filter>
+    </ClCompile>
     <Filter Include="Source\TwitchPrototype\Private\AbilitySystem">
       <UniqueIdentifier>{637AFEEB-15A1-38F1-9BB8-0BC598B7FFCC}</UniqueIdentifier>
     </Filter>
@@ -171,11 +174,35 @@
     <ClCompile Include="..\..\Source\TwitchPrototype\Private\AbilitySystem\TPBaseAbilitySystemComp.cpp">
       <Filter>Source\TwitchPrototype\Private\AbilitySystem</Filter>
     </ClCompile>
+    <Filter Include="Source\TwitchPrototype\Private\Animation">
+      <UniqueIdentifier>{3EDB3B6A-4AD0-3D86-B928-28829F2E0001}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Animation\TP_PlayerAnimInstance.cpp">
+      <Filter>Source\TwitchPrototype\Private\Animation</Filter>
+    </ClCompile>
     <Filter Include="Source\TwitchPrototype\Private\Collectible">
       <UniqueIdentifier>{0989C8E8-5063-37A2-B57D-8F47AD495B1B}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\TwitchPrototype\Private\Collectible\TP_CollectibleBase.cpp">
       <Filter>Source\TwitchPrototype\Private\Collectible</Filter>
+    </ClCompile>
+    <Filter Include="Source\TwitchPrototype\Private\Data">
+      <UniqueIdentifier>{BD3A17FA-CD5F-3D82-B9AD-94F19CCC4027}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Data\GameSaveData.cpp">
+      <Filter>Source\TwitchPrototype\Private\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Data\TP_GameInstance.cpp">
+      <Filter>Source\TwitchPrototype\Private\Data</Filter>
+    </ClCompile>
+    <Filter Include="Source\TwitchPrototype\Private\DialogueSystem">
+      <UniqueIdentifier>{B3C5A3B8-0F78-3724-A8FA-B488F0B52B32}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\DialogueSystem\NPCDialogueAIController.cpp">
+      <Filter>Source\TwitchPrototype\Private\DialogueSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\DialogueSystem\NPCDialogueComponent.cpp">
+      <Filter>Source\TwitchPrototype\Private\DialogueSystem</Filter>
     </ClCompile>
     <Filter Include="Source\TwitchPrototype\Private\Interaction">
       <UniqueIdentifier>{3DB59942-FB99-3CC2-AB9E-DFDA56D991E8}</UniqueIdentifier>
@@ -186,14 +213,35 @@
     <ClCompile Include="..\..\Source\TwitchPrototype\Private\Interaction\TPCollectibleInterface.cpp">
       <Filter>Source\TwitchPrototype\Private\Interaction</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Interaction\TPDamageInterface.cpp">
+      <Filter>Source\TwitchPrototype\Private\Interaction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Interaction\TPInteractInterface.cpp">
+      <Filter>Source\TwitchPrototype\Private\Interaction</Filter>
+    </ClCompile>
+    <Filter Include="Source\TwitchPrototype\Private\LevelObjects">
+      <UniqueIdentifier>{4C853107-52A8-3389-8049-F35BCBBCDC7C}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\LevelObjects\TP_LevelItem.cpp">
+      <Filter>Source\TwitchPrototype\Private\LevelObjects</Filter>
+    </ClCompile>
     <Filter Include="Source\TwitchPrototype\Private\Player">
       <UniqueIdentifier>{7C90F863-B2CE-3A79-B2EB-4F84C016A2D1}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\TwitchPrototype\Private\Player\PlayerCharacterInterface.cpp">
       <Filter>Source\TwitchPrototype\Private\Player</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Player\TPLivesInterface.cpp">
+      <Filter>Source\TwitchPrototype\Private\Player</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\TwitchPrototype\Private\Player\TPPlayerState.cpp">
       <Filter>Source\TwitchPrototype\Private\Player</Filter>
+    </ClCompile>
+    <Filter Include="Source\TwitchPrototype\Private\Subsystems">
+      <UniqueIdentifier>{F7BCBA97-9233-3393-887F-D5684F8D1F64}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Subsystems\TP_SaveSubsystem.cpp">
+      <Filter>Source\TwitchPrototype\Private\Subsystems</Filter>
     </ClCompile>
     <Filter Include="Source\TwitchPrototype\Private\UI">
       <UniqueIdentifier>{387E2C3A-591B-36BF-9D44-B43367CA0AE3}</UniqueIdentifier>
@@ -207,6 +255,9 @@
     <Filter Include="Source\TwitchPrototype\Private\UI\Widget">
       <UniqueIdentifier>{39F0D426-D3C5-3A2A-A189-EC6B23AE1D84}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\UI\Widget\TPDialogBoxWidget.cpp">
+      <Filter>Source\TwitchPrototype\Private\UI\Widget</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\TwitchPrototype\Private\UI\Widget\TPWidgetBase.cpp">
       <Filter>Source\TwitchPrototype\Private\UI\Widget</Filter>
     </ClCompile>
@@ -255,6 +306,9 @@
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\TP_GroundEnemy.h">
       <Filter>Source\TwitchPrototype\Public</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\TP_NPC.h">
+      <Filter>Source\TwitchPrototype\Public</Filter>
+    </ClInclude>
     <Filter Include="Source\TwitchPrototype\Public\AbilitySystem">
       <UniqueIdentifier>{73143D0F-E2DA-359C-9BC4-CC068A252158}</UniqueIdentifier>
     </Filter>
@@ -264,11 +318,35 @@
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\AbilitySystem\TPBaseAbilitySystemComp.h">
       <Filter>Source\TwitchPrototype\Public\AbilitySystem</Filter>
     </ClInclude>
+    <Filter Include="Source\TwitchPrototype\Public\Animation">
+      <UniqueIdentifier>{F8952378-4179-331D-9F06-970EFF663899}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Animation\TP_PlayerAnimInstance.h">
+      <Filter>Source\TwitchPrototype\Public\Animation</Filter>
+    </ClInclude>
     <Filter Include="Source\TwitchPrototype\Public\Collectible">
       <UniqueIdentifier>{B9E5DE41-DCE7-37AC-86EA-08A461FD4042}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\Collectible\TP_CollectibleBase.h">
       <Filter>Source\TwitchPrototype\Public\Collectible</Filter>
+    </ClInclude>
+    <Filter Include="Source\TwitchPrototype\Public\Data">
+      <UniqueIdentifier>{B8527E09-020C-35DC-845F-F444DF8E96D5}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Data\GameSaveData.h">
+      <Filter>Source\TwitchPrototype\Public\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Data\TP_GameInstance.h">
+      <Filter>Source\TwitchPrototype\Public\Data</Filter>
+    </ClInclude>
+    <Filter Include="Source\TwitchPrototype\Public\DialogueSystem">
+      <UniqueIdentifier>{1A7062BB-3201-39A7-AB0B-6A4D519C2C67}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\DialogueSystem\NPCDialogueAIController.h">
+      <Filter>Source\TwitchPrototype\Public\DialogueSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\DialogueSystem\NPCDialogueComponent.h">
+      <Filter>Source\TwitchPrototype\Public\DialogueSystem</Filter>
     </ClInclude>
     <Filter Include="Source\TwitchPrototype\Public\Interaction">
       <UniqueIdentifier>{08576603-782A-31C2-A807-0ADD434771D0}</UniqueIdentifier>
@@ -279,14 +357,35 @@
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\Interaction\TPCollectibleInterface.h">
       <Filter>Source\TwitchPrototype\Public\Interaction</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Interaction\TPDamageInterface.h">
+      <Filter>Source\TwitchPrototype\Public\Interaction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Interaction\TPInteractInterface.h">
+      <Filter>Source\TwitchPrototype\Public\Interaction</Filter>
+    </ClInclude>
+    <Filter Include="Source\TwitchPrototype\Public\LevelObjects">
+      <UniqueIdentifier>{FD86F88E-6769-3C1B-84D0-EFE077B1A535}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\LevelObjects\TP_LevelItem.h">
+      <Filter>Source\TwitchPrototype\Public\LevelObjects</Filter>
+    </ClInclude>
     <Filter Include="Source\TwitchPrototype\Public\Player">
       <UniqueIdentifier>{19966AA3-BAED-3F6A-93D8-071FFBD62EAD}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\Player\PlayerCharacterInterface.h">
       <Filter>Source\TwitchPrototype\Public\Player</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Player\TPLivesInterface.h">
+      <Filter>Source\TwitchPrototype\Public\Player</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\Player\TPPlayerState.h">
       <Filter>Source\TwitchPrototype\Public\Player</Filter>
+    </ClInclude>
+    <Filter Include="Source\TwitchPrototype\Public\Subsystems">
+      <UniqueIdentifier>{EB6A17FC-D3D7-3E55-9BD5-D0B7684CDF6F}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Subsystems\TP_SaveSubsystem.h">
+      <Filter>Source\TwitchPrototype\Public\Subsystems</Filter>
     </ClInclude>
     <Filter Include="Source\TwitchPrototype\Public\UI">
       <UniqueIdentifier>{938C791F-C900-33AA-BEFE-A7F20E33F1DC}</UniqueIdentifier>
@@ -300,6 +399,9 @@
     <Filter Include="Source\TwitchPrototype\Public\UI\Widget">
       <UniqueIdentifier>{FAA387B8-0A44-3351-AC4A-586A1B3B981D}</UniqueIdentifier>
     </Filter>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\UI\Widget\TPDialogBoxWidget.h">
+      <Filter>Source\TwitchPrototype\Public\UI\Widget</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\UI\Widget\TPWidgetBase.h">
       <Filter>Source\TwitchPrototype\Public\UI\Widget</Filter>
     </ClInclude>

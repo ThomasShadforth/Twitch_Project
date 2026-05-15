@@ -44,11 +44,18 @@ wallCheckDistance(200.0f),
 wallSlideRate(1800.f),
 bIsKnockedBack(false),
 bShouldPlayWallSlideSound(true),
-bShouldPlayDamageSound(true)
+bShouldPlayDamageSound(true),
+dialogueCamBlendTime(1.f),
+dialogueCamBlendExponent(1.f),
+defaultAirControl(.85f),
+postWallJumpAirControl(.3f)
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	dialogueCameraPosition = CreateDefaultSubobject<USceneComponent>(TEXT("Dialogue Camera Position"));
+	dialogueCameraPosition->SetupAttachment(RootComponent);
+	
 	cameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Boom"));
 	cameraBoom->SetupAttachment(RootComponent);
 	cameraBoom->TargetArmLength = 240.f;
@@ -58,7 +65,7 @@ bShouldPlayDamageSound(true)
 	mainCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	mainCamera->SetupAttachment(cameraBoom, USpringArmComponent::SocketName);
 	mainCamera->bUsePawnControlRotation = false;
-
+	
 	jumpSquashTimeline = CreateDefaultSubobject<UTimelineComponent>(TEXT("Jump Squash Timeline"));
 	jumpSquashFunction.BindUFunction(this, FName("JumpSquashUpdate"));
 	jumpSquashFinishedFunction.BindUFunction(this, FName("jumpSquashFinished"));
@@ -71,6 +78,9 @@ bShouldPlayDamageSound(true)
 	stompLandSquashFunc.BindUFunction(this, FName("StompLandSquashUpdate"));
 	stompLandFinishedFunc.BindUFunction(this, FName("StompLandSquashFinished"));
 
+	wallSlideDirectionCheckBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Wall Slide Direction Check"));
+	wallSlideDirectionCheckBox->SetupAttachment(RootComponent);
+	
 	playerChargeOverlapBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Charge Overlap"));
 	playerChargeOverlapBox->SetupAttachment(RootComponent);
 
@@ -110,6 +120,7 @@ void ATP_PlayerCharacter::Landed(const FHitResult& Hit)
 	{
 		stompLandSquashTimeline->PlayFromStart();
 		PlaySoundCue(playerStompLandingSound);
+		UGameplayStatics::PlayWorldCameraShake(this, stompCameraShake, GetActorLocation(), 0.f, 1000.f);
 	}
 
 	airDashCount = 0;
@@ -304,6 +315,37 @@ void ATP_PlayerCharacter::PlayerInteract_Implementation()
 	
 }
 
+void ATP_PlayerCharacter::PlayerEnableWallSlideCheck_Implementation(bool bShouldEnable)
+{
+	IPlayerCharacterInterface::PlayerEnableWallSlideCheck_Implementation(bShouldEnable);
+
+	wallSlideDirectionCheckBox->SetCollisionEnabled(bShouldEnable ? ECollisionEnabled::QueryAndPhysics : ECollisionEnabled::NoCollision);
+
+	if(!bShouldEnable)
+	{
+		bCanWallSlide = false;
+	}
+}
+
+bool ATP_PlayerCharacter::GetWallSlideCheckEnabled_Implementation()
+{
+	return wallSlideDirectionCheckBox->GetCollisionEnabled() == ECollisionEnabled::QueryAndPhysics;
+}
+
+void ATP_PlayerCharacter::ManageCameraTransitions(bool bSwapToMainCamera)
+{
+	APlayerController* pc = UGameplayStatics::GetPlayerController(this, 0);
+	
+	if(bSwapToMainCamera)
+	{
+		pc->SetViewTargetWithBlend(this, dialogueCamBlendTime, VTBlend_EaseInOut, dialogueCamBlendExponent);
+	} else
+	{
+		pc->SetViewTargetWithBlend(dialogueCamera, dialogueCamBlendTime, VTBlend_EaseInOut, dialogueCamBlendExponent);
+		//GetController()->SetV
+	}
+}
+
 // Called when the game starts or when spawned
 void ATP_PlayerCharacter::BeginPlay()
 {
@@ -334,6 +376,14 @@ void ATP_PlayerCharacter::BeginPlay()
 	interactOverlapSphere->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Overlap);
 	interactOverlapSphere->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Overlap);
 
+	wallSlideDirectionCheckBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	wallSlideDirectionCheckBox->SetCollisionResponseToAllChannels(ECR_Ignore);
+	wallSlideDirectionCheckBox->SetCollisionResponseToChannel(ECC_WorldStatic, ECR_Overlap);
+	wallSlideDirectionCheckBox->SetCollisionResponseToChannel(ECC_WorldDynamic, ECR_Overlap);
+
+	//Bind callback to delegate - wallslide direction check
+	wallSlideDirectionCheckBox->OnComponentBeginOverlap.AddDynamic(this, &ATP_PlayerCharacter::WallSlideDirectionBoxOverlap);
+	wallSlideDirectionCheckBox->OnComponentEndOverlap.AddDynamic(this, &ATP_PlayerCharacter::WallSlideDirectionBoxEndOverlap);
 	
 	//Define timeline parameters
 	//Check if squash curve is valid
@@ -366,6 +416,12 @@ void ATP_PlayerCharacter::BeginPlay()
 	GetWorldTimerManager().SetTimer(groundCheckHandle, this, &ATP_PlayerCharacter::CheckForGround, .5f, true);
 
 	wallSlideRate = startingWallSlideRate;
+
+	if(dialogueCameraClass)
+	{
+		dialogueCamera = GetWorld()->SpawnActor<AActor>(dialogueCameraClass, dialogueCameraPosition->GetComponentLocation(), dialogueCameraPosition->GetComponentRotation());
+		dialogueCamera->AttachToComponent(dialogueCameraPosition, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+	}
 }
 
 bool ATP_PlayerCharacter::CanJumpInternal_Implementation() const
@@ -465,6 +521,8 @@ void ATP_PlayerCharacter::AirDash()
 	GetCharacterMovement()->Velocity = GetActorForwardVector() * dashDistance;
 	
 	GetWorldTimerManager().SetTimer(airDashHandle, this, &ATP_PlayerCharacter::AirDashEnd, .35f);
+
+	UGameplayStatics::PlayWorldCameraShake(this, airDashCameraShake, GetActorLocation(), 0.f, 1000.f);
 }
 
 void ATP_PlayerCharacter::AirDashEnd()
@@ -475,12 +533,11 @@ void ATP_PlayerCharacter::AirDashEnd()
 
 void ATP_PlayerCharacter::WallJump(FHitResult wallHit)
 {
-	//FHitResult secondTrace;
 	FVector traceUnitDirection = UKismetMathLibrary::GetDirectionUnitVector(wallHit.TraceStart, wallHit.TraceEnd);
 	FVector reflectedVector = UKismetMathLibrary::GetReflectionVector(traceUnitDirection, wallHit.Normal);
-	FVector reflectedWallForce = wallHit.Location + (reflectedVector * 1.0f);
 
-	FVector wallForce = reflectedVector * forwardWallForce;
+	float wallJumpModifier = bWallSliding ? slidingWallJumpModifier : 1.f;
+	FVector wallForce = reflectedVector * forwardWallForce * wallJumpModifier;
 	wallForce.Z = upwardWallForce;
 	
 	GetCharacterMovement()->Velocity = wallForce;
@@ -490,6 +547,11 @@ void ATP_PlayerCharacter::WallJump(FHitResult wallHit)
 	SetActorRotation(newRotation);
 	
 	jumpSquashTimeline->PlayFromStart();
+
+	if(bWallSliding)
+	{
+		GetCharacterMovement()->AirControl = postWallJumpAirControl;
+	}
 	
 }
 
@@ -504,11 +566,22 @@ void ATP_PlayerCharacter::SetInterpMovementSpeed(float DeltaTime)
 	GetCharacterMovement()->MaxWalkSpeed = currentMovementSpeed;
 }
 
-void ATP_PlayerCharacter::SetInterpFOV(float DeltaTime)
+void ATP_PlayerCharacter::SetInterpSprintFOV(float DeltaTime)
 {
+	if(bAirDashing) return;
+	
 	float fovTarget = bIsSprinting ? cameraSprintFOV : cameraDefaultFOV;
 
-	currentCameraFOV = FMath::FInterpTo(currentCameraFOV, fovTarget, DeltaTime, fovInterpSpeed);
+	currentCameraFOV = FMath::FInterpTo(currentCameraFOV, fovTarget, DeltaTime, sprintFOVInterpSpeed);
+
+	mainCamera->SetFieldOfView(currentCameraFOV);
+}
+
+void ATP_PlayerCharacter::SetInterpAirDashFOV(float DeltaTime)
+{
+	float fovTarget = bAirDashing ? cameraAirDashFOV : cameraDefaultFOV;
+
+	currentCameraFOV = FMath::FInterpTo(currentCameraFOV, fovTarget, DeltaTime, airDashFOVInterpSpeed);
 
 	mainCamera->SetFieldOfView(currentCameraFOV);
 }
@@ -516,10 +589,13 @@ void ATP_PlayerCharacter::SetInterpFOV(float DeltaTime)
 void ATP_PlayerCharacter::SetInterpWallSlideSpeed(float DeltaTime)
 {
 	if(!bWallSliding) return;
-
-	UE_LOG(LogTemp, Warning, TEXT("ADJUSTING WALL SLIDE SPEED!"));
 	
 	wallSlideRate = FMath::FInterpTo(wallSlideRate, minWallSlideRate, DeltaTime, wallSlideRateChangeSpeed);
+}
+
+void ATP_PlayerCharacter::SetInterpAirControl(float DeltaTime)
+{
+	GetCharacterMovement()->AirControl = FMath::FInterpTo(GetCharacterMovement()->AirControl, defaultAirControl, DeltaTime, airControlInterpSpeed);
 }
 
 void ATP_PlayerCharacter::Aim(float DeltaTime)
@@ -593,6 +669,7 @@ void ATP_PlayerCharacter::CheckForStompTarget()
 		if(UKismetSystemLibrary::DoesImplementInterface(stompHit.GetActor(), UStompInterface::StaticClass()))
 		{
 			IStompInterface::Execute_StompObject(stompHit.GetActor(), stompHit);
+			UGameplayStatics::PlayWorldCameraShake(this, stompCameraShake, GetActorLocation(), 0.0f, 1000.f);
 		}
 	}
 	
@@ -661,7 +738,7 @@ void ATP_PlayerCharacter::WallSlide(float DeltaTime)
 		
 		UKismetSystemLibrary::LineTraceSingle(this, traceStart, traceEnd, UEngineTypes::ConvertToTraceType(ECC_GameTraceChannel2), false, ignoredObjects, EDrawDebugTrace::None, wallCheckHit, true);
 
-		if(wallCheckHit.bBlockingHit)
+		if(wallCheckHit.bBlockingHit && bCanWallSlide)
 		{
 
 			if(!bHasSnappedToWall)
@@ -720,6 +797,22 @@ void ATP_PlayerCharacter::InteractSphereEndOverlap(UPrimitiveComponent* Overlapp
 	ManageInteractableArray(OtherActor, false);
 }
 
+void ATP_PlayerCharacter::WallSlideDirectionBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	//Say it can wallslide, in order to allow for wallsliding
+	UE_LOG(LogTemp, Warning, TEXT("CAN WALL SLIDE!!"));
+	bCanWallSlide = true;
+}
+
+void ATP_PlayerCharacter::WallSlideDirectionBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	//set canwallslide to false
+	bCanWallSlide = false;
+	UE_LOG(LogTemp, Warning, TEXT("WALL SLIDE DIRECTION CHECK ENDED"));
+}
+
 void ATP_PlayerCharacter::SetChargeBoxCollision(bool bEnableCollision)
 {
 	playerChargeOverlapBox->SetCollisionEnabled(bEnableCollision ? ECollisionEnabled::QueryAndPhysics : ECollisionEnabled::NoCollision);
@@ -757,7 +850,7 @@ void ATP_PlayerCharacter::CheckForGround()
 
 	TArray<AActor*> ignoredActors;
 	
-	UKismetSystemLibrary::LineTraceSingle(this, checkStart, checkEnd, TraceTypeQuery1, false, ignoredActors, EDrawDebugTrace::None, groundCheckResult, true);
+	UKismetSystemLibrary::LineTraceSingle(this, checkStart, checkEnd, TraceTypeQuery1, false, ignoredActors, EDrawDebugTrace::ForDuration, groundCheckResult, true);
 
 	if(groundCheckResult.bBlockingHit)
 	{
@@ -867,9 +960,11 @@ void ATP_PlayerCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	SetInterpMovementSpeed(DeltaTime);
-	SetInterpFOV(DeltaTime);
+	SetInterpSprintFOV(DeltaTime);
+	SetInterpAirDashFOV(DeltaTime);
 	WallSlide(DeltaTime);
 	SetInterpWallSlideSpeed(DeltaTime);
+	SetInterpAirControl(DeltaTime);
 	
 	Aim(DeltaTime);
 	

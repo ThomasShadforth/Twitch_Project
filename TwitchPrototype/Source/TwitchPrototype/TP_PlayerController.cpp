@@ -95,6 +95,21 @@ void ATP_PlayerController::PlayerMove(const FInputActionValue& Value)
 		HandleForwardInput(forwardDirection, moveValue.Y, controlledPawn);
 		controlledPawn->AddMovementInput(rightDirection, moveValue.X);
 	}
+
+	if(!IPlayerCharacterInterface::Execute_GetWallSlideCheckEnabled(GetPawn()))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("ENABLING WALL SLIDE CHECK"));
+		IPlayerCharacterInterface::Execute_PlayerEnableWallSlideCheck(GetPawn(), true);
+	}
+}
+
+void ATP_PlayerController::PlayerStopMove(const FInputActionValue& Value)
+{
+	if(!GetDoesImplementInterface()) return;
+
+	UE_LOG(LogTemp, Warning, TEXT("STOP MOVE ACTION TRIGGERED"));
+	
+	IPlayerCharacterInterface::Execute_PlayerEnableWallSlideCheck(GetPawn(), false);
 }
 
 void ATP_PlayerController::PlayerLook(const FInputActionValue& Value)
@@ -262,7 +277,8 @@ void ATP_PlayerController::SetupInputComponent()
 	UEnhancedInputComponent* enhancedInput = CastChecked<UEnhancedInputComponent>(InputComponent);
 
 	enhancedInput->BindAction(moveAction, ETriggerEvent::Triggered, this, &ATP_PlayerController::PlayerMove);
-
+	enhancedInput->BindAction(stopMoveAction, ETriggerEvent::Triggered, this, &ATP_PlayerController::PlayerStopMove);
+	
 	enhancedInput->BindAction(jumpAction, ETriggerEvent::Triggered, this, &ATP_PlayerController::PlayerJump);
 	enhancedInput->BindAction(stopJumpAction, ETriggerEvent::Triggered, this, &ATP_PlayerController::StopPlayerJump);
 

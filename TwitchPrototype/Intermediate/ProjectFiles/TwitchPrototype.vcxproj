@@ -253,6 +253,11 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\TP_NPC.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="..\..\Source\TwitchPrototype\Private\AbilitySystem\TPAttributeSet.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -263,7 +268,32 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Animation\TP_PlayerAnimInstance.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="..\..\Source\TwitchPrototype\Private\Collectible\TP_CollectibleBase.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Data\GameSaveData.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Data\TP_GameInstance.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\DialogueSystem\NPCDialogueAIController.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\DialogueSystem\NPCDialogueComponent.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
@@ -278,7 +308,27 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Interaction\TPDamageInterface.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Interaction\TPInteractInterface.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\LevelObjects\TP_LevelItem.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="..\..\Source\TwitchPrototype\Private\Player\PlayerCharacterInterface.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Player\TPLivesInterface.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
@@ -288,7 +338,17 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\Subsystems\TP_SaveSubsystem.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="..\..\Source\TwitchPrototype\Private\UI\HUD\TPHUD.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TwitchPrototype\Private\UI\Widget\TPDialogBoxWidget.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
@@ -319,14 +379,26 @@
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\TP_DamageInterface.h"/>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\TP_FlyingAIComponent.h"/>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\TP_GroundEnemy.h"/>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\TP_NPC.h"/>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\AbilitySystem\TPAttributeSet.h"/>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\AbilitySystem\TPBaseAbilitySystemComp.h"/>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Animation\TP_PlayerAnimInstance.h"/>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\Collectible\TP_CollectibleBase.h"/>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Data\GameSaveData.h"/>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Data\TP_GameInstance.h"/>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\DialogueSystem\NPCDialogueAIController.h"/>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\DialogueSystem\NPCDialogueComponent.h"/>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\Interaction\TPChargeInterface.h"/>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\Interaction\TPCollectibleInterface.h"/>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Interaction\TPDamageInterface.h"/>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Interaction\TPInteractInterface.h"/>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\LevelObjects\TP_LevelItem.h"/>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\Player\PlayerCharacterInterface.h"/>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Player\TPLivesInterface.h"/>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\Player\TPPlayerState.h"/>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\Subsystems\TP_SaveSubsystem.h"/>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\UI\HUD\TPHUD.h"/>
+    <ClInclude Include="..\..\Source\TwitchPrototype\Public\UI\Widget\TPDialogBoxWidget.h"/>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\UI\Widget\TPWidgetBase.h"/>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\UI\WidgetController\OverlayWidgetController.h"/>
     <ClInclude Include="..\..\Source\TwitchPrototype\Public\UI\WidgetController\WidgetControllerBase.h"/>

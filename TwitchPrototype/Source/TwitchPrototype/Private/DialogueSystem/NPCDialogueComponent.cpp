@@ -25,7 +25,7 @@ void UNPCDialogueComponent::Interact_Implementation(ATP_PlayerCharacter* PlayerC
 {
 	ITPInteractInterface::Interact_Implementation(PlayerCharacter);
 
-	//To Do: Create Widget For Dialogue
+	playerChar = PlayerCharacter;
 	
 	if(dialogueBoxClass)
 	{
@@ -33,14 +33,12 @@ void UNPCDialogueComponent::Interact_Implementation(ATP_PlayerCharacter* PlayerC
 		
 		UUserWidget* dialogueBox = CreateWidget<UUserWidget>(pc, dialogueBoxClass);
 		
-
 		dialogBoxWidget = Cast<UTPDialogBoxWidget>(dialogueBox);
 
 		if(dialogBoxWidget == nullptr) return;
 		
 		dialogBoxWidget->onExit.AddDynamic(this, &UNPCDialogueComponent::OnDialogueExitCallback);
-
-		//To Do: Add to viewport, change input mode to UI only, show mouse cursor
+		
 		dialogBoxWidget->AddToViewport(-1000);
 		UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx(pc, dialogBoxWidget, EMouseLockMode::DoNotLock, false);
 		pc->bShowMouseCursor = true;
@@ -54,6 +52,8 @@ void UNPCDialogueComponent::Interact_Implementation(ATP_PlayerCharacter* PlayerC
 		
 		dialogueAIController->UseBlackboard(dialogueBlackboard, bbComp);
 		bbComp->SetValueAsObject(FName("DialogueWidget"), dialogBoxWidget);
+
+		playerChar->ManageCameraTransitions(false);
 	}
 }
 
@@ -73,6 +73,8 @@ void UNPCDialogueComponent::OnDialogueExitCallback()
 	pc->bShowMouseCursor = false;
 	dialogueAIController->GetBrainComponent()->StopLogic(FString(""));
 	dialogBoxWidget->RemoveFromParent();
+	playerChar->ManageCameraTransitions(true);
+	playerChar = nullptr;
 }
 
 

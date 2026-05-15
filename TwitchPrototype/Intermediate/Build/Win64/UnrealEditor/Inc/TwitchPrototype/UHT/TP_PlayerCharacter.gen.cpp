@@ -15,6 +15,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UBoxComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_UCameraShakeBase_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UCurveFloat_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UPrimitiveComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_USceneComponent_NoRegister();
@@ -109,6 +110,30 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		P_THIS->ResetWallSlideSoundTimer();
 		P_NATIVE_END;
 	}
+	DEFINE_FUNCTION(ATP_PlayerCharacter::execWallSlideDirectionBoxEndOverlap)
+	{
+		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OverlappedComponent);
+		P_GET_OBJECT(AActor,Z_Param_OtherActor);
+		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OtherComp);
+		P_GET_PROPERTY(FIntProperty,Z_Param_OtherBodyIndex);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->WallSlideDirectionBoxEndOverlap(Z_Param_OverlappedComponent,Z_Param_OtherActor,Z_Param_OtherComp,Z_Param_OtherBodyIndex);
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(ATP_PlayerCharacter::execWallSlideDirectionBoxOverlap)
+	{
+		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OverlappedComponent);
+		P_GET_OBJECT(AActor,Z_Param_OtherActor);
+		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OtherComp);
+		P_GET_PROPERTY(FIntProperty,Z_Param_OtherBodyIndex);
+		P_GET_UBOOL(Z_Param_bFromSweep);
+		P_GET_STRUCT_REF(FHitResult,Z_Param_Out_SweepResult);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->WallSlideDirectionBoxOverlap(Z_Param_OverlappedComponent,Z_Param_OtherActor,Z_Param_OtherComp,Z_Param_OtherBodyIndex,Z_Param_bFromSweep,Z_Param_Out_SweepResult);
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(ATP_PlayerCharacter::execInteractSphereEndOverlap)
 	{
 		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OverlappedComponent);
@@ -198,6 +223,14 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		P_THIS->JumpSquashUpdate(Z_Param_Alpha);
 		P_NATIVE_END;
 	}
+	DEFINE_FUNCTION(ATP_PlayerCharacter::execManageCameraTransitions)
+	{
+		P_GET_UBOOL(Z_Param_bSwapToMainCamera);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->ManageCameraTransitions(Z_Param_bSwapToMainCamera);
+		P_NATIVE_END;
+	}
 	void ATP_PlayerCharacter::StaticRegisterNativesATP_PlayerCharacter()
 	{
 		UClass* Class = ATP_PlayerCharacter::StaticClass();
@@ -209,12 +242,15 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 			{ "JumpSquashUpdate", &ATP_PlayerCharacter::execJumpSquashUpdate },
 			{ "LandSquashFinished", &ATP_PlayerCharacter::execLandSquashFinished },
 			{ "LandSquashUpdate", &ATP_PlayerCharacter::execLandSquashUpdate },
+			{ "ManageCameraTransitions", &ATP_PlayerCharacter::execManageCameraTransitions },
 			{ "OnCoyoteTimeEnd", &ATP_PlayerCharacter::execOnCoyoteTimeEnd },
 			{ "ResetDamageSoundTimer", &ATP_PlayerCharacter::execResetDamageSoundTimer },
 			{ "ResetWallSlideSoundTimer", &ATP_PlayerCharacter::execResetWallSlideSoundTimer },
 			{ "ResetWasStomp", &ATP_PlayerCharacter::execResetWasStomp },
 			{ "StompLandSquashFinished", &ATP_PlayerCharacter::execStompLandSquashFinished },
 			{ "StompLandSquashUpdate", &ATP_PlayerCharacter::execStompLandSquashUpdate },
+			{ "WallSlideDirectionBoxEndOverlap", &ATP_PlayerCharacter::execWallSlideDirectionBoxEndOverlap },
+			{ "WallSlideDirectionBoxOverlap", &ATP_PlayerCharacter::execWallSlideDirectionBoxOverlap },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 	}
@@ -558,6 +594,45 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics
+	{
+		struct TP_PlayerCharacter_eventManageCameraTransitions_Parms
+		{
+			bool bSwapToMainCamera;
+		};
+		static void NewProp_bSwapToMainCamera_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bSwapToMainCamera;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+	void Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics::NewProp_bSwapToMainCamera_SetBit(void* Obj)
+	{
+		((TP_PlayerCharacter_eventManageCameraTransitions_Parms*)Obj)->bSwapToMainCamera = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics::NewProp_bSwapToMainCamera = { "bSwapToMainCamera", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(TP_PlayerCharacter_eventManageCameraTransitions_Parms), &Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics::NewProp_bSwapToMainCamera_SetBit, METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics::NewProp_bSwapToMainCamera,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_PlayerCharacter, nullptr, "ManageCameraTransitions", nullptr, nullptr, Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics::PropPointers), sizeof(Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics::TP_PlayerCharacter_eventManageCameraTransitions_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics::TP_PlayerCharacter_eventManageCameraTransitions_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	struct Z_Construct_UFunction_ATP_PlayerCharacter_OnCoyoteTimeEnd_Statics
 	{
 #if WITH_METADATA
@@ -702,6 +777,151 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		}
 		return ReturnFunction;
 	}
+	struct Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics
+	{
+		struct TP_PlayerCharacter_eventWallSlideDirectionBoxEndOverlap_Parms
+		{
+			UPrimitiveComponent* OverlappedComponent;
+			AActor* OtherActor;
+			UPrimitiveComponent* OtherComp;
+			int32 OtherBodyIndex;
+		};
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_OverlappedComponent_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OverlappedComponent;
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherActor;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_OtherComp_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherComp;
+		static const UECodeGen_Private::FIntPropertyParams NewProp_OtherBodyIndex;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::NewProp_OverlappedComponent_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::NewProp_OverlappedComponent = { "OverlappedComponent", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventWallSlideDirectionBoxEndOverlap_Parms, OverlappedComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::NewProp_OverlappedComponent_MetaData), Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::NewProp_OverlappedComponent_MetaData) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::NewProp_OtherActor = { "OtherActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventWallSlideDirectionBoxEndOverlap_Parms, OtherActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::NewProp_OtherComp_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::NewProp_OtherComp = { "OtherComp", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventWallSlideDirectionBoxEndOverlap_Parms, OtherComp), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::NewProp_OtherComp_MetaData), Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::NewProp_OtherComp_MetaData) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::NewProp_OtherBodyIndex = { "OtherBodyIndex", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventWallSlideDirectionBoxEndOverlap_Parms, OtherBodyIndex), METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::NewProp_OverlappedComponent,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::NewProp_OtherActor,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::NewProp_OtherComp,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::NewProp_OtherBodyIndex,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_PlayerCharacter, nullptr, "WallSlideDirectionBoxEndOverlap", nullptr, nullptr, Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::PropPointers), sizeof(Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::TP_PlayerCharacter_eventWallSlideDirectionBoxEndOverlap_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::TP_PlayerCharacter_eventWallSlideDirectionBoxEndOverlap_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics
+	{
+		struct TP_PlayerCharacter_eventWallSlideDirectionBoxOverlap_Parms
+		{
+			UPrimitiveComponent* OverlappedComponent;
+			AActor* OtherActor;
+			UPrimitiveComponent* OtherComp;
+			int32 OtherBodyIndex;
+			bool bFromSweep;
+			FHitResult SweepResult;
+		};
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_OverlappedComponent_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OverlappedComponent;
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherActor;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_OtherComp_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherComp;
+		static const UECodeGen_Private::FIntPropertyParams NewProp_OtherBodyIndex;
+		static void NewProp_bFromSweep_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bFromSweep;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_SweepResult_MetaData[];
+#endif
+		static const UECodeGen_Private::FStructPropertyParams NewProp_SweepResult;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_OverlappedComponent_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_OverlappedComponent = { "OverlappedComponent", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventWallSlideDirectionBoxOverlap_Parms, OverlappedComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_OverlappedComponent_MetaData), Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_OverlappedComponent_MetaData) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_OtherActor = { "OtherActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventWallSlideDirectionBoxOverlap_Parms, OtherActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_OtherComp_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_OtherComp = { "OtherComp", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventWallSlideDirectionBoxOverlap_Parms, OtherComp), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_OtherComp_MetaData), Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_OtherComp_MetaData) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_OtherBodyIndex = { "OtherBodyIndex", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventWallSlideDirectionBoxOverlap_Parms, OtherBodyIndex), METADATA_PARAMS(0, nullptr) };
+	void Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_bFromSweep_SetBit(void* Obj)
+	{
+		((TP_PlayerCharacter_eventWallSlideDirectionBoxOverlap_Parms*)Obj)->bFromSweep = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_bFromSweep = { "bFromSweep", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(TP_PlayerCharacter_eventWallSlideDirectionBoxOverlap_Parms), &Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_bFromSweep_SetBit, METADATA_PARAMS(0, nullptr) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_SweepResult_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_SweepResult = { "SweepResult", nullptr, (EPropertyFlags)0x0010008008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventWallSlideDirectionBoxOverlap_Parms, SweepResult), Z_Construct_UScriptStruct_FHitResult, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_SweepResult_MetaData), Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_SweepResult_MetaData) }; // 1891709922
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_OverlappedComponent,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_OtherActor,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_OtherComp,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_OtherBodyIndex,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_bFromSweep,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::NewProp_SweepResult,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_PlayerCharacter, nullptr, "WallSlideDirectionBoxOverlap", nullptr, nullptr, Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::PropPointers), sizeof(Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::TP_PlayerCharacter_eventWallSlideDirectionBoxOverlap_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00480401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::TP_PlayerCharacter_eventWallSlideDirectionBoxOverlap_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
 	IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(ATP_PlayerCharacter);
 	UClass* Z_Construct_UClass_ATP_PlayerCharacter_NoRegister()
 	{
@@ -723,10 +943,19 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 #endif
 		static const UECodeGen_Private::FObjectPropertyParams NewProp_mainCamera;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_dialogueCameraPosition_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_dialogueCameraPosition;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_bWallSliding_MetaData[];
 #endif
 		static void NewProp_bWallSliding_SetBit(void* Obj);
 		static const UECodeGen_Private::FBoolPropertyParams NewProp_bWallSliding;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_bCanWallSlide_MetaData[];
+#endif
+		static void NewProp_bCanWallSlide_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bCanWallSlide;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_dashDistance_MetaData[];
 #endif
@@ -764,6 +993,18 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 #endif
 		static const UECodeGen_Private::FFloatPropertyParams NewProp_sprintStopInterpSpeed;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_defaultAirControl_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_defaultAirControl;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_postWallJumpAirControl_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_postWallJumpAirControl;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_airControlInterpSpeed_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_airControlInterpSpeed;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_sphereCastPoint_MetaData[];
 #endif
 		static const UECodeGen_Private::FNamePropertyParams NewProp_sphereCastPoint;
@@ -780,9 +1021,17 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 #endif
 		static const UECodeGen_Private::FFloatPropertyParams NewProp_forwardWallForce;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_slidingWallJumpModifier_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_slidingWallJumpModifier;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_upwardWallForce_MetaData[];
 #endif
 		static const UECodeGen_Private::FFloatPropertyParams NewProp_upwardWallForce;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_wallSlideDirectionCheckBox_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_wallSlideDirectionCheckBox;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_cameraDefaultFOV_MetaData[];
 #endif
@@ -792,13 +1041,21 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 #endif
 		static const UECodeGen_Private::FFloatPropertyParams NewProp_cameraSprintFOV;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_cameraAirDashFOV_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_cameraAirDashFOV;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_currentCameraFOV_MetaData[];
 #endif
 		static const UECodeGen_Private::FFloatPropertyParams NewProp_currentCameraFOV;
 #if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_fovInterpSpeed_MetaData[];
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_sprintFOVInterpSpeed_MetaData[];
 #endif
-		static const UECodeGen_Private::FFloatPropertyParams NewProp_fovInterpSpeed;
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_sprintFOVInterpSpeed;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_airDashFOVInterpSpeed_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_airDashFOVInterpSpeed;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_baseScale_MetaData[];
 #endif
@@ -935,6 +1192,26 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_interactOverlapSphere_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPropertyParams NewProp_interactOverlapSphere;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_dialogueCameraClass_MetaData[];
+#endif
+		static const UECodeGen_Private::FClassPropertyParams NewProp_dialogueCameraClass;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_dialogueCamBlendTime_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_dialogueCamBlendTime;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_dialogueCamBlendExponent_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_dialogueCamBlendExponent;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_stompCameraShake_MetaData[];
+#endif
+		static const UECodeGen_Private::FClassPropertyParams NewProp_stompCameraShake;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_airDashCameraShake_MetaData[];
+#endif
+		static const UECodeGen_Private::FClassPropertyParams NewProp_airDashCameraShake;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
@@ -953,12 +1230,15 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_JumpSquashUpdate, "JumpSquashUpdate" }, // 2996724732
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_LandSquashFinished, "LandSquashFinished" }, // 3383075559
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_LandSquashUpdate, "LandSquashUpdate" }, // 3648626628
+		{ &Z_Construct_UFunction_ATP_PlayerCharacter_ManageCameraTransitions, "ManageCameraTransitions" }, // 1281494606
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_OnCoyoteTimeEnd, "OnCoyoteTimeEnd" }, // 2657618391
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_ResetDamageSoundTimer, "ResetDamageSoundTimer" }, // 376609028
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_ResetWallSlideSoundTimer, "ResetWallSlideSoundTimer" }, // 3208635789
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_ResetWasStomp, "ResetWasStomp" }, // 2970822474
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_StompLandSquashFinished, "StompLandSquashFinished" }, // 3209178486
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_StompLandSquashUpdate, "StompLandSquashUpdate" }, // 1997411083
+		{ &Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxEndOverlap, "WallSlideDirectionBoxEndOverlap" }, // 2172602672
+		{ &Z_Construct_UFunction_ATP_PlayerCharacter_WallSlideDirectionBoxOverlap, "WallSlideDirectionBoxOverlap" }, // 141357098
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::FuncInfo) < 2048);
 #if WITH_METADATA
@@ -987,6 +1267,15 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 #endif
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_mainCamera = { "mainCamera", nullptr, (EPropertyFlags)0x00400000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, mainCamera), Z_Construct_UClass_UCameraComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_mainCamera_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_mainCamera_MetaData) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCameraPosition_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "TP_PlayerCharacter" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCameraPosition = { "dialogueCameraPosition", nullptr, (EPropertyFlags)0x00400000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, dialogueCameraPosition), Z_Construct_UClass_USceneComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCameraPosition_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCameraPosition_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bWallSliding_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Wall Sliding" },
@@ -998,6 +1287,17 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		((ATP_PlayerCharacter*)Obj)->bWallSliding = 1;
 	}
 	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bWallSliding = { "bWallSliding", nullptr, (EPropertyFlags)0x0040000000020015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ATP_PlayerCharacter), &Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bWallSliding_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bWallSliding_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bWallSliding_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bCanWallSlide_MetaData[] = {
+		{ "Category", "TP_PlayerCharacter" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	void Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bCanWallSlide_SetBit(void* Obj)
+	{
+		((ATP_PlayerCharacter*)Obj)->bCanWallSlide = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bCanWallSlide = { "bCanWallSlide", nullptr, (EPropertyFlags)0x0040000000020001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ATP_PlayerCharacter), &Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bCanWallSlide_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bCanWallSlide_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bCanWallSlide_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dashDistance_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
@@ -1071,6 +1371,30 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 #endif
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_sprintStopInterpSpeed = { "sprintStopInterpSpeed", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, sprintStopInterpSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_sprintStopInterpSpeed_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_sprintStopInterpSpeed_MetaData) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_defaultAirControl_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Movement" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_defaultAirControl = { "defaultAirControl", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, defaultAirControl), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_defaultAirControl_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_defaultAirControl_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_postWallJumpAirControl_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Movement" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_postWallJumpAirControl = { "postWallJumpAirControl", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, postWallJumpAirControl), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_postWallJumpAirControl_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_postWallJumpAirControl_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airControlInterpSpeed_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Movement" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airControlInterpSpeed = { "airControlInterpSpeed", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, airControlInterpSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airControlInterpSpeed_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airControlInterpSpeed_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_sphereCastPoint_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Wall Jump" },
@@ -1109,6 +1433,14 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 #endif
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_forwardWallForce = { "forwardWallForce", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, forwardWallForce), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_forwardWallForce_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_forwardWallForce_MetaData) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_slidingWallJumpModifier_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Wall Jump" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_slidingWallJumpModifier = { "slidingWallJumpModifier", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, slidingWallJumpModifier), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_slidingWallJumpModifier_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_slidingWallJumpModifier_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_upwardWallForce_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Wall Jump" },
@@ -1116,6 +1448,15 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 	};
 #endif
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_upwardWallForce = { "upwardWallForce", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, upwardWallForce), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_upwardWallForce_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_upwardWallForce_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideDirectionCheckBox_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Wall Jump" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideDirectionCheckBox = { "wallSlideDirectionCheckBox", nullptr, (EPropertyFlags)0x004000000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, wallSlideDirectionCheckBox), Z_Construct_UClass_UBoxComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideDirectionCheckBox_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideDirectionCheckBox_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_cameraDefaultFOV_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
@@ -1133,6 +1474,14 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 #endif
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_cameraSprintFOV = { "cameraSprintFOV", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, cameraSprintFOV), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_cameraSprintFOV_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_cameraSprintFOV_MetaData) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_cameraAirDashFOV_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Camera" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_cameraAirDashFOV = { "cameraAirDashFOV", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, cameraAirDashFOV), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_cameraAirDashFOV_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_cameraAirDashFOV_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_currentCameraFOV_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Camera" },
@@ -1141,13 +1490,21 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 #endif
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_currentCameraFOV = { "currentCameraFOV", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, currentCameraFOV), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_currentCameraFOV_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_currentCameraFOV_MetaData) };
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_fovInterpSpeed_MetaData[] = {
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_sprintFOVInterpSpeed_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "Camera" },
 		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
 	};
 #endif
-	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_fovInterpSpeed = { "fovInterpSpeed", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, fovInterpSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_fovInterpSpeed_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_fovInterpSpeed_MetaData) };
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_sprintFOVInterpSpeed = { "sprintFOVInterpSpeed", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, sprintFOVInterpSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_sprintFOVInterpSpeed_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_sprintFOVInterpSpeed_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airDashFOVInterpSpeed_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Camera" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airDashFOVInterpSpeed = { "airDashFOVInterpSpeed", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, airDashFOVInterpSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airDashFOVInterpSpeed_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airDashFOVInterpSpeed_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_baseScale_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
@@ -1425,10 +1782,49 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 	};
 #endif
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_interactOverlapSphere = { "interactOverlapSphere", nullptr, (EPropertyFlags)0x0040000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, interactOverlapSphere), Z_Construct_UClass_USphereComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_interactOverlapSphere_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_interactOverlapSphere_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCameraClass_MetaData[] = {
+		{ "Category", "TP_PlayerCharacter" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCameraClass = { "dialogueCameraClass", nullptr, (EPropertyFlags)0x0044000000000001, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, dialogueCameraClass), Z_Construct_UClass_UClass, Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCameraClass_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCameraClass_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCamBlendTime_MetaData[] = {
+		{ "Category", "TP_PlayerCharacter" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCamBlendTime = { "dialogueCamBlendTime", nullptr, (EPropertyFlags)0x0040000000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, dialogueCamBlendTime), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCamBlendTime_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCamBlendTime_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCamBlendExponent_MetaData[] = {
+		{ "Category", "TP_PlayerCharacter" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCamBlendExponent = { "dialogueCamBlendExponent", nullptr, (EPropertyFlags)0x0040000000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, dialogueCamBlendExponent), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCamBlendExponent_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCamBlendExponent_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_stompCameraShake_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Camera Shake" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_stompCameraShake = { "stompCameraShake", nullptr, (EPropertyFlags)0x0044000000010005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, stompCameraShake), Z_Construct_UClass_UClass, Z_Construct_UClass_UCameraShakeBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_stompCameraShake_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_stompCameraShake_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airDashCameraShake_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Camera Shake" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airDashCameraShake = { "airDashCameraShake", nullptr, (EPropertyFlags)0x0044000000010005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, airDashCameraShake), Z_Construct_UClass_UClass, Z_Construct_UClass_UCameraShakeBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airDashCameraShake_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airDashCameraShake_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATP_PlayerCharacter_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_cameraBoom,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_mainCamera,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCameraPosition,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bWallSliding,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bCanWallSlide,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dashDistance,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_maxAirDashes,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airDashCount,
@@ -1438,15 +1834,22 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_sprintSpeed,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_sprintStartInterpSpeed,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_sprintStopInterpSpeed,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_defaultAirControl,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_postWallJumpAirControl,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airControlInterpSpeed,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_sphereCastPoint,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallCheckRadius,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallCheckDistance,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_forwardWallForce,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_slidingWallJumpModifier,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_upwardWallForce,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideDirectionCheckBox,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_cameraDefaultFOV,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_cameraSprintFOV,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_cameraAirDashFOV,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_currentCameraFOV,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_fovInterpSpeed,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_sprintFOVInterpSpeed,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airDashFOVInterpSpeed,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_baseScale,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_jumpSqueezeFactor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_landSqueezeFactor,
@@ -1481,9 +1884,14 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_wallSlideSoundResetTime,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_playerDamageSoundResetTime,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_interactOverlapSphere,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCameraClass,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCamBlendTime,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCamBlendExponent,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_stompCameraShake,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airDashCameraShake,
 	};
 		const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::InterfaceParams[] = {
-			{ Z_Construct_UClass_UPlayerCharacterInterface_NoRegister, (int32)VTABLE_OFFSET(ATP_PlayerCharacter, IPlayerCharacterInterface), false },  // 1465278579
+			{ Z_Construct_UClass_UPlayerCharacterInterface_NoRegister, (int32)VTABLE_OFFSET(ATP_PlayerCharacter, IPlayerCharacterInterface), false },  // 2404680748
 			{ Z_Construct_UClass_UTPDamageInterface_NoRegister, (int32)VTABLE_OFFSET(ATP_PlayerCharacter, ITPDamageInterface), false },  // 1129312699
 		};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::InterfaceParams) < 64);
@@ -1529,9 +1937,9 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		{ EPlayerStates_StaticEnum, TEXT("EPlayerStates"), &Z_Registration_Info_UEnum_EPlayerStates, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 845008250U) },
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ATP_PlayerCharacter, ATP_PlayerCharacter::StaticClass, TEXT("ATP_PlayerCharacter"), &Z_Registration_Info_UClass_ATP_PlayerCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_PlayerCharacter), 2605364956U) },
+		{ Z_Construct_UClass_ATP_PlayerCharacter, ATP_PlayerCharacter::StaticClass, TEXT("ATP_PlayerCharacter"), &Z_Registration_Info_UClass_ATP_PlayerCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_PlayerCharacter), 2485935267U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_1073882188(TEXT("/Script/TwitchPrototype"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_68241750(TEXT("/Script/TwitchPrototype"),
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo),
 		nullptr, 0,
 		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::EnumInfo));

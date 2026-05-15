@@ -20,6 +20,8 @@ class UCharacterMovementComponent;
 #define FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_13_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_13_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Player_PlayerCharacterInterface_h_13_RPC_WRAPPERS_NO_PURE_DECLS \
+	virtual bool GetWallSlideCheckEnabled_Implementation() { return false; }; \
+	virtual void PlayerEnableWallSlideCheck_Implementation(bool bShouldEnable) {}; \
 	virtual void PlayerInteract_Implementation() {}; \
 	virtual void CollectExtraLife_Implementation() {}; \
 	virtual void ApplyKnockback_Implementation(FVector directionKnockbackForce) {}; \
@@ -39,6 +41,8 @@ class UCharacterMovementComponent;
 	virtual void PlayerStopJump_Implementation() {}; \
 	virtual void PlayerJump_Implementation() {}; \
  \
+	DECLARE_FUNCTION(execGetWallSlideCheckEnabled); \
+	DECLARE_FUNCTION(execPlayerEnableWallSlideCheck); \
 	DECLARE_FUNCTION(execPlayerInteract); \
 	DECLARE_FUNCTION(execCollectExtraLife); \
 	DECLARE_FUNCTION(execApplyKnockback); \
@@ -106,6 +110,8 @@ public: \
 	static ATP_PlayerController* Execute_GetPlayerCharacterController(UObject* O); \
 	static bool Execute_GetPlayerMoveDisabled(UObject* O); \
 	static UCharacterMovementComponent* Execute_GetPlayerMovementComponent(UObject* O); \
+	static bool Execute_GetWallSlideCheckEnabled(UObject* O); \
+	static void Execute_PlayerEnableWallSlideCheck(UObject* O, bool bShouldEnable); \
 	static void Execute_PlayerInteract(UObject* O); \
 	static void Execute_PlayerJump(UObject* O); \
 	static void Execute_PlayerSprint(UObject* O); \

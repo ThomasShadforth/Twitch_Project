@@ -20,6 +20,7 @@ class ATP_BaseProjectile;
 class USoundCue;
 class ITPInteractInterface;
 
+
 UENUM()
 enum class EPlayerStates
 {
@@ -81,6 +82,13 @@ public:
 	virtual void CollectExtraLife_Implementation() override;
 
 	virtual void PlayerInteract_Implementation() override;
+
+	virtual void PlayerEnableWallSlideCheck_Implementation(bool bShouldEnable) override;
+
+	virtual bool GetWallSlideCheckEnabled_Implementation() override;
+	
+	UFUNCTION()
+	void ManageCameraTransitions(bool bSwapToMainCamera);
 	
 protected:
 	// Called when the game starts or when spawned
@@ -102,9 +110,13 @@ protected:
 
 	void SetInterpMovementSpeed(float DeltaTime);
 
-	void SetInterpFOV(float DeltaTime);
+	void SetInterpSprintFOV(float DeltaTime);
+
+	void SetInterpAirDashFOV(float DeltaTime);
 
 	void SetInterpWallSlideSpeed(float DeltaTime);
+
+	void SetInterpAirControl(float DeltaTime);
 	
 	void Aim(float DeltaTime);
 	
@@ -149,6 +161,12 @@ protected:
 
 	UFUNCTION()
 	void InteractSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	UFUNCTION()
+	void WallSlideDirectionBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+	void WallSlideDirectionBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 	
 	void SetChargeBoxCollision(bool bEnableCollision);
 
@@ -174,6 +192,8 @@ protected:
 	void ResetWasStomp();
 
 	void ManageInteractableArray(AActor* OtherActor, bool bIsAddItems);
+
+	
 	
 private:
 
@@ -183,6 +203,9 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* mainCamera;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	USceneComponent* dialogueCameraPosition;
+	
 	FTimerHandle airDashHandle;
 
 	FTimerHandle stompHandle;
@@ -202,6 +225,9 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Wall Sliding", meta = (AllowPrivateAccess = "true"))
 	bool bWallSliding;
 
+	UPROPERTY(VisibleAnywhere)
+	bool bCanWallSlide;
+	
 	bool bHasPlayerBeenHit;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Air Dash", meta = (AllowPrivateAccess = "true"))
@@ -230,6 +256,15 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	float sprintStopInterpSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
+	float defaultAirControl;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
+	float postWallJumpAirControl;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
+	float airControlInterpSpeed;
 	
 	float currentMovementSpeed;
 
@@ -247,8 +282,14 @@ private:
 	float forwardWallForce;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Wall Jump", meta = (AllowPrivateAccess = "true"))
+	float slidingWallJumpModifier;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Wall Jump", meta = (AllowPrivateAccess = "true"))
 	float upwardWallForce;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Wall Jump", meta = (AllowPrivateAccess = "true"))
+	UBoxComponent* wallSlideDirectionCheckBox;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	float cameraDefaultFOV;
 
@@ -256,11 +297,17 @@ private:
 	float cameraSprintFOV;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
+	float cameraAirDashFOV;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
 	float currentCameraFOV;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
-	float fovInterpSpeed;
+	float sprintFOVInterpSpeed;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Camera", meta = (AllowPrivateAccess = "true"))
+	float airDashFOVInterpSpeed;
+	
 	//Squash and Stretch controls
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Squash & Strecth", meta = (AllowPrivateAccess = "true"))
 	FVector baseScale;
@@ -419,6 +466,23 @@ private:
 	TArray<UObject*> interactablesInRange;
 	
 	bool bShouldPlayDamageSound;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> dialogueCameraClass;
+
+	UPROPERTY(EditAnywhere)
+	float dialogueCamBlendTime;
+
+	UPROPERTY(EditAnywhere)
+	float dialogueCamBlendExponent;
+
+	AActor* dialogueCamera;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Camera Shake", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UCameraShakeBase> stompCameraShake;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Camera Shake", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<UCameraShakeBase> airDashCameraShake;
 	
 public:	
 	// Called every frame

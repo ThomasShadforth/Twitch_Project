@@ -30,6 +30,7 @@ struct FInputActionValue;
 	DECLARE_FUNCTION(execStopPlayerJump); \
 	DECLARE_FUNCTION(execPlayerJump); \
 	DECLARE_FUNCTION(execPlayerLook); \
+	DECLARE_FUNCTION(execPlayerStopMove); \
 	DECLARE_FUNCTION(execPlayerMove);
 
 

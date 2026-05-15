@@ -30,6 +30,9 @@ class TWITCHPROTOTYPE_API ATP_PlayerController : public APlayerController
 	UInputAction* moveAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* stopMoveAction;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* jumpAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
@@ -68,6 +71,9 @@ protected:
 	UFUNCTION()
 	void PlayerMove(const FInputActionValue& Value);
 
+	UFUNCTION()
+	void PlayerStopMove(const FInputActionValue& Value);
+	
 	UFUNCTION()
 	void PlayerLook(const FInputActionValue& Value);
 	

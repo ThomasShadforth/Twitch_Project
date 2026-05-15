@@ -77,5 +77,11 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void PlayerInteract();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void PlayerEnableWallSlideCheck(bool bShouldEnable);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	bool GetWallSlideCheckEnabled();
 	
 };

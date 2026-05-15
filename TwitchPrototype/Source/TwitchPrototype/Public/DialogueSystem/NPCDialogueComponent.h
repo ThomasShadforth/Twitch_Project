@@ -9,6 +9,7 @@
 
 
 class ANPCDialogueAIController;
+class ATP_PlayerCharacter;
 class UUserWidget;
 class UTPDialogBoxWidget;
 class UBehaviorTree;
@@ -48,6 +49,8 @@ private:
 
 	APlayerController* pc;
 
+	ATP_PlayerCharacter* playerChar;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	UBehaviorTree* dialogueTree;
 	
