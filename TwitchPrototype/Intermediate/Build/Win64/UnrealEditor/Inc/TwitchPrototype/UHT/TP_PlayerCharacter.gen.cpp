@@ -158,6 +158,17 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		P_THIS->InteractSphereOverlap(Z_Param_OverlappedComponent,Z_Param_OtherActor,Z_Param_OtherComp,Z_Param_OtherBodyIndex,Z_Param_bFromSweep,Z_Param_Out_SweepResult);
 		P_NATIVE_END;
 	}
+	DEFINE_FUNCTION(ATP_PlayerCharacter::execChargeBoxEndOverlap)
+	{
+		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OverlappedComponent);
+		P_GET_OBJECT(AActor,Z_Param_OtherActor);
+		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OtherComp);
+		P_GET_PROPERTY(FIntProperty,Z_Param_OtherBodyIndex);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->ChargeBoxEndOverlap(Z_Param_OverlappedComponent,Z_Param_OtherActor,Z_Param_OtherComp,Z_Param_OtherBodyIndex);
+		P_NATIVE_END;
+	}
 	DEFINE_FUNCTION(ATP_PlayerCharacter::execChargeBoxOverlap)
 	{
 		P_GET_OBJECT(UPrimitiveComponent,Z_Param_OverlappedComponent);
@@ -235,6 +246,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 	{
 		UClass* Class = ATP_PlayerCharacter::StaticClass();
 		static const FNameNativePtrPair Funcs[] = {
+			{ "ChargeBoxEndOverlap", &ATP_PlayerCharacter::execChargeBoxEndOverlap },
 			{ "ChargeBoxOverlap", &ATP_PlayerCharacter::execChargeBoxOverlap },
 			{ "InteractSphereEndOverlap", &ATP_PlayerCharacter::execInteractSphereEndOverlap },
 			{ "InteractSphereOverlap", &ATP_PlayerCharacter::execInteractSphereOverlap },
@@ -253,6 +265,68 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 			{ "WallSlideDirectionBoxOverlap", &ATP_PlayerCharacter::execWallSlideDirectionBoxOverlap },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
+	}
+	struct Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics
+	{
+		struct TP_PlayerCharacter_eventChargeBoxEndOverlap_Parms
+		{
+			UPrimitiveComponent* OverlappedComponent;
+			AActor* OtherActor;
+			UPrimitiveComponent* OtherComp;
+			int32 OtherBodyIndex;
+		};
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_OverlappedComponent_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OverlappedComponent;
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherActor;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_OtherComp_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherComp;
+		static const UECodeGen_Private::FIntPropertyParams NewProp_OtherBodyIndex;
+		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UECodeGen_Private::FFunctionParams FuncParams;
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::NewProp_OverlappedComponent_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::NewProp_OverlappedComponent = { "OverlappedComponent", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventChargeBoxEndOverlap_Parms, OverlappedComponent), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::NewProp_OverlappedComponent_MetaData), Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::NewProp_OverlappedComponent_MetaData) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::NewProp_OtherActor = { "OtherActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventChargeBoxEndOverlap_Parms, OtherActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::NewProp_OtherComp_MetaData[] = {
+		{ "EditInline", "true" },
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::NewProp_OtherComp = { "OtherComp", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventChargeBoxEndOverlap_Parms, OtherComp), Z_Construct_UClass_UPrimitiveComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::NewProp_OtherComp_MetaData), Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::NewProp_OtherComp_MetaData) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::NewProp_OtherBodyIndex = { "OtherBodyIndex", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TP_PlayerCharacter_eventChargeBoxEndOverlap_Parms, OtherBodyIndex), METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::PropPointers[] = {
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::NewProp_OverlappedComponent,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::NewProp_OtherActor,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::NewProp_OtherComp,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::NewProp_OtherBodyIndex,
+	};
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ATP_PlayerCharacter, nullptr, "ChargeBoxEndOverlap", nullptr, nullptr, Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::PropPointers), sizeof(Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::TP_PlayerCharacter_eventChargeBoxEndOverlap_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::Function_MetaDataParams), Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::TP_PlayerCharacter_eventChargeBoxEndOverlap_Parms) < MAX_uint16);
+	UFunction* Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap_Statics::FuncParams);
+		}
+		return ReturnFunction;
 	}
 	struct Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxOverlap_Statics
 	{
@@ -1212,6 +1286,11 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_airDashCameraShake_MetaData[];
 #endif
 		static const UECodeGen_Private::FClassPropertyParams NewProp_airDashCameraShake;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_bChargeOverlapRun_MetaData[];
+#endif
+		static void NewProp_bChargeOverlapRun_SetBit(void* Obj);
+		static const UECodeGen_Private::FBoolPropertyParams NewProp_bChargeOverlapRun;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
@@ -1223,6 +1302,7 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_ATP_PlayerCharacter_Statics::FuncInfo[] = {
+		{ &Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxEndOverlap, "ChargeBoxEndOverlap" }, // 772159458
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_ChargeBoxOverlap, "ChargeBoxOverlap" }, // 3881508809
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereEndOverlap, "InteractSphereEndOverlap" }, // 3715928445
 		{ &Z_Construct_UFunction_ATP_PlayerCharacter_InteractSphereOverlap, "InteractSphereOverlap" }, // 20596776
@@ -1819,6 +1899,17 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 	};
 #endif
 	const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airDashCameraShake = { "airDashCameraShake", nullptr, (EPropertyFlags)0x0044000000010005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ATP_PlayerCharacter, airDashCameraShake), Z_Construct_UClass_UClass, Z_Construct_UClass_UCameraShakeBase_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airDashCameraShake_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airDashCameraShake_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bChargeOverlapRun_MetaData[] = {
+		{ "Category", "TP_PlayerCharacter" },
+		{ "ModuleRelativePath", "TP_PlayerCharacter.h" },
+	};
+#endif
+	void Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bChargeOverlapRun_SetBit(void* Obj)
+	{
+		((ATP_PlayerCharacter*)Obj)->bChargeOverlapRun = 1;
+	}
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bChargeOverlapRun = { "bChargeOverlapRun", nullptr, (EPropertyFlags)0x0040000000020001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ATP_PlayerCharacter), &Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bChargeOverlapRun_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bChargeOverlapRun_MetaData), Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bChargeOverlapRun_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ATP_PlayerCharacter_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_cameraBoom,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_mainCamera,
@@ -1889,10 +1980,11 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_dialogueCamBlendExponent,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_stompCameraShake,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_airDashCameraShake,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ATP_PlayerCharacter_Statics::NewProp_bChargeOverlapRun,
 	};
 		const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_ATP_PlayerCharacter_Statics::InterfaceParams[] = {
-			{ Z_Construct_UClass_UPlayerCharacterInterface_NoRegister, (int32)VTABLE_OFFSET(ATP_PlayerCharacter, IPlayerCharacterInterface), false },  // 2404680748
-			{ Z_Construct_UClass_UTPDamageInterface_NoRegister, (int32)VTABLE_OFFSET(ATP_PlayerCharacter, ITPDamageInterface), false },  // 1129312699
+			{ Z_Construct_UClass_UPlayerCharacterInterface_NoRegister, (int32)VTABLE_OFFSET(ATP_PlayerCharacter, IPlayerCharacterInterface), false },  // 3421255681
+			{ Z_Construct_UClass_UTPDamageInterface_NoRegister, (int32)VTABLE_OFFSET(ATP_PlayerCharacter, ITPDamageInterface), false },  // 3452675525
 		};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ATP_PlayerCharacter_Statics::InterfaceParams) < 64);
 	const FCppClassTypeInfoStatic Z_Construct_UClass_ATP_PlayerCharacter_Statics::StaticCppClassTypeInfo = {
@@ -1928,19 +2020,19 @@ void EmptyLinkFunctionForGeneratedCodeTP_PlayerCharacter() {}
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(ATP_PlayerCharacter);
 	ATP_PlayerCharacter::~ATP_PlayerCharacter() {}
-	struct Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics
+	struct Z_CompiledInDeferFile_FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics
 	{
 		static const FEnumRegisterCompiledInInfo EnumInfo[];
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::EnumInfo[] = {
+	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::EnumInfo[] = {
 		{ EPlayerStates_StaticEnum, TEXT("EPlayerStates"), &Z_Registration_Info_UEnum_EPlayerStates, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 845008250U) },
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ATP_PlayerCharacter, ATP_PlayerCharacter::StaticClass, TEXT("ATP_PlayerCharacter"), &Z_Registration_Info_UClass_ATP_PlayerCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_PlayerCharacter), 2485935267U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_ATP_PlayerCharacter, ATP_PlayerCharacter::StaticClass, TEXT("ATP_PlayerCharacter"), &Z_Registration_Info_UClass_ATP_PlayerCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ATP_PlayerCharacter), 1551352880U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_68241750(TEXT("/Script/TwitchPrototype"),
-		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_2195088376(TEXT("/Script/TwitchPrototype"),
+		Z_CompiledInDeferFile_FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::ClassInfo),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::EnumInfo));
+		Z_CompiledInDeferFile_FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_TP_PlayerCharacter_h_Statics::EnumInfo));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

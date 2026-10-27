@@ -43,13 +43,13 @@ void EmptyLinkFunctionForGeneratedCodeTwitchPrototype_init() {}
 				SingletonFuncArray,
 				UE_ARRAY_COUNT(SingletonFuncArray),
 				PKG_CompiledIn | 0x00000000,
-				0x0BC02571,
-				0x27A362A0,
+				0xD47BE5F3,
+				0x310067FC,
 				METADATA_PARAMS(0, nullptr)
 			};
 			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_TwitchPrototype.OuterSingleton, PackageParams);
 		}
 		return Z_Registration_Info_UPackage__Script_TwitchPrototype.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_TwitchPrototype(Z_Construct_UPackage__Script_TwitchPrototype, TEXT("/Script/TwitchPrototype"), Z_Registration_Info_UPackage__Script_TwitchPrototype, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x0BC02571, 0x27A362A0));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_TwitchPrototype(Z_Construct_UPackage__Script_TwitchPrototype, TEXT("/Script/TwitchPrototype"), Z_Registration_Info_UPackage__Script_TwitchPrototype, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0xD47BE5F3, 0x310067FC));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

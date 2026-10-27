@@ -16,6 +16,7 @@
 class AAIController;
 class ATP_EnemyController;
 class ATP_BaseProjectile;
+class UGameplayEffect;
 
 UCLASS()
 class TWITCHPROTOTYPE_API ATP_Enemy : public ATPCharacterBase, public ITPEnemyInterface, public IStompInterface, public ITPChargeInterface, public ITPDamageInterface
@@ -29,7 +30,7 @@ public:
 	virtual void Landed(const FHitResult& Hit) override;
 
 
-	virtual void DamageCharacter_Implementation(AActor* DamageCauser, float KnockbackModifier) override;
+	virtual void KnockbackCharacter_Implementation(AActor* DamageCauser, float KnockbackModifier) override;
 	
 protected:
 	// Called when the game starts or when spawned
@@ -37,8 +38,6 @@ protected:
 
 	FORCEINLINE ATP_EnemyController* GetEnemyController() const {return enemyController;}
 	FORCEINLINE void SetEnemyController(AController* controller) {enemyController = Cast<ATP_EnemyController>(controller);}
-
-	void ApplyKnockback(FVector InitiatorLocation, float KnockbackModifier);
 	
 	void DestroyEnemy();
 
@@ -46,6 +45,26 @@ protected:
 
 	UFUNCTION()
 	void HandleHealthZero(UAttributeSet* InAttributeSet);
+
+	UFUNCTION(BlueprintCallable)
+	void PlayAttackMontage(FName SectionName, float PlayRate = 1.0f);
+	
+	void ResetCanAttack();
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TSubclassOf<UGameplayEffect> DamageGameplayEffect;
+
+	UFUNCTION(BlueprintCallable)
+	void ApplyGameplayEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
+
+	UFUNCTION(BlueprintCallable)
+	void PlayDeathAnim();
+
+	UFUNCTION(BlueprintCallable)
+	void PlayHitAnim();
+	
+	UFUNCTION(BlueprintCallable)
+	void PlayDeathMontage(FName SectionName, float PlayRate = 1.0f);
 	
 private:
 	UPROPERTY(EditAnywhere, Category = "Behaviour Tree", meta = (AllowPrivateAccess = true))
@@ -65,9 +84,26 @@ private:
 	UPROPERTY(EditAnywhere)
 	bool bActivateAIPerception;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	UAnimMontage* attackMontage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	UAnimMontage* deathMontage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	UAnimationAsset* deathAnim;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	UAnimationAsset* hitAnim;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	float attackWaitTime;
+	
 	bool bIsRetreating;
 
 	bool bIsDying;
+
+	bool bCanAttack;
 	
 public:	
 	// Called every frame
@@ -100,7 +136,7 @@ public:
 
 	virtual void StompObject_Implementation(FHitResult hit) override;
 
-	virtual void ObjectChargedInto_Implementation(FVector InitiatorLocation, float knockbackModifier) override;
+	virtual void ObjectChargedInto_Implementation(AActor* ChargingActor, float knockbackModifier) override;
 	
 	UFUNCTION(BlueprintCallable)
 	void SetStateAsPassive();

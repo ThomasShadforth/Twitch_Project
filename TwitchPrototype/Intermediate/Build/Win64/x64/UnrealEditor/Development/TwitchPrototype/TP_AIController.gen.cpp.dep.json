@@ -1,12 +1,12 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\tp_aicontroller.gen.cpp",
+        "Source": "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\tp_aicontroller.gen.cpp",
         "ProvidedModule": "",
-        "PCH": "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "PCH": "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
         "Includes": [
-            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\twitchprototype\\definitions.twitchprototype.h",
-            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\source\\twitchprototype\\tp_aicontroller.h",
+            "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\twitchprototype\\definitions.twitchprototype.h",
+            "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\source\\twitchprototype\\tp_aicontroller.h",
             "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\aimodule\\classes\\aicontroller.h",
             "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\aimodule\\classes\\aitypes.h",
             "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\navigationsystem\\public\\navigationsystemtypes.h",
@@ -20,7 +20,7 @@
             "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\public\\visuallogger\\visualloggerdebugsnapshotinterface.h",
             "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\visualloggerdebugsnapshotinterface.generated.h",
             "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\aimodule\\uht\\aicontroller.generated.h",
-            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\tp_aicontroller.generated.h"
+            "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\tp_aicontroller.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

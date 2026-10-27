@@ -270,9 +270,9 @@ void ATP_PlayerCharacter::ApplyKnockback_Implementation(FVector directionKnockba
 	GetWorldTimerManager().SetTimer(knockbackResetHandle, this, &ATP_PlayerCharacter::ResetHasBeenKnocked, .35f, false);
 }
 
-void ATP_PlayerCharacter::DamageCharacter_Implementation(AActor* DamageCauser, float KnockbackModifier)
+void ATP_PlayerCharacter::KnockbackCharacter_Implementation(AActor* DamageCauser, float KnockbackModifier)
 {
-	ITPDamageInterface::DamageCharacter_Implementation(DamageCauser, KnockbackModifier);
+	ITPDamageInterface::KnockbackCharacter_Implementation(DamageCauser, KnockbackModifier);
 
 	if(bShouldPlayDamageSound)
 	{
@@ -289,6 +289,11 @@ void ATP_PlayerCharacter::DamageCharacter_Implementation(AActor* DamageCauser, f
 	knockbackDirection *= KnockbackModifier;
 
 	GetCharacterMovement()->AddImpulse(knockbackDirection, true);
+
+	//LaunchCharacter(knockbackDirection, false, false);
+	
+	bIsKnockedBack = true;
+	GetWorldTimerManager().SetTimer(knockbackResetHandle, this, &ATP_PlayerCharacter::ResetHasBeenKnocked, .35f, false);
 }
 
 void ATP_PlayerCharacter::CollectExtraLife_Implementation()
@@ -332,6 +337,11 @@ bool ATP_PlayerCharacter::GetWallSlideCheckEnabled_Implementation()
 	return wallSlideDirectionCheckBox->GetCollisionEnabled() == ECollisionEnabled::QueryAndPhysics;
 }
 
+bool ATP_PlayerCharacter::GetPlayerSprinting_Implementation()
+{
+	return bIsSprinting;
+}
+
 void ATP_PlayerCharacter::ManageCameraTransitions(bool bSwapToMainCamera)
 {
 	APlayerController* pc = UGameplayStatics::GetPlayerController(this, 0);
@@ -362,11 +372,13 @@ void ATP_PlayerCharacter::BeginPlay()
 
 	//Bind Callbacks to Delegates - Charge Box
 	playerChargeOverlapBox->OnComponentBeginOverlap.AddDynamic(this, &ATP_PlayerCharacter::ChargeBoxOverlap);
-
+	playerChargeOverlapBox->OnComponentEndOverlap.AddDynamic(this, &ATP_PlayerCharacter::ChargeBoxEndOverlap);
+	
 	//Set Charge Box Collision Presets
 	playerChargeOverlapBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	playerChargeOverlapBox->SetCollisionResponseToAllChannels(ECR_Ignore);
 	playerChargeOverlapBox->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	playerChargeOverlapBox->SetCollisionResponseToChannel(ECC_GameTraceChannel5, ECR_Overlap);
 
 	interactOverlapSphere->OnComponentBeginOverlap.AddDynamic(this, &ATP_PlayerCharacter::InteractSphereOverlap);
 	interactOverlapSphere->OnComponentEndOverlap.AddDynamic(this, &ATP_PlayerCharacter::ATP_PlayerCharacter::InteractSphereEndOverlap);
@@ -781,12 +793,28 @@ void ATP_PlayerCharacter::ChargeBoxOverlap(UPrimitiveComponent* OverlappedCompon
 	
 	if(UKismetSystemLibrary::DoesImplementInterface(OtherActor, UTPChargeInterface::StaticClass()))
 	{
-		ITPChargeInterface::Execute_ObjectChargedInto(OtherActor, GetActorLocation(), chargeKnockbackModifier);
+		if(!bChargeOverlapRun)
+		{
+			bChargeOverlapRun = true;
+			ITPChargeInterface::Execute_ObjectChargedInto(OtherActor, this, chargeKnockbackModifier);
+		}
+	}
+}
+
+void ATP_PlayerCharacter::ChargeBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	if(UKismetSystemLibrary::DoesImplementInterface(OtherActor, UTPChargeInterface::StaticClass()))
+	{
+		if(bChargeOverlapRun)
+		{
+			bChargeOverlapRun = false;
+		}
 	}
 }
 
 void ATP_PlayerCharacter::InteractSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+                                                UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	ManageInteractableArray(OtherActor, true);
 }

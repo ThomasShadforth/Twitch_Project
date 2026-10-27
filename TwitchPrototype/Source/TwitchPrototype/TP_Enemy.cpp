@@ -3,9 +3,11 @@
 
 #include "TP_Enemy.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystem/TPAttributeSet.h"
 #include "AbilitySystem/TPBaseAbilitySystemComp.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
@@ -33,15 +35,25 @@ void ATP_Enemy::Landed(const FHitResult& Hit)
 	if(bIsDying)
 	{
 		//To do: Visual effect for enemy death plays here
-		DestroyEnemy();
+		//DestroyEnemy();
+		PlayDeathAnim();
+		//PlayDeathMontage(FName("Death"));
 	}
 }
 
-void ATP_Enemy::DamageCharacter_Implementation(AActor* DamageCauser, float KnockbackModifier)
+void ATP_Enemy::KnockbackCharacter_Implementation(AActor* DamageCauser, float KnockbackModifier)
 {
-	ITPDamageInterface::DamageCharacter_Implementation(DamageCauser, KnockbackModifier);
+	ITPDamageInterface::KnockbackCharacter_Implementation(DamageCauser, KnockbackModifier);
 
-	ApplyKnockback(DamageCauser->GetActorLocation(), KnockbackModifier);
+	FVector knockbackDirection = GetActorLocation() - DamageCauser->GetActorLocation();
+	knockbackDirection.Normalize();
+	knockbackDirection.Z = 1.f;
+
+	knockbackDirection *= KnockbackModifier;
+
+	//GetCharacterMovement()->Velocity = knockbackDirection;
+	GetCharacterMovement()->AddImpulse(knockbackDirection, true);
+	//GEngine->AddOnScreenDebugMessage(0, 4.f, FColor::Red, FString::Printf(TEXT("APPLIED KNOCKBACK!")));
 }
 
 // Called when the game starts or when spawned
@@ -54,6 +66,7 @@ void ATP_Enemy::BeginPlay()
 	if(GetEnemyController())
 	{
 		GetEnemyController()->RunBehaviorTree(GetBehaviourTree());
+		GetEnemyController()->GetBlackboardComponent()->SetValueAsBool(TEXT("bCanAttack"), true);
 	}
 
 	InitAbilityActorInfo();
@@ -62,19 +75,9 @@ void ATP_Enemy::BeginPlay()
 	{
 		tpAS->healthZeroSignature.AddDynamic(this, &ATP_Enemy::HandleHealthZero);
 	}
-}
 
-void ATP_Enemy::ApplyKnockback(FVector InitiatorLocation, float KnockbackModifier)
-{
-	FVector knockbackDirection = GetActorLocation() - InitiatorLocation;
-	knockbackDirection.Normalize();
-	knockbackDirection.Z = 1.f;
-
-	knockbackDirection *= KnockbackModifier;
-
-	//GetCharacterMovement()->Velocity = knockbackDirection;
-	GetCharacterMovement()->AddImpulse(knockbackDirection, true);
-	//GEngine->AddOnScreenDebugMessage(0, 4.f, FColor::Red, FString::Printf(TEXT("APPLIED KNOCKBACK!")));
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_GameTraceChannel3, ECR_Ignore);
+	GetMesh()->SetCollisionResponseToChannel(ECC_GameTraceChannel3, ECR_Ignore);
 }
 
 void ATP_Enemy::DestroyEnemy()
@@ -102,6 +105,104 @@ void ATP_Enemy::HandleHealthZero(UAttributeSet* InAttributeSet)
 		GetEnemyController()->GetBlackboardComp()->SetValueAsBool(FName("bIsDying"), true);
 	}
 }
+
+void ATP_Enemy::PlayAttackMontage(FName SectionName, float PlayRate)
+{
+	UAnimInstance* animInstance = GetMesh()->GetAnimInstance();
+
+	if(animInstance && attackMontage)
+	{
+		animInstance->Montage_Play(attackMontage, PlayRate);
+		animInstance->Montage_JumpToSection(SectionName, attackMontage);
+		
+	}
+
+	FTimerHandle attackTimer;
+	int32 sectionIndex = attackMontage->GetSectionIndex(SectionName);
+	float montageSectionTime = attackMontage->GetSectionLength(sectionIndex);
+	
+	bCanAttack = false;
+	//GetWorldTimerManager().SetTimer(attackTimer, this, &ATP_Enemy::ResetCanAttack, attackWaitTime);
+	GetWorldTimerManager().SetTimer(attackTimer, this, &ATP_Enemy::ResetCanAttack, montageSectionTime);
+
+	if(enemyController)
+	{
+		enemyController->GetBlackboardComponent()->SetValueAsBool(TEXT("bCanAttack"), false);
+		enemyController->GetBlackboardComponent()->SetValueAsBool(TEXT("bIsAttacking"), true);
+	}
+	
+}
+
+
+void ATP_Enemy::ResetCanAttack()
+{
+	bCanAttack = true;
+
+	if(enemyController)
+	{
+		enemyController->GetBlackboardComponent()->SetValueAsBool(TEXT("bCanAttack"), true);
+		enemyController->GetBlackboardComponent()->SetValueAsBool(TEXT("bIsAttacking"), false);
+	}
+	
+}
+
+void ATP_Enemy::ApplyGameplayEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
+{
+	UAbilitySystemComponent* targetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
+
+	if(targetASC == nullptr) return;
+
+	check(GameplayEffectClass);
+
+	FGameplayEffectContextHandle effectContextHandle = targetASC->MakeEffectContext();
+	effectContextHandle.AddSourceObject(this);
+
+	FGameplayEffectSpecHandle effectSpecHandle = targetASC->MakeOutgoingSpec(GameplayEffectClass, 1, effectContextHandle);
+	const FActiveGameplayEffectHandle activeEffectHandle = targetASC->ApplyGameplayEffectSpecToSelf(*effectSpecHandle.Data.Get());
+}
+
+void ATP_Enemy::PlayDeathAnim()
+{
+	if(deathAnim == nullptr) return;
+	
+	GetMesh()->PlayAnimation(deathAnim, false);
+	FTimerHandle deathHandle;
+	float deathTime = deathAnim->GetPlayLength();
+
+	GetWorldTimerManager().SetTimer(deathHandle, this, &ATP_Enemy::DestroyEnemy, deathTime);
+	
+}
+
+void ATP_Enemy::PlayHitAnim()
+{
+	if(hitAnim == nullptr) return;
+
+	GetMesh()->PlayAnimation(hitAnim, false);
+
+	if(bIsDying) return;
+
+	//FTimerHandle hitHandle;
+	float hitTime = hitAnim->GetPlayLength();
+	
+}
+
+void ATP_Enemy::PlayDeathMontage(FName SectionName, float PlayRate)
+{
+	UAnimInstance* animInstance = GetMesh()->GetAnimInstance();
+
+	if(animInstance && deathMontage)
+	{
+		animInstance->Montage_Play(deathMontage, PlayRate);
+		animInstance->Montage_JumpToSection(SectionName, deathMontage);
+	}
+
+	FTimerHandle deathHandle;
+	int32 sectionIndex = deathMontage->GetSectionIndex(SectionName);
+	float sectionTime = deathMontage->GetSectionLength(sectionIndex);
+	
+	GetWorldTimerManager().SetTimer(deathHandle, this, &ATP_Enemy::DestroyEnemy, sectionTime);
+}
+
 
 // Called every frame
 void ATP_Enemy::Tick(float DeltaTime)
@@ -175,15 +276,16 @@ void ATP_Enemy::StompObject_Implementation(FHitResult hit)
 	DestroyEnemy();
 }
 
-void ATP_Enemy::ObjectChargedInto_Implementation(FVector InitiatorLocation, float knockbackModifier)
+void ATP_Enemy::ObjectChargedInto_Implementation(AActor* ChargingActor, float knockbackModifier)
 {
-	ITPChargeInterface::ObjectChargedInto_Implementation(InitiatorLocation, knockbackModifier);
+	ITPChargeInterface::ObjectChargedInto_Implementation(ChargingActor, knockbackModifier);
 
 	UE_LOG(LogTemp, Warning, TEXT("Enemy has been charged into!"));
 
 	//To Do: Calculate Knockback direction and apply force
-	ApplyKnockback(InitiatorLocation, knockbackModifier);
-
+	KnockbackCharacter_Implementation(ChargingActor, knockbackModifier);
+	PlayHitAnim();
+	
 	bIsDying = true;
 
 	GetEnemyController()->GetBlackboardComp()->SetValueAsBool(FName("bIsDying"), true);

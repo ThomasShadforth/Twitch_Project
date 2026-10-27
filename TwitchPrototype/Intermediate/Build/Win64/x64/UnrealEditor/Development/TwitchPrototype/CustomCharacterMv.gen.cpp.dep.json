@@ -1,12 +1,12 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\customcharactermv.gen.cpp",
+        "Source": "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\customcharactermv.gen.cpp",
         "ProvidedModule": "",
-        "PCH": "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "PCH": "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
         "Includes": [
-            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\twitchprototype\\definitions.twitchprototype.h",
-            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\source\\twitchprototype\\customcharactermv.h",
+            "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\twitchprototype\\definitions.twitchprototype.h",
+            "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\source\\twitchprototype\\customcharactermv.h",
             "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\charactermovementcomponent.h",
             "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\rootmotionsource.h",
             "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\rootmotionsource.generated.h",
@@ -31,7 +31,7 @@
             "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\public\\charactermovementcomponentasync.h",
             "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\charactermovementcomponentasync.generated.h",
             "e:\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\charactermovementcomponent.generated.h",
-            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\customcharactermv.generated.h"
+            "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\customcharactermv.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

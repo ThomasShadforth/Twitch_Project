@@ -1,11 +1,11 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.cpp",
+        "Source": "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.cpp",
         "ProvidedModule": "",
         "Includes": [
-            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h",
-            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\shareddefinitions.unrealed.cpp20.h",
+            "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h",
+            "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\shareddefinitions.unrealed.cpp20.h",
             "e:\\epic games\\ue_5.3\\engine\\source\\editor\\unrealed\\public\\unrealedsharedpch.h",
             "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\public\\enginesharedpch.h",
             "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\slate\\public\\slatesharedpch.h",

@@ -24,6 +24,6 @@ class TWITCHPROTOTYPE_API ITPDamageInterface
 public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	void DamageCharacter(AActor* DamageCauser, float KnockbackModifier = 0);
+	void KnockbackCharacter(AActor* DamageCauser, float KnockbackModifier = 0);
 	
 };

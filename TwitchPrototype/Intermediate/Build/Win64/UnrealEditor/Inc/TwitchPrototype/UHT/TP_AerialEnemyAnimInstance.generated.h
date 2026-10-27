@@ -1,0 +1,64 @@
+// Copyright Epic Games, Inc. All Rights Reserved.
+/*===========================================================================
+	Generated code exported from UnrealHeaderTool.
+	DO NOT modify this manually! Edit the corresponding .h files instead!
+===========================================================================*/
+
+// IWYU pragma: private, include "Animation/TP_AerialEnemyAnimInstance.h"
+#include "UObject/ObjectMacros.h"
+#include "UObject/ScriptMacros.h"
+
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+#ifdef TWITCHPROTOTYPE_TP_AerialEnemyAnimInstance_generated_h
+#error "TP_AerialEnemyAnimInstance.generated.h already included, missing '#pragma once' in TP_AerialEnemyAnimInstance.h"
+#endif
+#define TWITCHPROTOTYPE_TP_AerialEnemyAnimInstance_generated_h
+
+#define FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_15_SPARSE_DATA
+#define FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_15_SPARSE_DATA_PROPERTY_ACCESSORS
+#define FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_15_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
+#define FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_15_RPC_WRAPPERS_NO_PURE_DECLS
+#define FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_15_ACCESSORS
+#define FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_15_INCLASS_NO_PURE_DECLS \
+private: \
+	static void StaticRegisterNativesUTP_AerialEnemyAnimInstance(); \
+	friend struct Z_Construct_UClass_UTP_AerialEnemyAnimInstance_Statics; \
+public: \
+	DECLARE_CLASS(UTP_AerialEnemyAnimInstance, UTP_EnemyAnimInstanceBase, COMPILED_IN_FLAGS(0 | CLASS_Transient), CASTCLASS_None, TEXT("/Script/TwitchPrototype"), NO_API) \
+	DECLARE_SERIALIZER(UTP_AerialEnemyAnimInstance)
+
+
+#define FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_15_ENHANCED_CONSTRUCTORS \
+private: \
+	/** Private move- and copy-constructors, should never be used */ \
+	NO_API UTP_AerialEnemyAnimInstance(UTP_AerialEnemyAnimInstance&&); \
+	NO_API UTP_AerialEnemyAnimInstance(const UTP_AerialEnemyAnimInstance&); \
+public: \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UTP_AerialEnemyAnimInstance); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UTP_AerialEnemyAnimInstance); \
+	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UTP_AerialEnemyAnimInstance) \
+	NO_API virtual ~UTP_AerialEnemyAnimInstance();
+
+
+#define FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_12_PROLOG
+#define FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_15_GENERATED_BODY \
+PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+public: \
+	FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_15_SPARSE_DATA \
+	FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_15_SPARSE_DATA_PROPERTY_ACCESSORS \
+	FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_15_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS \
+	FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_15_ACCESSORS \
+	FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_15_INCLASS_NO_PURE_DECLS \
+	FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h_15_ENHANCED_CONSTRUCTORS \
+private: \
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+template<> TWITCHPROTOTYPE_API UClass* StaticClass<class UTP_AerialEnemyAnimInstance>();
+
+#undef CURRENT_FILE_ID
+#define CURRENT_FILE_ID FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Animation_TP_AerialEnemyAnimInstance_h
+
+
+PRAGMA_ENABLE_DEPRECATION_WARNINGS

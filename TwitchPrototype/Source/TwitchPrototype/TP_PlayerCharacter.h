@@ -77,7 +77,7 @@ public:
 
 	virtual void ApplyKnockback_Implementation(FVector directionKnockbackForce) override;
 
-	virtual void DamageCharacter_Implementation(AActor* DamageCauser, float KnockbackModifier) override;
+	virtual void KnockbackCharacter_Implementation(AActor* DamageCauser, float KnockbackModifier) override;
 
 	virtual void CollectExtraLife_Implementation() override;
 
@@ -86,6 +86,8 @@ public:
 	virtual void PlayerEnableWallSlideCheck_Implementation(bool bShouldEnable) override;
 
 	virtual bool GetWallSlideCheckEnabled_Implementation() override;
+
+	virtual bool GetPlayerSprinting_Implementation() override;
 	
 	UFUNCTION()
 	void ManageCameraTransitions(bool bSwapToMainCamera);
@@ -156,6 +158,9 @@ protected:
 	UFUNCTION()
 	void ChargeBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	UFUNCTION()
+	void ChargeBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	
 	UFUNCTION()
 	void InteractSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
@@ -397,7 +402,7 @@ private:
 	//Player Charge Box
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* playerChargeOverlapBox;
-
+	
 	UPROPERTY(EditAnywhere)
 	USceneComponent* projectileThrowPoint;
 
@@ -483,6 +488,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Camera Shake", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UCameraShakeBase> airDashCameraShake;
+
+	UPROPERTY(VisibleAnywhere)
+	bool bChargeOverlapRun;
 	
 public:	
 	// Called every frame

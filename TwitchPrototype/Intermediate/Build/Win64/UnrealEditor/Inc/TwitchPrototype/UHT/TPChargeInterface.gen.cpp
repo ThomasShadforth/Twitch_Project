@@ -10,26 +10,26 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeTPChargeInterface() {}
 // Cross Module References
 	COREUOBJECT_API UClass* Z_Construct_UClass_UInterface();
-	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
+	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_UTPChargeInterface();
 	TWITCHPROTOTYPE_API UClass* Z_Construct_UClass_UTPChargeInterface_NoRegister();
 	UPackage* Z_Construct_UPackage__Script_TwitchPrototype();
 // End Cross Module References
 	DEFINE_FUNCTION(ITPChargeInterface::execObjectChargedInto)
 	{
-		P_GET_STRUCT(FVector,Z_Param_InitiatorLocation);
+		P_GET_OBJECT(AActor,Z_Param_ChargingActor);
 		P_GET_PROPERTY(FFloatProperty,Z_Param_knockbackModifier);
 		P_FINISH;
 		P_NATIVE_BEGIN;
-		P_THIS->ObjectChargedInto_Implementation(Z_Param_InitiatorLocation,Z_Param_knockbackModifier);
+		P_THIS->ObjectChargedInto_Implementation(Z_Param_ChargingActor,Z_Param_knockbackModifier);
 		P_NATIVE_END;
 	}
 	struct TPChargeInterface_eventObjectChargedInto_Parms
 	{
-		FVector InitiatorLocation;
+		AActor* ChargingActor;
 		float knockbackModifier;
 	};
-	void ITPChargeInterface::ObjectChargedInto(FVector InitiatorLocation, float knockbackModifier)
+	void ITPChargeInterface::ObjectChargedInto(AActor* ChargingActor, float knockbackModifier)
 	{
 		check(0 && "Do not directly call Event functions in Interfaces. Call Execute_ObjectChargedInto instead.");
 	}
@@ -43,7 +43,7 @@ void EmptyLinkFunctionForGeneratedCodeTPChargeInterface() {}
 	}
 	struct Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics
 	{
-		static const UECodeGen_Private::FStructPropertyParams NewProp_InitiatorLocation;
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_ChargingActor;
 		static const UECodeGen_Private::FFloatPropertyParams NewProp_knockbackModifier;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 #if WITH_METADATA
@@ -51,10 +51,10 @@ void EmptyLinkFunctionForGeneratedCodeTPChargeInterface() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::NewProp_InitiatorLocation = { "InitiatorLocation", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TPChargeInterface_eventObjectChargedInto_Parms, InitiatorLocation), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::NewProp_ChargingActor = { "ChargingActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TPChargeInterface_eventObjectChargedInto_Parms, ChargingActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
 	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::NewProp_knockbackModifier = { "knockbackModifier", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(TPChargeInterface_eventObjectChargedInto_Parms, knockbackModifier), METADATA_PARAMS(0, nullptr) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::NewProp_InitiatorLocation,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::NewProp_ChargingActor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::NewProp_knockbackModifier,
 	};
 #if WITH_METADATA
@@ -63,7 +63,7 @@ void EmptyLinkFunctionForGeneratedCodeTPChargeInterface() {}
 		{ "ModuleRelativePath", "Public/Interaction/TPChargeInterface.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UTPChargeInterface, nullptr, "ObjectChargedInto", nullptr, nullptr, Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::PropPointers), sizeof(TPChargeInterface_eventObjectChargedInto_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C820C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::Function_MetaDataParams), Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::Function_MetaDataParams) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UTPChargeInterface, nullptr, "ObjectChargedInto", nullptr, nullptr, Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::PropPointers), sizeof(TPChargeInterface_eventObjectChargedInto_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::Function_MetaDataParams), Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::Function_MetaDataParams) };
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto_Statics::PropPointers) < 2048);
 	static_assert(sizeof(TPChargeInterface_eventObjectChargedInto_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto()
@@ -96,7 +96,7 @@ void EmptyLinkFunctionForGeneratedCodeTPChargeInterface() {}
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UTPChargeInterface_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_UTPChargeInterface_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto, "ObjectChargedInto" }, // 50658094
+		{ &Z_Construct_UFunction_UTPChargeInterface_ObjectChargedInto, "ObjectChargedInto" }, // 1332289242
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UTPChargeInterface_Statics::FuncInfo) < 2048);
 #if WITH_METADATA
@@ -138,7 +138,7 @@ void EmptyLinkFunctionForGeneratedCodeTPChargeInterface() {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UTPChargeInterface);
 	UTPChargeInterface::~UTPChargeInterface() {}
 	static FName NAME_UTPChargeInterface_ObjectChargedInto = FName(TEXT("ObjectChargedInto"));
-	void ITPChargeInterface::Execute_ObjectChargedInto(UObject* O, FVector InitiatorLocation, float knockbackModifier)
+	void ITPChargeInterface::Execute_ObjectChargedInto(UObject* O, AActor* ChargingActor, float knockbackModifier)
 	{
 		check(O != NULL);
 		check(O->GetClass()->ImplementsInterface(UTPChargeInterface::StaticClass()));
@@ -146,24 +146,24 @@ void EmptyLinkFunctionForGeneratedCodeTPChargeInterface() {}
 		UFunction* const Func = O->FindFunction(NAME_UTPChargeInterface_ObjectChargedInto);
 		if (Func)
 		{
-			Parms.InitiatorLocation=InitiatorLocation;
+			Parms.ChargingActor=ChargingActor;
 			Parms.knockbackModifier=knockbackModifier;
 			O->ProcessEvent(Func, &Parms);
 		}
 		else if (auto I = (ITPChargeInterface*)(O->GetNativeInterfaceAddress(UTPChargeInterface::StaticClass())))
 		{
-			I->ObjectChargedInto_Implementation(InitiatorLocation,knockbackModifier);
+			I->ObjectChargedInto_Implementation(ChargingActor,knockbackModifier);
 		}
 	}
-	struct Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Interaction_TPChargeInterface_h_Statics
+	struct Z_CompiledInDeferFile_FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Interaction_TPChargeInterface_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Interaction_TPChargeInterface_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UTPChargeInterface, UTPChargeInterface::StaticClass, TEXT("UTPChargeInterface"), &Z_Registration_Info_UClass_UTPChargeInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UTPChargeInterface), 2028713377U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Interaction_TPChargeInterface_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UTPChargeInterface, UTPChargeInterface::StaticClass, TEXT("UTPChargeInterface"), &Z_Registration_Info_UClass_UTPChargeInterface, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UTPChargeInterface), 2543199158U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Interaction_TPChargeInterface_h_3773000368(TEXT("/Script/TwitchPrototype"),
-		Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Interaction_TPChargeInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Interaction_TPChargeInterface_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Interaction_TPChargeInterface_h_633281573(TEXT("/Script/TwitchPrototype"),
+		Z_CompiledInDeferFile_FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Interaction_TPChargeInterface_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_Interaction_TPChargeInterface_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

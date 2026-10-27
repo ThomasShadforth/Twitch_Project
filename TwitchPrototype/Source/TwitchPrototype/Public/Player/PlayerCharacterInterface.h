@@ -83,5 +83,8 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	bool GetWallSlideCheckEnabled();
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	bool GetPlayerSprinting();
 	
 };

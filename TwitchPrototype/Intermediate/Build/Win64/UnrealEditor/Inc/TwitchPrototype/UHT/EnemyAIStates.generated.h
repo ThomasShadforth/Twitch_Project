@@ -16,7 +16,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define TWITCHPROTOTYPE_EnemyAIStates_generated_h
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Github_Unreal_Projects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_EnemyAIStates_h
+#define CURRENT_FILE_ID FID_Github_UnrealProjects_Twitch_Project_TwitchPrototype_Source_TwitchPrototype_Public_EnemyAIStates_h
 
 
 #define FOREACH_ENUM_EENEMYAISTATES(op) \

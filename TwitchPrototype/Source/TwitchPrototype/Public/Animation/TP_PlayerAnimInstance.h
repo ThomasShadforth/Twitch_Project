@@ -22,7 +22,7 @@ public:
 	UTP_PlayerAnimInstance();
 
 	UFUNCTION(BlueprintCallable)
-	void UpdateAnimationProperties(float DeltaTime);
+	virtual void UpdateAnimationProperties(float DeltaTime);
 
 	virtual void NativeInitializeAnimation() override;
 

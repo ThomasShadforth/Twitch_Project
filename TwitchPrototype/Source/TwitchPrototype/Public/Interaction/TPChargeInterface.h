@@ -24,6 +24,6 @@ class TWITCHPROTOTYPE_API ITPChargeInterface
 public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
-	void ObjectChargedInto(FVector InitiatorLocation, float knockbackModifier = 0);
+	void ObjectChargedInto(AActor* ChargingActor, float knockbackModifier = 0);
 	
 };

@@ -1,21 +1,21 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\overlaywidgetcontroller.gen.cpp",
+        "Source": "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\overlaywidgetcontroller.gen.cpp",
         "ProvidedModule": "",
-        "PCH": "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
+        "PCH": "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\twitchprototypeeditor\\development\\unrealed\\sharedpch.unrealed.cpp20.h.pch",
         "Includes": [
-            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\twitchprototype\\definitions.twitchprototype.h",
-            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\source\\twitchprototype\\public\\ui\\widgetcontroller\\overlaywidgetcontroller.h",
-            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\source\\twitchprototype\\public\\ui\\widgetcontroller\\widgetcontrollerbase.h",
+            "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\twitchprototype\\definitions.twitchprototype.h",
+            "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\source\\twitchprototype\\public\\ui\\widgetcontroller\\overlaywidgetcontroller.h",
+            "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\source\\twitchprototype\\public\\ui\\widgetcontroller\\widgetcontrollerbase.h",
             "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\coreuobject\\public\\uobject\\noexporttypes.h",
             "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\coreuobject\\public\\uobject\\propertyaccessutil.h",
             "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\coreuobject\\public\\serialization\\testundeclaredscriptstructobjectreferences.h",
             "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\core\\public\\math\\unitconversion.h",
             "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\core\\public\\math\\unitconversion.inl",
             "e:\\epic games\\ue_5.3\\engine\\source\\runtime\\core\\public\\internationalization\\polyglottextdata.h",
-            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\widgetcontrollerbase.generated.h",
-            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\source\\twitchprototype\\public\\abilitysystem\\tpattributeset.h",
+            "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\widgetcontrollerbase.generated.h",
+            "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\source\\twitchprototype\\public\\abilitysystem\\tpattributeset.h",
             "e:\\epic games\\ue_5.3\\engine\\plugins\\runtime\\gameplayabilities\\source\\gameplayabilities\\public\\attributeset.h",
             "e:\\epic games\\ue_5.3\\engine\\plugins\\runtime\\gameplayabilities\\intermediate\\build\\win64\\unrealeditor\\inc\\gameplayabilities\\uht\\attributeset.generated.h",
             "e:\\epic games\\ue_5.3\\engine\\plugins\\runtime\\gameplayabilities\\source\\gameplayabilities\\public\\abilitysystemcomponent.h",
@@ -68,8 +68,8 @@
             "e:\\epic games\\ue_5.3\\engine\\plugins\\runtime\\gameplayabilities\\source\\gameplayabilities\\public\\abilitysystemreplicationproxyinterface.h",
             "e:\\epic games\\ue_5.3\\engine\\plugins\\runtime\\gameplayabilities\\intermediate\\build\\win64\\unrealeditor\\inc\\gameplayabilities\\uht\\abilitysystemreplicationproxyinterface.generated.h",
             "e:\\epic games\\ue_5.3\\engine\\plugins\\runtime\\gameplayabilities\\intermediate\\build\\win64\\unrealeditor\\inc\\gameplayabilities\\uht\\abilitysystemcomponent.generated.h",
-            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\tpattributeset.generated.h",
-            "e:\\github\\unreal projects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\overlaywidgetcontroller.generated.h"
+            "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\tpattributeset.generated.h",
+            "e:\\github\\unrealprojects\\twitch_project\\twitchprototype\\intermediate\\build\\win64\\unrealeditor\\inc\\twitchprototype\\uht\\overlaywidgetcontroller.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []
